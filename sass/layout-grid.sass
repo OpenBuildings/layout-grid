@@ -3,8 +3,6 @@
  *
  * Assign width, height x and y positin for each item in the grid, for 3 screen sizes, using only css classes
  *
- * Uses 2 breakpoints on $screen-sm-min and $screen-md-min
- *
  * Example calsses for "lg" size:
  *
  * ┌────────────────────────┐┌─────────────┐
@@ -23,19 +21,18 @@
 
 // Modifiable variables
 
-$screen-lg-min: 1200px !default
-$screen-md-min: 992px !default
-$screen-sm-min: 768px !default
-$screen-xs-min: 480px !default
+$screen-lg: 1200px !default
+$screen-md: 992px !default
+$screen-sm: 768px !default
 
-$cols-lg: 3 !default
-$cols-md: 2 !default
-$cols-sm: 1 !default
+$cols-lg: 4 !default
+$cols-md: 3 !default
+$cols-sm: 2 !default
 $cols-xs: 1 !default
 
-$gap-lg: 2% !default
-$gap-md: 3% !default
-$gap-sm: 4% !default
+$gap-lg: 1% !default
+$gap-md: 2% !default
+$gap-sm: 3% !default
 $gap-xs: 4% !default
 
 $aspect-lg: 2 / 3 !default
@@ -44,9 +41,9 @@ $aspect-sm: 2 / 3 !default
 $aspect-xs: 2 / 3 !default
 
 $max-rows-xs: 20 !default
-$max-rows-sm: 20 !default
-$max-rows-md: 15 !default
-$max-rows-lg: 10 !default
+$max-rows-sm: 15 !default
+$max-rows-md: 10 !default
+$max-rows-lg: 6 !default
 
 .lt-container
     position: relative
@@ -84,11 +81,11 @@ $max-rows-lg: 10 !default
 
 @include responsive-visibility('xs', $cols-xs, $max-rows-xs, $gap-xs, $aspect-xs)
 
-@media (min-width: $screen-xs-min)
+@media (min-width: $screen-sm)
     @include responsive-visibility('sm', $cols-sm, $max-rows-sm, $gap-sm, $aspect-sm)
 
-@media (min-width: $screen-sm-min)
+@media (min-width: $screen-md)
     @include responsive-visibility('md', $cols-md, $max-rows-md, $gap-md, $aspect-md)
 
-@media (min-width: $screen-lg-min)
+@media (min-width: $screen-lg)
     @include responsive-visibility('lg', $cols-lg, $max-rows-lg, $gap-lg, $aspect-lg)
