@@ -2,7 +2,7 @@
 /**
  * Pure css masonary grid
  *
- * Assign width, height x and y positin for each item in the grid, for 3 screen sizes, using only css classes
+ * Assign width, height x and y positin for each item in the grid, for 4 screen sizes, using only css classes
  *
  * Example calsses for "lg" size:
  *
@@ -24,7 +24,8 @@
   width: 100%; }
 
 .lt {
-  position: absolute; }
+  position: absolute;
+  z-index: 1; }
 
 .lt-body {
   position: absolute;
@@ -32,6 +33,14 @@
   left: 0;
   bottom: 0;
   right: 0; }
+
+.lt-ghost {
+  opacity: 0.5;
+  z-index: 2;
+  background-color: black; }
+
+.lt-dragged {
+  z-index: 3; }
 
 .lt-xs-x-0 {
   margin-left: 0%; }
