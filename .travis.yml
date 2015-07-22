@@ -1,0 +1,22 @@
+language: php
+
+php:
+  - 5.4
+  - 5.5
+  - hhvm
+
+before_install:
+  - composer selfupdate
+
+install:
+  - composer install
+
+before_script:
+  - mkdir -p build/logs
+
+script:
+  - phpunit --coverage-clover build/logs/clover.xml
+
+after_script:
+  - test -e build/logs/clover.xml && wget https://scrutinizer-ci.com/ocular.phar
+  - test -e build/logs/clover.xml && php ocular.phar code-coverage:upload --format=php-clover build/logs/clover.xml
