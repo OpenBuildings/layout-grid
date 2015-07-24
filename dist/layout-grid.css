@@ -42,6 +42,9 @@
 .lt-dragged {
   z-index: 3; }
 
+.lt-overlapping {
+  border: 3px solid red; }
+
 .lt-xs-x-0 {
   margin-left: 0%; }
 

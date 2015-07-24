@@ -68,6 +68,9 @@ $max-rows-lg: 6 !default
 .lt-dragged
     z-index: 3
 
+.lt-overlapping
+    border: 3px solid red
+
 @mixin responsive-visibility($prefix, $cols, $max-rows, $gap, $aspect)
     $width: (100% - ($cols - 1) * $gap) / $cols
     $height: $width * $aspect
