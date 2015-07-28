@@ -54,6 +54,21 @@
         this.$element.data('params', getElementParams(this.$element))
     }
 
+    LayoutGrid.MAX_WIDTHS = { xs: 768, sm: 992, md: 1200 }
+
+    function currentSize () {
+        var currentSize = 'lg'
+        var windowWidth = $(window).width()
+
+        $.each(LayoutGrid.MAX_WIDTHS, function (size, width) {
+            if (windowWidth < width) {
+                currentSize = size
+            }
+        })
+
+        return currentSize
+    }
+
     function getParams (classes) {
         var params = {
             xs: { x: 0, y: 0, w: 1, h: 1 },
@@ -89,12 +104,16 @@
 
     function getOverlapping ($elements) {
         var overlapping = []
+        var size = currentSize()
 
         $elements.each(function () {
             var self = $(this)
 
-            $elements.not(self).each(function () {
-                if (intersectRect(self.layoutGrid().data('params').lg, $(this).layoutGrid().data('params').lg)) {
+            self.siblings().each(function () {
+                var r1 = self.layoutGrid().data('params')[size]
+                var r2 = $(this).layoutGrid().data('params')[size]
+
+                if (intersectRect(r1, r2)) {
                     overlapping.push(this)
                 }
             })
@@ -119,22 +138,22 @@
         )
     }
 
-    LayoutGrid.prototype.dragstart = function (mouseX, mouseY) {
-        this.$ghost = $('<div class="'+this.$element.attr('class') + ' lt-ghost"></div>')
-        this.$ghost.data('element', this.$element)
+    LayoutGrid.prototype.dragstart = function () {
+        var $ghost = $('<div class="'+this.$element.attr('class') + ' lt-ghost"></div>')
+        $ghost.data('element', this.$element)
+
         this.$element.addClass('lt-dragged')
-        this.$element.parent().append(this.$ghost)
+        this.$element.parent().append($ghost)
     }
 
-    LayoutGrid.prototype.moveGhost = function (moveX, moveY) {
-        var params = getParams(this.$ghost.attr('class'))
+    function moveGhost($ghost, moveX, moveY) {
+        var params = getParams($ghost.attr('class'))
+        var size = currentSize()
 
-        $.each(params, function (size, value) {
-            params[size]['x'] = Math.max(0, moveX + params[size].x)
-            params[size]['y'] = Math.max(0, moveY + params[size].y)
-        })
+        params[size]['x'] = Math.max(0, moveX + params[size].x)
+        params[size]['y'] = Math.max(0, moveY + params[size].y)
 
-        setElementParams(this.$ghost, params)
+        setElementParams($ghost, params)
     }
 
     LayoutGrid.prototype.params = function (params) {
@@ -142,30 +161,30 @@
         setElementParams(this.$element, params)
     }
 
-    LayoutGrid.prototype.drag = function (mouseX, mouseY) {
+    function dragGhost($ghost, mouseX, mouseY) {
         var x = mouseX + $(window).scrollLeft()
         var y = mouseY + $(window).scrollTop()
 
-        var ghostLeft = parseInt(this.$ghost.css('marginLeft'))
-        var ghostRight = ghostLeft + parseInt(this.$ghost.css('width'))
+        var ghostLeft = parseInt($ghost.css('marginLeft'))
+        var ghostRight = ghostLeft + parseInt($ghost.css('width'))
 
-        var ghostTop = parseInt(this.$ghost.css('marginTop'))
-        var ghostBottom = ghostTop + parseInt(this.$ghost.css('paddingBottom'))
+        var ghostTop = parseInt($ghost.css('marginTop'))
+        var ghostBottom = ghostTop + parseInt($ghost.css('paddingBottom'))
 
         if (y < ghostTop) {
-            this.moveGhost(0, -1)
+            moveGhost($ghost, 0, -1)
         }
 
         if (y > ghostBottom) {
-            this.moveGhost(0, +1)
+            moveGhost($ghost, 0, +1)
         }
 
         if (x < ghostLeft) {
-            this.moveGhost(-1, 0)
+            moveGhost($ghost, -1, 0)
         }
 
         if (x > ghostRight) {
-            this.moveGhost(+1, 0)
+            moveGhost($ghost, +1, 0)
         }
     }
 
@@ -174,15 +193,14 @@
         this.$ghost.remove()
     }
 
-    LayoutGrid.prototype.drop = function () {
+    LayoutGrid.prototype.drop = function ($ghost) {
         var $items = this.$element.parent().children()
+        var size = currentSize()
 
-        this.$element.layoutGrid('params', getElementParams(this.$ghost))
+        this.$element.layoutGrid('params', getElementParams($ghost))
 
         $items.removeClass('lt-overlapping')
-
-        var $overlapping = getOverlapping(this.$element.parent().children('[draggable="true"]'))
-        $overlapping.addClass('lt-overlapping')
+        getOverlapping($items).addClass('lt-overlapping')
     }
 
     // LAYOUT GRID PLUGIN DEFINITION
@@ -207,22 +225,23 @@
 
     $(document)
         .on('dragstart.layout-grid.data-api', '[data-arrange="layout-grid"] .lt', function (event) {
-            $(this).layoutGrid('dragstart', event.originalEvent.clientX, event.originalEvent.clientY)
+            event.originalEvent.dataTransfer.setData('text/plain', 'test')
+            $(this).layoutGrid('dragstart')
         })
-        .on('drag.layout-grid.data-api', '[data-arrange="layout-grid"]', function (event) {
-            $(event.target).layoutGrid('drag', event.originalEvent.clientX, event.originalEvent.clientY)
+        .on('dragover.layout-grid.data-api', '[data-arrange="layout-grid"]', function (event) {
+            event.preventDefault()
+            dragGhost($(this).find('.lt-ghost'), event.originalEvent.clientX, event.originalEvent.clientY)
         })
-        .on('dragend.layout-grid.data-api', '[data-arrange="layout-grid"] .lt', function (event) {
-            $(this).layoutGrid('dragend')
+        .on('dragend.layout-grid.data-api', '[data-arrange="layout-grid"]', function (event) {
+            $(this).find('.lt-ghost').remove()
+            $(this).find('.lt-dragged').removeClass('lt-dragged')
         })
-        .on('dragover.layout-grid.data-api dragleave.layout-grid.data-api', '[data-arrange="layout-grid"]', function (event) {
+        .on('dragleave.layout-grid.data-api', '[data-arrange="layout-grid"]', function (event) {
             event.preventDefault()
         })
         .on('drop.layout-grid.data-api', '[data-arrange="layout-grid"] .lt-ghost', function (event) {
-            $(this).data('element').layoutGrid('drop')
-        })
-        .on('dragend.layout-grid.data-api', '[data-arrange="layout-grid"] .lt', function (event) {
-            $(this).layoutGrid('dragend')
+            event.preventDefault()
+            $(this).data('element').layoutGrid('drop', $(this))
         })
 
 }(jQuery);
