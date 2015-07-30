@@ -43,20 +43,53 @@
  *
  */
 
-+function ($) {
++function ($, undefined) {
     'use strict';
+
+    function getClassParams(classes, size) {
+        var params = { x: 0, y: 0, w: 1, h: 1 }
+
+        $.each(params, function (name) {
+            params[name] = parseInt(classes.match(new RegExp('lt-' + size + '-' + name + '-(\\d+)'))[1])
+        })
+
+        return params
+    }
+
+    function setClassParams (classes, size, params) {
+        $.each(params, function (name, value) {
+            classes = classes.replace(new RegExp('lt-' + size + '-' + name + '-(\\d+)'), 'lt-' + size + '-' + name + '-' + value)
+        })
+        return classes
+    }
+
+    $.fn.layout_grid_params = function (newParams) {
+        var size = getCurrentSize()
+
+        if (undefined === newParams) {
+            if (undefined === this.data('layout-grid-' + size)) {
+                this.data('layout-grid-' + size, getClassParams(this.attr('class'), size))
+            }
+            return this.data('layout-grid-' + size)
+        }
+
+        this.data('layout-grid-' + size, newParams)
+        this.attr('class', setClassParams(this.attr('class'), size, newParams))
+
+
+        return this
+    }
 
     // LAYOUT GRID CLASS DEFINITION
     // ============================
 
     var LayoutGrid = function (element) {
         this.$element = $(element);
-        this.$element.data('params', getElementParams(this.$element))
     }
 
     LayoutGrid.MAX_WIDTHS = { xs: 768, sm: 992, md: 1200 }
 
-    function currentSize () {
+    function getCurrentSize () {
         var currentSize = 'lg'
         var windowWidth = $(window).width()
 
@@ -69,49 +102,19 @@
         return currentSize
     }
 
-    function getParams (classes) {
-        var params = {
-            xs: { x: 0, y: 0, w: 1, h: 1 },
-            sm: { x: 0, y: 0, w: 1, h: 1 },
-            md: { x: 0, y: 0, w: 1, h: 1 },
-            lg: { x: 0, y: 0, w: 1, h: 1 }
-        }
-
-        $.each(params, function (key, sizeParams) {
-            $.each(sizeParams, function (name) {
-                params[key][name] = parseInt(classes.match(new RegExp('lt-' + key + '-' + name + '-(\\d+)'))[1])
-            })
-        })
-
-        return params
-    }
-
-    function getClasses (params) {
-        var classes = []
-
-        $.each(params, function (key, sizeParams) {
-            $.each(sizeParams, function (name) {
-                classes.push('lt-' + key + '-' + name + '-' + params[key][name])
-            })
-        })
-
-        return classes.join(' ')
-    }
-
     function intersectRect(r1, r2) {
         return r1.x < r2.x + r2.w && r1.x + r1.w > r2.x && r1.y < r2.y + r2.h && r1.y + r1.h > r2.y
     }
 
     function getOverlapping ($elements) {
         var overlapping = []
-        var size = currentSize()
 
         $elements.each(function () {
             var self = $(this)
 
             self.siblings().each(function () {
-                var r1 = self.layoutGrid().data('params')[size]
-                var r2 = $(this).layoutGrid().data('params')[size]
+                var r1 = self.layout_grid_params()
+                var r2 = $(this).layout_grid_params()
 
                 if (intersectRect(r1, r2)) {
                     overlapping.push(this)
@@ -120,22 +123,6 @@
         })
 
         return $(overlapping)
-    }
-
-    function clearClasses (classes) {
-        return classes.replace(/lt-(xs|sm|md|lg)-(x|y|w|h)-(\d+)/g, '')
-    }
-
-    function getElementParams ($element) {
-        return getParams($element.attr('class'))
-    }
-
-    function setElementParams ($element, params) {
-        var classes = $element.attr('class')
-        $element.attr(
-            'class',
-            clearClasses(classes) + ' ' + getClasses(params)
-        )
     }
 
     LayoutGrid.prototype.dragstart = function () {
@@ -147,18 +134,12 @@
     }
 
     function moveGhost($ghost, moveX, moveY) {
-        var params = getParams($ghost.attr('class'))
-        var size = currentSize()
+        var params = $ghost.layout_grid_params()
 
-        params[size]['x'] = Math.max(0, moveX + params[size].x)
-        params[size]['y'] = Math.max(0, moveY + params[size].y)
+        params.x = Math.max(0, moveX + params.x)
+        params.y = Math.max(0, moveY + params.y)
 
-        setElementParams($ghost, params)
-    }
-
-    LayoutGrid.prototype.params = function (params) {
-        this.$element.data('params', params)
-        setElementParams(this.$element, params)
+        $ghost.layout_grid_params(params)
     }
 
     function dragGhost($ghost, mouseX, mouseY) {
@@ -195,9 +176,8 @@
 
     LayoutGrid.prototype.drop = function ($ghost) {
         var $items = this.$element.parent().children()
-        var size = currentSize()
 
-        this.$element.layoutGrid('params', getElementParams($ghost))
+        this.$element.layout_grid_params($ghost.layout_grid_params())
 
         $items.removeClass('lt-overlapping')
         getOverlapping($items).addClass('lt-overlapping')
