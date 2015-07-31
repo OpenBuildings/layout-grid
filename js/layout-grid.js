@@ -46,83 +46,107 @@
 +function ($) {
     'use strict';
 
-    $.lt = {
-        intersectRect: function(r1, r2) {
-            return r1.x < r2.x + r2.w && r1.x + r1.w > r2.x && r1.y < r2.y + r2.h && r1.y + r1.h > r2.y;
-        },
+    var Grid = function (rects) {
+        this.rects = rects;
+    };
 
-        getRectFromCss: function (classes, size) {
-            var rect = { x: 0, y: 0, w: 1, h: 1 };
+    Grid.prototype.intersect = function (rect) {
+        return $.grep(this.rects, function (item) {
+            return rect !== item && rect.intersect(item);
+        });
+    };
 
-            $.each(rect, function (name) {
-                var match = classes.match(new RegExp('lt-' + size + '-' + name + '-(\\d+)'));
+    Grid.prototype.compact = function () {
+        var self = this;
 
-                if (match) {
-                    rect[name] = parseInt(match[1]);
-                }
-            });
+        $.each(this.rects, function () {
+            do {
+                this.y -= 1;
+            } while (this.y >= 0 && self.intersect(this).length === 0);
 
-            return rect;
-        },
+            this.y += 1;
+        });
 
-        updateCssParam: function (classes, size, name, value) {
-            return classes.replace(new RegExp('lt-' + size + '-' + name + '-(\\d+)'), 'lt-' + size + '-' + name + '-' + value);
-        },
+        return this;
+    };
 
-        getCssFromRect: function (classes, size, rect) {
-            $.each(rect, function (name, value) {
-                classes = $.lt.updateCssParam(classes, size, name, value);
-            });
-            return classes;
-        },
-
-        findIntersects: function (itemIndex, rects) {
-            var intersected = [];
-            for (var i = 0; i < rects.length; i++) {
-                if (i !== itemIndex && $.lt.intersectRect(rects[i], rects[itemIndex])) {
-                    intersected.push(i);
-                }
+    Grid.prototype.height = function (rect, x, y) {
+        var hights = $.map(
+            this.rects,
+            function (item) {
+                return item.bottom();
             }
-            return intersected;
-        },
+        );
 
-        reposition: function (itemIndex, rects) {
-            var intersected = $.lt.findIntersects(itemIndex, rects);
+        return hights ? Math.max.apply(null, hights) : 0;
+    };
 
-            for (var j = 0; j < intersected.length; j++) {
-                rects[intersected[j]].y = rects[itemIndex].y + rects[itemIndex].h;
-                $.lt.reposition(intersected[j], rects);
+    Grid.prototype.move = function (rect, x, y) {
+        var self = this;
+
+        rect.x = x;
+        rect.y = y;
+
+        $.each(this.intersect(rect), function () {
+            self.move(this, this.x, rect.bottom());
+        });
+
+        return this;
+    };
+
+    var Rect = function (x, y, w, h) {
+        this.x = x;
+        this.y = y;
+        this.w = w;
+        this.h = h;
+    };
+
+    Rect.prototype.bottom = function () {
+        return this.y + this.h;
+    };
+
+    Rect.prototype.right = function () {
+        return this.x + this.w;
+    };
+
+    Rect.prototype.intersect = function (rect) {
+        return this.x < rect.x + rect.w && this.x + this.w > rect.x && this.y < rect.y + rect.h && this.y + this.h > rect.y;
+    };
+
+    Rect.prototype.setCss = function (classes, size) {
+        var self = this;
+
+        $.each(['x', 'y', 'w', 'h'], function () {
+            classes = classes.replace(new RegExp('lt-' + size + '-' + this + '-(\\d+)'), 'lt-' + size + '-' + this + '-' + self[this]);
+        });
+
+        return classes;
+    };
+
+    Rect.fromCss = function (classes, size) {
+        var rect = new Rect(0, 0, 1, 1);
+
+        $.each(['x', 'y', 'w', 'h'], function () {
+            var match = classes.match(new RegExp('lt-' + size + '-' + this + '-(\\d+)'));
+
+            if (match) {
+                rect[this] = parseInt(match[1]);
             }
+        });
 
-            return rects;
-        },
-
-        compact: function (rects) {
-            var intersected;
-
-            for (var i = 0; i < rects.length; i++) {
-                do {
-                    rects[i].y -= 1;
-                } while (rects[i].y >= 0 && $.lt.findIntersects(i, rects).length === 0);
-
-                rects[i].y += 1;
-            }
-
-            return rects;
-        },
-
+        return rect;
     };
 
     $.fn.lt_rect = function (size, newRect) {
         if (undefined === newRect) {
             if (undefined === this.data('lt-item-' + size)) {
-                this.data('lt-item-' + size, $.lt.getRectFromCss(this.attr('class'), size));
+                this.data('lt-item-' + size, Rect.fromCss(this.attr('class'), size));
             }
             return this.data('lt-item-' + size);
         }
 
         this.data('lt-item-' + size, newRect);
-        this.attr('class', $.lt.getCssFromRect(this.attr('class'), size, newRect));
+        this.attr('class', newRect.setCss(this.attr('class'), size));
 
         return this;
     };
@@ -187,20 +211,13 @@
 
     LTGrid.prototype.resize = function () {
         var size = this.size();
-        var height = Math.max.apply(null, $.map(
-            this.$element.children('[draggable]'),
-            function (item) {
-                var rect = $(item).lt_rect(size);
-                return (rect.y + rect.h);
-            }
-        ));
+        var rect = new Rect(0, 0, 0, this.grid().height());
 
         this.$element.attr(
             'class',
-            $.lt.updateCssParam(this.$element.attr('class'), size, 'h', height)
+            rect.setCss(this.$element.attr('class'), size)
         );
     };
-
 
     LTGrid.prototype.move_ghost = function (mouseX, mouseY) {
         var size = this.size();
@@ -211,53 +228,48 @@
         rect.x = Math.floor(mouseX / (width + this.options[size].gap));
         rect.y = Math.floor(mouseY / (height + this.options[size].gap));
 
+        rect.x = Math.min(Math.max(0, rect.x), this.options[size].cols - rect.w);
+
         this.$ghost.lt_rect(size, rect);
     };
 
-    LTGrid.prototype.reposition = function (item) {
+    LTGrid.prototype.grid = function (grid) {
         var size = this.size();
         var $items = this.$element.children('[draggable]');
 
-        var rects = $.map($items, function (item, index) {
-            return $(item).lt_rect(size);
-        });
+        if (undefined === grid) {
+            return new Grid($.map($items.toArray(), function (item) {
+                return $(item).lt_rect(size);
+            }));
+        } else {
+            $.each(grid.rects, function (index, item) {
+                $items.eq(index).lt_rect(size, item);
+            });
+        }
 
-        rects = $.lt.reposition($items.index(item), rects);
-        rects = $.lt.compact(rects);
+    };
 
-        $.each(rects, function (index) {
-            $($items[index]).lt_rect(size, this);
-        });
+    LTGrid.prototype.reposition = function (item, x, y) {
+        var size = this.size();
+        var rect = item.lt_rect(size);
+        var grid = this.grid();
 
+        grid
+            .move(rect, x, y)
+            .compact()
+            .compact();
+
+        this.grid(grid);
         this.resize();
     };
 
     LTGrid.prototype.move_dragged = function () {
         var size = this.size();
-        this.$dragged.lt_rect(size, this.$ghost.lt_rect(size));
+        var pos = this.$ghost.lt_rect(size);
 
         if (false === this.overlap) {
-            this.reposition(this.$dragged);
+            this.reposition(this.$dragged, pos.x, pos.y);
         }
-    };
-
-    LTGrid.prototype.overlapping = function ($elements) {
-        var overlapping = [];
-
-        $elements.each(function () {
-            var self = $(this);
-
-            self.siblings().each(function () {
-                var r1 = self.lt_rect();
-                var r2 = $(this).lt_rect();
-
-                if ($.lt.intersectRect(r1, r2)) {
-                    overlapping.push(this);
-                }
-            });
-        });
-
-        return $(overlapping);
     };
 
     // LAYOUT GRID PLUGIN DEFINITION
