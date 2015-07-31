@@ -40,10 +40,10 @@ $aspect-md: 2 / 3 !default
 $aspect-sm: 2 / 3 !default
 $aspect-xs: 2 / 3 !default
 
-$max-rows-xs: 20 !default
-$max-rows-sm: 15 !default
-$max-rows-md: 10 !default
-$max-rows-lg: 6 !default
+$max-rows-xs: 25 !default
+$max-rows-sm: 20 !default
+$max-rows-md: 15 !default
+$max-rows-lg: 10 !default
 
 .lt-container
     position: relative
@@ -52,6 +52,7 @@ $max-rows-lg: 6 !default
 .lt
     position: absolute
     z-index: 1
+    transition: margin-left 0.1s ease-out, margin-top 0.1s ease-out
 
 .lt-body
     position: absolute

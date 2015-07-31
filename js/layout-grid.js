@@ -43,185 +43,268 @@
  *
  */
 
-+function ($, undefined) {
++function ($) {
     'use strict';
 
-    function getClassParams(classes, size) {
-        var params = { x: 0, y: 0, w: 1, h: 1 }
+    $.lt = {
+        intersectRect: function(r1, r2) {
+            return r1.x < r2.x + r2.w && r1.x + r1.w > r2.x && r1.y < r2.y + r2.h && r1.y + r1.h > r2.y;
+        },
 
-        $.each(params, function (name) {
-            params[name] = parseInt(classes.match(new RegExp('lt-' + size + '-' + name + '-(\\d+)'))[1])
-        })
+        getRectFromCss: function (classes, size) {
+            var rect = { x: 0, y: 0, w: 1, h: 1 };
 
-        return params
-    }
+            $.each(rect, function (name) {
+                var match = classes.match(new RegExp('lt-' + size + '-' + name + '-(\\d+)'));
 
-    function setClassParams (classes, size, params) {
-        $.each(params, function (name, value) {
-            classes = classes.replace(new RegExp('lt-' + size + '-' + name + '-(\\d+)'), 'lt-' + size + '-' + name + '-' + value)
-        })
-        return classes
-    }
+                if (match) {
+                    rect[name] = parseInt(match[1]);
+                }
+            });
 
-    $.fn.layout_grid_params = function (newParams) {
-        var size = getCurrentSize()
+            return rect;
+        },
 
-        if (undefined === newParams) {
-            if (undefined === this.data('layout-grid-' + size)) {
-                this.data('layout-grid-' + size, getClassParams(this.attr('class'), size))
+        updateCssParam: function (classes, size, name, value) {
+            return classes.replace(new RegExp('lt-' + size + '-' + name + '-(\\d+)'), 'lt-' + size + '-' + name + '-' + value);
+        },
+
+        getCssFromRect: function (classes, size, rect) {
+            $.each(rect, function (name, value) {
+                classes = $.lt.updateCssParam(classes, size, name, value);
+            });
+            return classes;
+        },
+
+        findIntersects: function (itemIndex, rects) {
+            var intersected = [];
+            for (var i = 0; i < rects.length; i++) {
+                if (i !== itemIndex && $.lt.intersectRect(rects[i], rects[itemIndex])) {
+                    intersected.push(i);
+                }
             }
-            return this.data('layout-grid-' + size)
+            return intersected;
+        },
+
+        reposition: function (itemIndex, rects) {
+            var intersected = $.lt.findIntersects(itemIndex, rects);
+
+            for (var j = 0; j < intersected.length; j++) {
+                rects[intersected[j]].y = rects[itemIndex].y + rects[itemIndex].h;
+                $.lt.reposition(intersected[j], rects);
+            }
+
+            return rects;
+        },
+
+        compact: function (rects) {
+            var intersected;
+
+            for (var i = 0; i < rects.length; i++) {
+                do {
+                    rects[i].y -= 1;
+                } while (rects[i].y >= 0 && $.lt.findIntersects(i, rects).length === 0);
+
+                rects[i].y += 1;
+            }
+
+            return rects;
+        },
+
+    };
+
+    $.fn.lt_rect = function (size, newRect) {
+        if (undefined === newRect) {
+            if (undefined === this.data('lt-item-' + size)) {
+                this.data('lt-item-' + size, $.lt.getRectFromCss(this.attr('class'), size));
+            }
+            return this.data('lt-item-' + size);
         }
 
-        this.data('layout-grid-' + size, newParams)
-        this.attr('class', setClassParams(this.attr('class'), size, newParams))
+        this.data('lt-item-' + size, newRect);
+        this.attr('class', $.lt.getCssFromRect(this.attr('class'), size, newRect));
 
+        return this;
+    };
 
-        return this
-    }
-
-    // LAYOUT GRID CLASS DEFINITION
-    // ============================
-
-    var LayoutGrid = function (element) {
+    var LTGrid = function (element) {
         this.$element = $(element);
-    }
+        this.overlap = this.$element.data('overlap') || false;
+        this.options = $.extend(
+            {
+                xs: {
+                    gap: 4,
+                    maxWidth: 768,
+                    cols: 1,
+                    aspect: 2/3
+                },
+                sm: {
+                    gap: 3,
+                    maxWidth: 992,
+                    cols: 2,
+                    aspect: 2/3
+                },
+                md: {
+                    gap: 2,
+                    maxWidth: 1200,
+                    cols: 3,
+                    aspect: 2/3
+                },
+                lg: {
+                    gap: 1,
+                    maxWidth: Number.MAX_VALUE,
+                    cols: 4,
+                    aspect: 2/3
+                },
+            },
+            this.$element.data('options') || {}
+        );
+    };
 
-    LayoutGrid.MAX_WIDTHS = { xs: 768, sm: 992, md: 1200 }
+    LTGrid.prototype.size = function() {
+        var currentSize;
+        var windowWidth = $(window).width();
 
-    function getCurrentSize () {
-        var currentSize = 'lg'
-        var windowWidth = $(window).width()
-
-        $.each(LayoutGrid.MAX_WIDTHS, function (size, width) {
-            if (windowWidth < width) {
-                currentSize = size
+        $.each(this.options, function (size, sizeOptions) {
+            if (windowWidth < sizeOptions.maxWidth) {
+                currentSize = size;
             }
-        })
+        });
 
-        return currentSize
-    }
+        return currentSize;
+    };
 
-    function intersectRect(r1, r2) {
-        return r1.x < r2.x + r2.w && r1.x + r1.w > r2.x && r1.y < r2.y + r2.h && r1.y + r1.h > r2.y
-    }
+    LTGrid.prototype.add_ghost = function ($item) {
+        this.$ghost = $('<div class="' + $item.attr('class') + ' lt-ghost"></div>');
+        this.$dragged = $item.addClass('lt-dragged');
+        this.$element.append(this.$ghost);
+    };
 
-    function getOverlapping ($elements) {
-        var overlapping = []
+    LTGrid.prototype.remove_ghost = function () {
+        this.$dragged.removeClass('lt-dragged');
+        this.$ghost.remove();
+    };
+
+    LTGrid.prototype.resize = function () {
+        var size = this.size();
+        var height = Math.max.apply(null, $.map(
+            this.$element.children('[draggable]'),
+            function (item) {
+                var rect = $(item).lt_rect(size);
+                return (rect.y + rect.h);
+            }
+        ));
+
+        this.$element.attr(
+            'class',
+            $.lt.updateCssParam(this.$element.attr('class'), size, 'h', height)
+        );
+    };
+
+
+    LTGrid.prototype.move_ghost = function (mouseX, mouseY) {
+        var size = this.size();
+        var rect = this.$ghost.lt_rect(size);
+        var width = (this.$element.width() - (this.options[size].cols - 1) * this.options[size].gap) / this.options[size].cols;
+        var height = width * this.options[size].aspect;
+
+        rect.x = Math.floor(mouseX / (width + this.options[size].gap));
+        rect.y = Math.floor(mouseY / (height + this.options[size].gap));
+
+        this.$ghost.lt_rect(size, rect);
+    };
+
+    LTGrid.prototype.reposition = function (item) {
+        var size = this.size();
+        var $items = this.$element.children('[draggable]');
+
+        var rects = $.map($items, function (item, index) {
+            return $(item).lt_rect(size);
+        });
+
+        rects = $.lt.reposition($items.index(item), rects);
+        rects = $.lt.compact(rects);
+
+        $.each(rects, function (index) {
+            $($items[index]).lt_rect(size, this);
+        });
+
+        this.resize();
+    };
+
+    LTGrid.prototype.move_dragged = function () {
+        var size = this.size();
+        this.$dragged.lt_rect(size, this.$ghost.lt_rect(size));
+
+        if (false === this.overlap) {
+            this.reposition(this.$dragged);
+        }
+    };
+
+    LTGrid.prototype.overlapping = function ($elements) {
+        var overlapping = [];
 
         $elements.each(function () {
-            var self = $(this)
+            var self = $(this);
 
             self.siblings().each(function () {
-                var r1 = self.layout_grid_params()
-                var r2 = $(this).layout_grid_params()
+                var r1 = self.lt_rect();
+                var r2 = $(this).lt_rect();
 
-                if (intersectRect(r1, r2)) {
-                    overlapping.push(this)
+                if ($.lt.intersectRect(r1, r2)) {
+                    overlapping.push(this);
                 }
-            })
-        })
+            });
+        });
 
-        return $(overlapping)
-    }
-
-    LayoutGrid.prototype.dragstart = function () {
-        var $ghost = $('<div class="'+this.$element.attr('class') + ' lt-ghost"></div>')
-        $ghost.data('element', this.$element)
-
-        this.$element.addClass('lt-dragged')
-        this.$element.parent().append($ghost)
-    }
-
-    function moveGhost($ghost, moveX, moveY) {
-        var params = $ghost.layout_grid_params()
-
-        params.x = Math.max(0, moveX + params.x)
-        params.y = Math.max(0, moveY + params.y)
-
-        $ghost.layout_grid_params(params)
-    }
-
-    function dragGhost($ghost, mouseX, mouseY) {
-        var x = mouseX + $(window).scrollLeft()
-        var y = mouseY + $(window).scrollTop()
-
-        var ghostLeft = parseInt($ghost.css('marginLeft'))
-        var ghostRight = ghostLeft + parseInt($ghost.css('width'))
-
-        var ghostTop = parseInt($ghost.css('marginTop'))
-        var ghostBottom = ghostTop + parseInt($ghost.css('paddingBottom'))
-
-        if (y < ghostTop) {
-            moveGhost($ghost, 0, -1)
-        }
-
-        if (y > ghostBottom) {
-            moveGhost($ghost, 0, +1)
-        }
-
-        if (x < ghostLeft) {
-            moveGhost($ghost, -1, 0)
-        }
-
-        if (x > ghostRight) {
-            moveGhost($ghost, +1, 0)
-        }
-    }
-
-    LayoutGrid.prototype.dragend = function () {
-        this.$element.removeClass('lt-dragged')
-        this.$ghost.remove()
-    }
-
-    LayoutGrid.prototype.drop = function ($ghost) {
-        var $items = this.$element.parent().children()
-
-        this.$element.layout_grid_params($ghost.layout_grid_params())
-
-        $items.removeClass('lt-overlapping')
-        getOverlapping($items).addClass('lt-overlapping')
-    }
+        return $(overlapping);
+    };
 
     // LAYOUT GRID PLUGIN DEFINITION
     // =============================
 
     function Plugin(option, param1, param2) {
         return this.each(function () {
-            var $this = $(this)
-            var data  = $this.data('cl.layoutGrid')
+            var $this = $(this);
+            var data  = $this.data('cl.lt_grid');
 
-            if (!data) $this.data('cl.layoutGrid', (data = new LayoutGrid(this)))
-            if (typeof option == 'string') data[option](param1, param2)
-        })
+            if (!data) $this.data('cl.lt_grid', (data = new LTGrid(this)));
+            if (typeof option == 'string') data[option](param1, param2);
+        });
     }
 
-    $.fn.layoutGrid             = Plugin
-    $.fn.layoutGrid.Constructor = LayoutGrid
-
+    $.fn.lt_grid             = Plugin;
+    $.fn.lt_grid.Constructor = LTGrid;
 
     // LAYOUT GRID DATA-API
     // ====================
 
     $(document)
         .on('dragstart.layout-grid.data-api', '[data-arrange="layout-grid"] .lt', function (event) {
-            event.originalEvent.dataTransfer.setData('text/plain', 'test')
-            $(this).layoutGrid('dragstart')
+            var $this = $(this);
+
+            event.originalEvent.dataTransfer.setData('text/plain', 'Layout Item');
+
+            $this.parent().lt_grid('add_ghost', $this);
         })
         .on('dragover.layout-grid.data-api', '[data-arrange="layout-grid"]', function (event) {
-            event.preventDefault()
-            dragGhost($(this).find('.lt-ghost'), event.originalEvent.clientX, event.originalEvent.clientY)
+            var $this = $(this);
+            var mouseX = event.originalEvent.clientX + $(window).scrollLeft() - $this.position().left;
+            var mouseY = event.originalEvent.clientY + $(window).scrollTop() - $this.position().top;
+
+            event.preventDefault();
+
+            $this.lt_grid('move_ghost', mouseX, mouseY);
         })
         .on('dragend.layout-grid.data-api', '[data-arrange="layout-grid"]', function (event) {
-            $(this).find('.lt-ghost').remove()
-            $(this).find('.lt-dragged').removeClass('lt-dragged')
+            $(this).lt_grid('remove_ghost');
         })
         .on('dragleave.layout-grid.data-api', '[data-arrange="layout-grid"]', function (event) {
-            event.preventDefault()
+            event.preventDefault();
         })
-        .on('drop.layout-grid.data-api', '[data-arrange="layout-grid"] .lt-ghost', function (event) {
-            event.preventDefault()
-            $(this).data('element').layoutGrid('drop', $(this))
-        })
+        .on('drop.layout-grid.data-api', '[data-arrange="layout-grid"]', function (event) {
+            event.preventDefault();
+            $(this).lt_grid('move_dragged');
+        });
 
 }(jQuery);
