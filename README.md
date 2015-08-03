@@ -1,6 +1,8 @@
 Layout Grid
 ===========
 
+[![Build Status](https://travis-ci.org/clippings/layout-grid.svg?branch=master)](https://travis-ci.org/clippings/layout-grid)
+
 Static responsive grid with pure css.
 Javascript using native Drag'n'drop to reorder for each screen size.
 
