@@ -24,9 +24,7 @@
   width: 100%; }
 
 .lt {
-  position: absolute;
-  z-index: 1;
-  transition: margin-left 0.1s ease-out, margin-top 0.1s ease-out; }
+  position: absolute; }
 
 .lt-body {
   position: absolute;

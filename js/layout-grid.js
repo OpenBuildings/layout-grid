@@ -1,8 +1,10 @@
-/* Layout Grid
- *
- * Allows dragging/dropping items in the grid, automatically rearanging it.
- */
-
+/* =================================================================================
+ * Layout Grid
+ * http://github.com/clippings/layout-grid
+ * =================================================================================
+ * Copyright 2015 Clippings Ltd.
+ * Licensed under BSD (https://github.com/clippings/layout-grid/blob/master/LICENSE)
+ * ================================================================================= */
 +function ($, undefined) {
     'use strict';
 
@@ -440,13 +442,13 @@
                 LTWidget: '#' + $(this).lt_ensure_id().attr('id'),
             }));
         })
+
         .on('dragover.layout-grid.data-api', '[data-arrange="layout-grid"]', function (event) {
             var $this = $(this);
             var data = JSON.parse(event.originalEvent.dataTransfer.getData('text/plain'));
 
             var mouseX = event.originalEvent.clientX + $(window).scrollLeft() - $this.offset().left;
             var mouseY = event.originalEvent.clientY + $(window).scrollTop() - $this.offset().top;
-
 
             if (data && data.LTWidget) {
                 event.preventDefault();
@@ -455,14 +457,16 @@
                     .lt_grid('mask')
                     .lt_grid('move_ghost', $(data.LTWidget),  mouseX, mouseY);
             }
-
         })
+
         .on('dragend.layout-grid.data-api', '[data-arrange="layout-grid"]', function (event) {
             $(this).lt_grid('end');
         })
+
         .on('dragleave.layout-grid.data-api', '[data-arrange="layout-grid"]', function (event) {
             event.preventDefault();
         })
+
         .on('dragleave.layout-grid.data-api', '[data-arrange="layout-grid"]', function (event) {
             event.preventDefault();
 
@@ -471,6 +475,7 @@
                 $(this).lt_grid('end');
             }
         })
+
         .on('drop.layout-grid.data-api', '[data-arrange="layout-grid"]', function (event) {
             var data = JSON.parse(event.originalEvent.dataTransfer.getData('text/plain'));
 

@@ -4,6 +4,10 @@
   pointer-events: none;
   background-color: black; }
 
+.lt {
+  z-index: 1;
+  transition: margin-left 0.1s ease-out, margin-top 0.1s ease-out; }
+
 .lt-container .lt-mask {
   display: block;
   border: 1px solid #AAA;
