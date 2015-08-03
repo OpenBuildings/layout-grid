@@ -1,7 +1,7 @@
 module('Rect');
 
 test('constructor', function () {
-    var rect1 = new $.lt.Rect();
+    var rect1 = new $.lt.Rect(3);
     var rect2 = new $.lt.Rect(2, 3, 5, 7);
 
     equal(rect1.x, 0);
