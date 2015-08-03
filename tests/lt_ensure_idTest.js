@@ -1,4 +1,4 @@
-module('lt_unique_id');
+module('lt_ensure_id');
 
 test('generate', function () {
     var divs = $('#rect1,#rect2,.other-rect');
@@ -6,7 +6,7 @@ test('generate', function () {
     var div2 = $('#rect2');
     var div3 = $('.other-rect');
 
-    divs.lt_unique_id();
+    divs.lt_ensure_id();
 
     equal(div1.attr('id'), 'rect1');
     equal(div2.attr('id'), 'rect2');

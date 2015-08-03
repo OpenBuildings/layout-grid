@@ -181,21 +181,31 @@
         return this;
     };
 
+    /**
+     * Make sure the item has an id to quickly find it
+     * Do not override existing ids
+     */
+    $.fn.lt_ensure_id = function () {
+        this
+            .filter(function () { return ! this.id; })
+            .each(function () {
+                this.id = 'rect-' + Math.round(new Date().getTime() + (Math.random() * 100));
+            });
+
+        return this;
+    };
+
     var LTGrid = function (element) {
         this.$element = $(element);
+        this.$ghost = null;
+        this.$mask = null;
         this.overlap = this.$element.data('overlap') || false;
         this.options = $.extend(
             {
-                xs: {
-                    gap: 4,
-                    maxWidth: 768,
-                    cols: 1,
-                    aspect: 2/3
-                },
-                sm: {
-                    gap: 3,
-                    maxWidth: 992,
-                    cols: 2,
+                lg: {
+                    gap: 1,
+                    maxWidth: Number.MAX_VALUE,
+                    cols: 4,
                     aspect: 2/3
                 },
                 md: {
@@ -204,10 +214,16 @@
                     cols: 3,
                     aspect: 2/3
                 },
-                lg: {
-                    gap: 1,
-                    maxWidth: Number.MAX_VALUE,
-                    cols: 4,
+                sm: {
+                    gap: 3,
+                    maxWidth: 992,
+                    cols: 2,
+                    aspect: 2/3
+                },
+                xs: {
+                    gap: 4,
+                    maxWidth: 768,
+                    cols: 1,
                     aspect: 2/3
                 },
             },
@@ -215,6 +231,10 @@
         );
     };
 
+    /**
+     * Get the current screen size
+     * @return {string} xs, sm, md or lg
+     */
     LTGrid.prototype.size = function() {
         var currentSize;
         var windowWidth = $(window).width();
@@ -228,17 +248,35 @@
         return currentSize;
     };
 
-    LTGrid.prototype.add_ghost = function ($item) {
-        this.$ghost = $('<div class="' + $item.attr('class') + ' lt-ghost"></div>');
-        this.$dragged = $item.addClass('lt-dragged');
-        this.$element.append(this.$ghost);
+    /**
+     * Return a ghost item for a widget, cache ghost
+     *
+     * @param  {jQuery} $widget
+     * @return {jQuery}
+     */
+    LTGrid.prototype.ghost = function ($widget) {
+        if (null === this.$ghost) {
+            this.$ghost = $('<div class="' + $widget.attr('class') + ' lt-ghost"></div>');
+            this.$element.append(this.$ghost);
+        }
+
+        return this.$ghost;
     };
 
+    /**
+     * Remove the ghost element for this grid
+     * @param  {jQuery} $widget
+     */
     LTGrid.prototype.remove_ghost = function () {
-        this.$dragged.removeClass('lt-dragged');
-        this.$ghost.remove();
+        if (this.$ghost) {
+            this.$ghost.remove();
+            this.$ghost = null;
+        }
     };
 
+    /**
+     * Resize the grid to wrap all items
+     */
     LTGrid.prototype.resize = function () {
         var size = this.size();
         var rect = new Rect(0, 0, 0, this.grid().height());
@@ -249,20 +287,80 @@
         );
     };
 
-    LTGrid.prototype.move_ghost = function (mouseX, mouseY) {
-        var size = this.size();
-        var rect = this.$ghost.lt_rect(size);
-        var width = (this.$element.width() - (this.options[size].cols - 1) * this.options[size].gap) / this.options[size].cols;
-        var height = width * this.options[size].aspect;
+    /**
+     * The width of a single grid count, in pixels
+     * @param  {string} size xs, sm, md or lg
+     * @return {integer}
+     */
+    LTGrid.prototype.item_width = function (size) {
+        return (this.$element.width() - (this.options[size].cols - 1) * this.options[size].gap) / this.options[size].cols;
+    };
 
-        rect.x = Math.floor(mouseX / (width + this.options[size].gap));
-        rect.y = Math.floor(mouseY / (height + this.options[size].gap));
+    /**
+     * The height of a single grid count, in pixels
+     * @param  {string} size xs, sm, md or lg
+     * @return {integer}
+     */
+    LTGrid.prototype.item_height = function (size) {
+        return this.item_width(size) * this.options[size].aspect;
+    };
+
+    /**
+     * Move the ghost element of a widget inside the grid.
+     * Pass a mouse x and y coords, relative to the grid
+     * @param  {jQuery} $widget
+     * @param  {integer} mouseX
+     * @param  {integer} mouseY
+     */
+    LTGrid.prototype.move_ghost = function ($widget, mouseX, mouseY) {
+        var size = this.size();
+        var $ghost = this.ghost($widget);
+        var rect = $ghost.lt_rect(size);
+
+        rect.x = Math.floor(mouseX / (this.item_width(size) + this.options[size].gap));
+        rect.y = Math.floor(mouseY / (this.item_height(size) + this.options[size].gap));
 
         rect.x = Math.min(Math.max(0, rect.x), this.options[size].cols - rect.w);
 
-        this.$ghost.lt_rect(size, rect);
+        $ghost.lt_rect(size, rect);
     };
 
+    /**
+     * Clear artefacts like mask and ghost
+     */
+    LTGrid.prototype.end = function () {
+        this.remove_mask();
+        this.remove_ghost();
+    };
+
+    /**
+     * Get the mask of the grid. Create one if there is none.
+     * @return {jQuery}
+     */
+    LTGrid.prototype.mask = function () {
+        if (null === this.$mask) {
+            this.$mask = $('<div class="lt-mask" data-lt-grid="mask"></div>');
+            this.$element.append(this.$mask);
+        }
+
+        return this.$mask;
+    };
+
+    /**
+     * Remove the mask
+     */
+    LTGrid.prototype.remove_mask = function () {
+        if (null !== this.$mask) {
+            this.$mask.remove();
+            this.$mask = null;
+        }
+    };
+
+    /**
+     * Setter / getter of a Grid object for this Layout Grid
+     * @param  {Grid} grid
+     * @return {Grid}
+     */
     LTGrid.prototype.grid = function (grid) {
         var size = this.size();
         var $items = this.$element.children('[draggable]');
@@ -278,9 +376,16 @@
         }
     };
 
-    LTGrid.prototype.reposition = function (item, x, y) {
+    /**
+     * Move a widget within the grid, repositioning other elements
+     * so there is no overlapping
+     * @param  {jQuery} $widget
+     * @param  {integer} x
+     * @param  {integer} y
+     */
+    LTGrid.prototype.reposition = function ($widget, x, y) {
         var size = this.size();
-        var rect = item.lt_rect(size);
+        var rect = $widget.lt_rect(size);
         var grid = this.grid();
 
         grid
@@ -291,25 +396,31 @@
         this.resize();
     };
 
-    LTGrid.prototype.move_dragged = function () {
+    /**
+     * Move the widget to its corresponding ghost position
+     * @param  {jQuery} $widget
+     */
+    LTGrid.prototype.move_to_ghost = function ($widget) {
+        this.$element.append($widget);
         var size = this.size();
-        var pos = this.$ghost.lt_rect(size);
+        var $ghost = this.ghost($widget);
+        var pos = $ghost.lt_rect(size);
 
         if (false === this.overlap) {
-            this.reposition(this.$dragged, pos.x, pos.y);
+            this.reposition($widget, pos.x, pos.y);
         }
     };
 
     // LAYOUT GRID PLUGIN DEFINITION
     // =============================
 
-    function Plugin(option, param1, param2) {
+    function Plugin(option, param1, param2, param3) {
         return this.each(function () {
             var $this = $(this);
             var data  = $this.data('cl.lt_grid');
 
             if (!data) $this.data('cl.lt_grid', (data = new LTGrid(this)));
-            if (typeof option == 'string') data[option](param1, param2);
+            if (typeof option == 'string') data[option](param1, param2, param3);
         });
     }
 
@@ -325,34 +436,52 @@
 
     $(document)
         .on('dragstart.layout-grid.data-api', '[data-arrange="layout-grid"] .lt', function (event) {
-            var $this = $(this);
-
             event.originalEvent.dataTransfer.setData('text/plain', JSON.stringify({
-                LTWidget: $this.attr('id'),
+                LTWidget: '#' + $(this).lt_ensure_id().attr('id'),
             }));
-
-            $this.parent().lt_grid('add_ghost', $this);
         })
         .on('dragover.layout-grid.data-api', '[data-arrange="layout-grid"]', function (event) {
             var $this = $(this);
             var data = JSON.parse(event.originalEvent.dataTransfer.getData('text/plain'));
 
-            var mouseX = event.originalEvent.clientX + $(window).scrollLeft() - $this.position().left;
-            var mouseY = event.originalEvent.clientY + $(window).scrollTop() - $this.position().top;
+            var mouseX = event.originalEvent.clientX + $(window).scrollLeft() - $this.offset().left;
+            var mouseY = event.originalEvent.clientY + $(window).scrollTop() - $this.offset().top;
 
-            event.preventDefault();
 
-            $this.lt_grid('move_ghost', mouseX, mouseY);
+            if (data && data.LTWidget) {
+                event.preventDefault();
+
+                $this
+                    .lt_grid('mask')
+                    .lt_grid('move_ghost', $(data.LTWidget),  mouseX, mouseY);
+            }
+
         })
         .on('dragend.layout-grid.data-api', '[data-arrange="layout-grid"]', function (event) {
-            $(this).lt_grid('remove_ghost');
+            $(this).lt_grid('end');
         })
         .on('dragleave.layout-grid.data-api', '[data-arrange="layout-grid"]', function (event) {
             event.preventDefault();
         })
-        .on('drop.layout-grid.data-api', '[data-arrange="layout-grid"]', function (event) {
+        .on('dragleave.layout-grid.data-api', '[data-arrange="layout-grid"]', function (event) {
             event.preventDefault();
-            $(this).lt_grid('move_dragged');
+
+            // We need to have a mask because of the event bubbling does not allow for a nice "do stuff on dragleave"
+            if ($(event.target).data('lt-grid') =='mask') {
+                $(this).lt_grid('end');
+            }
+        })
+        .on('drop.layout-grid.data-api', '[data-arrange="layout-grid"]', function (event) {
+            var data = JSON.parse(event.originalEvent.dataTransfer.getData('text/plain'));
+
+            if (data && data.LTWidget) {
+
+                event.preventDefault();
+
+                $(this)
+                    .lt_grid('move_to_ghost', $(data.LTWidget))
+                    .lt_grid('end');
+            }
         });
 
 }(jQuery);

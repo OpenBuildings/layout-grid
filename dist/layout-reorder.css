@@ -1,12 +1,17 @@
 .lt-ghost {
   opacity: 0.5;
   z-index: 2;
+  pointer-events: none;
   background-color: black; }
 
-.lt-dragged {
-  z-index: 3; }
-
-.lt-overlapping {
-  border: 3px solid red; }
+.lt-container .lt-mask {
+  display: block;
+  border: 1px solid #AAA;
+  position: absolute;
+  z-index: 3;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0; }
 
 /*# sourceMappingURL=layout-reorder.css.map */
