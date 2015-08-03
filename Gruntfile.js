@@ -1,13 +1,19 @@
 module.exports = function (grunt) {
   grunt.initConfig({
-    pkg: grunt.file.readJSON('package.json'), // the package file to use
+    pkg: grunt.file.readJSON('package.json'),
 
     qunit: {
       all: ['tests/*.html']
-    }
+    },
+    uglify: {
+        js: {
+          files: {
+            'dist/layout-grid.min.js': ['js/layout-grid.js']
+          }
+        }
+      }
   });
-  // load up your plugins
   grunt.loadNpmTasks('grunt-contrib-qunit');
-  // register one or more task lists (you should ALWAYS have a "default" task list)
+  grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.registerTask('default', ['qunit']);
 };

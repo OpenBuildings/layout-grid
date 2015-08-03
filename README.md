@@ -6,19 +6,20 @@ Layout Grid
 [![Code Coverage](https://scrutinizer-ci.com/g/{%repository_name%}/badges/coverage.png)](https://scrutinizer-ci.com/g/clippings/layout-grid/)
 [![Latest Stable Version](https://poser.pugx.org/{%repository_name%}/v/stable.png)](https://packagist.org/packages/clippings/layout-grid)
 
-Static responsive grid with pure css
+Static responsive grid with pure css.
+Javascript using native Drag'n'drop to reorder for each screen size.
 
 Instalation
 -----------
 
-Install via composer
+For only static positioning include ``dist/layout-grid.css``
+For ordering items around include ``dist/layout-reorder.css`` and ``dist/layout-grid.min.js``
 
-```
-composer require clippings/layout-grid
-```
+Modification
+------------
+``sass/layout-grid.sass`` allows you to modify a lot of variables for each screen size, overriding the defaults.
+If you're using reoder you'll need to tell the javascript plugin about these modifications as well.
 
-Usage
------
 
 License
 -------
