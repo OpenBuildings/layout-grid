@@ -1,68 +1,120 @@
 /* Layout Grid
  *
- * Used to add elements from a collection. You'll have a hidden "template" element with disabled inputs.
- * This template will get duplicated to create new elements
- *
- * Usage:
- *
- * <div>
- *   // Items
- *
- *   <div
- *      data-appendable="..."       | a unique name, shared among all items, used to calculate indexes for new items
- *   </div>
- *   <div
- *      data-appendable="..."
- *   </div>
- *
- *   // Hidden template item
- *
- *   <div
- *      class="hidden"              | when using this template the resulting new item will have "hidden" class removed
- *      id="..."                    | the id will be removed, when creating new items
- *      data-placeholder="..."      | this string will be replaced in names, ids and some other attributes, defaults to "{{new}}"
- *      data-appendable-label="..." | this is used to count the number of elements and to calculate the correct index number for each item),
- *                                  | the value should match that of the "data-appendable" attributes of the visible items
- *   </div>
- *
- *   <div
- *     class="btn btn-default"
- *     data-replace-index-attributes="..." | additional attributes in which to replace the __new__ value, comma separated values
- *                                         | default value is ['name', 'id', 'for', 'data-placeholder', 'data-target', 'data-appendable', 'data-appendable-label']
- *     data-add="appendable"               | designate as a button to add items
- *     data-target="..."                   | a selector for the "template" item
- *   >
- *   </div>
- *
- * </div>
- *
- * Events:
- *
- *   Triggers the "append.cl.appendable.data-api" event from the item that has just been added.
- *   relatedTarget on the event points to the template element
- *
+ * Allows dragging/dropping items in the grid, automatically rearanging it.
  */
 
-+function ($) {
++function ($, undefined) {
     'use strict';
 
-    var Grid = function (rects) {
-        this.rects = rects;
+    /**
+     * Object that represents a rectangle with many supporting methods
+     * @param {integer} x horizontal position (starts with 0)
+     * @param {integer} y vertical position (starts with 0)
+     * @param {integer} w width (starts with 1)
+     * @param {integer} h height (starts with 1)
+     */
+    var Rect = function (x, y, w, h) {
+        this.x = x || 0;
+        this.y = y || 0;
+        this.w = w || 1;
+        this.h = h || 1;
     };
 
-    Grid.prototype.intersect = function (rect) {
+    /**
+     * @return {integer}
+     */
+    Rect.prototype.bottom = function () {
+        return this.y + this.h;
+    };
+
+    /**
+     * @return {integer}
+     */
+    Rect.prototype.right = function () {
+        return this.x + this.w;
+    };
+
+    /**
+     * Check if this rect is intersecting with another rect
+     *
+     * @param {Rect} rect
+     * @return {boolean}
+     */
+    Rect.prototype.intersect = function (rect) {
+        return this.x < rect.right() && this.right() > rect.x && this.y < rect.bottom() && this.bottom() > rect.y;
+    };
+
+    /**
+     * Modify a "css classes" string
+     * with the pos and size of this rect,
+     * for a specific screen size
+     *
+     * @param {string} classes html classes
+     * @param {string} size    xs, sm, md or lg
+     */
+    Rect.prototype.setCss = function (classes, size) {
+        var self = this;
+
+        ['x', 'y', 'w', 'h'].forEach(function (name) {
+            classes = classes.replace(new RegExp('lt-' + size + '-' + name + '-(\\d+)'), 'lt-' + size + '-' + name + '-' + self[name]);
+        });
+
+        return classes;
+    };
+
+    /**
+     * Load data from "css classes", for a specific screen size
+     *
+     * @param {string} classes html classes
+     * @param {string} size    xs, sm, md or lg
+     */
+    Rect.prototype.loadCss = function (classes, size) {
+        var self = this;
+
+        ['x', 'y', 'w', 'h'].forEach(function (name) {
+            var match = classes.match(new RegExp('lt-' + size + '-' + name + '-(\\d+)'));
+
+            if (match) {
+                self[name] = parseInt(match[1]);
+            }
+        });
+
+        return this;
+    };
+
+
+    /**
+     * A collection of rect objects
+     * @param {array} rects array of Rect objects
+     */
+    var Grid = function (rects) {
+        this.rects = rects || [];
+    };
+
+    /**
+     * Return all the rects that intersect with a given rect
+     * @param  {Rect}   rect
+     * @return {array}
+     */
+    Grid.prototype.getIntersectingRects = function (rect) {
         return $.grep(this.rects, function (item) {
             return rect !== item && rect.intersect(item);
         });
     };
 
+    /**
+     * Reduce all the vertical whitespace between rects
+     */
     Grid.prototype.compact = function () {
         var self = this;
+        var sorted = this.rects.slice(0).sort(function (a, b){
+            return a.y - b.y;
+        });
 
-        $.each(this.rects, function () {
+        $.each(sorted, function () {
             do {
                 this.y -= 1;
-            } while (this.y >= 0 && self.intersect(this).length === 0);
+            } while (this.y >= 0 && self.getIntersectingRects(this).length === 0);
 
             this.y += 1;
         });
@@ -70,7 +122,11 @@
         return this;
     };
 
-    Grid.prototype.height = function (rect, x, y) {
+    /**
+     * The maximum height of the rects in the grid
+     * @return {integer}
+     */
+    Grid.prototype.height = function () {
         var hights = $.map(
             this.rects,
             function (item) {
@@ -81,66 +137,40 @@
         return hights ? Math.max.apply(null, hights) : 0;
     };
 
+    /**
+     * Move a rect inside the grid
+     * If there is overlap move rects downards
+     * @param  {Rect} rect
+     * @param  {integer} x
+     * @param  {integer} y
+     */
     Grid.prototype.move = function (rect, x, y) {
         var self = this;
 
         rect.x = x;
         rect.y = y;
 
-        $.each(this.intersect(rect), function () {
+        $.each(this.getIntersectingRects(rect), function () {
             self.move(this, this.x, rect.bottom());
         });
 
         return this;
     };
 
-    var Rect = function (x, y, w, h) {
-        this.x = x;
-        this.y = y;
-        this.w = w;
-        this.h = h;
-    };
-
-    Rect.prototype.bottom = function () {
-        return this.y + this.h;
-    };
-
-    Rect.prototype.right = function () {
-        return this.x + this.w;
-    };
-
-    Rect.prototype.intersect = function (rect) {
-        return this.x < rect.x + rect.w && this.x + this.w > rect.x && this.y < rect.y + rect.h && this.y + this.h > rect.y;
-    };
-
-    Rect.prototype.setCss = function (classes, size) {
-        var self = this;
-
-        $.each(['x', 'y', 'w', 'h'], function () {
-            classes = classes.replace(new RegExp('lt-' + size + '-' + this + '-(\\d+)'), 'lt-' + size + '-' + this + '-' + self[this]);
-        });
-
-        return classes;
-    };
-
-    Rect.fromCss = function (classes, size) {
-        var rect = new Rect(0, 0, 1, 1);
-
-        $.each(['x', 'y', 'w', 'h'], function () {
-            var match = classes.match(new RegExp('lt-' + size + '-' + this + '-(\\d+)'));
-
-            if (match) {
-                rect[this] = parseInt(match[1]);
-            }
-        });
-
-        return rect;
-    };
-
+    /**
+     * Getter / setter for div element's rect.
+     * Uses its css classes to laod the initial rect for a given size,
+     * then caches in data.
+     * Each screen size has its own rect
+     *
+     * @param  {string} size    xs, sm, md or lg
+     * @param  {Rect}   newRect a Rect object to set
+     * @return {Rect}
+     */
     $.fn.lt_rect = function (size, newRect) {
         if (undefined === newRect) {
             if (undefined === this.data('lt-item-' + size)) {
-                this.data('lt-item-' + size, Rect.fromCss(this.attr('class'), size));
+                this.data('lt-item-' + size, (new Rect()).loadCss(this.attr('class'), size));
             }
             return this.data('lt-item-' + size);
         }
@@ -246,7 +276,6 @@
                 $items.eq(index).lt_rect(size, item);
             });
         }
-
     };
 
     LTGrid.prototype.reposition = function (item, x, y) {
@@ -256,7 +285,6 @@
 
         grid
             .move(rect, x, y)
-            .compact()
             .compact();
 
         this.grid(grid);
@@ -287,6 +315,10 @@
 
     $.fn.lt_grid             = Plugin;
     $.fn.lt_grid.Constructor = LTGrid;
+    $.lt = {
+        Grid: Grid,
+        Rect: Rect
+    };
 
     // LAYOUT GRID DATA-API
     // ====================
@@ -295,12 +327,16 @@
         .on('dragstart.layout-grid.data-api', '[data-arrange="layout-grid"] .lt', function (event) {
             var $this = $(this);
 
-            event.originalEvent.dataTransfer.setData('text/plain', 'Layout Item');
+            event.originalEvent.dataTransfer.setData('text/plain', JSON.stringify({
+                LTWidget: $this.attr('id'),
+            }));
 
             $this.parent().lt_grid('add_ghost', $this);
         })
         .on('dragover.layout-grid.data-api', '[data-arrange="layout-grid"]', function (event) {
             var $this = $(this);
+            var data = JSON.parse(event.originalEvent.dataTransfer.getData('text/plain'));
+
             var mouseX = event.originalEvent.clientX + $(window).scrollLeft() - $this.position().left;
             var mouseY = event.originalEvent.clientY + $(window).scrollTop() - $this.position().top;
 

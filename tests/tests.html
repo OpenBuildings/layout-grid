@@ -1,0 +1,106 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Layout Grid Tests</title>
+
+  <link type="text/css" rel="stylesheet" href="http://code.jquery.com/qunit/qunit-1.18.0.css">
+  <link type="text/css" rel="stylesheet" href="../dist/layout-grid.css">
+  <link type="text/css" rel="stylesheet" href="../dist/layout-reorder.css">
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script type="text/javascript" src="http://code.jquery.com/qunit/qunit-1.18.0.js"></script>
+  <script type="text/javascript" src="../js/layout-grid.js"></script>
+  <script type="text/javascript" src='RectTest.js'></script>
+  <script type="text/javascript" src='GridTest.js'></script>
+  <script type="text/javascript" src='lt_rectTest.js'></script>
+  <script type="text/javascript" src='lt_unique_idTest.js'></script>
+</head>
+<body>
+
+<div id="qunit"></div>
+<div id="qunitFixture">
+    <div class="lt-container
+                lt-xs-h-16
+                lt-sm-h-12
+                lt-md-h-8
+                lt-lg-h-6">
+        <div
+         id="rect1"
+         draggable="true"
+         class="lt
+                test-class
+                lt-xs-x-0
+                lt-xs-y-0
+                lt-xs-w-1
+                lt-xs-h-1
+                lt-sm-x-0
+                lt-sm-y-0
+                lt-sm-w-1
+                lt-sm-h-1
+                lt-md-x-0
+                lt-md-y-0
+                lt-md-w-1
+                lt-md-h-1
+                lt-lg-x-0
+                lt-lg-y-0
+                lt-lg-w-1
+                lt-lg-h-1">
+            <div class="lt-body text-center">
+                <h3>rect 1</h3>
+            </div>
+        </div>
+        <div
+         id="rect2"
+         draggable="true"
+         class="lt
+                lt-xs-x-0
+                lt-xs-y-1
+                lt-xs-w-1
+                lt-xs-h-2
+                lt-sm-x-1
+                lt-sm-y-0
+                lt-sm-w-1
+                lt-sm-h-2
+                lt-md-x-2
+                lt-md-y-0
+                lt-md-w-1
+                lt-md-h-2
+                lt-lg-x-1
+                lt-lg-y-0
+                lt-lg-w-1
+                lt-lg-h-2">
+            <div class="lt-body text-center">
+                <h3>rect 2</h3>
+            </div>
+        </div>
+        <div
+         id="rect3"
+         draggable="true"
+         class="lt
+                lt-xs-x-0
+                lt-xs-y-3
+                lt-xs-w-1
+                lt-xs-h-1
+                lt-sm-x-0
+                lt-sm-y-1
+                lt-sm-w-1
+                lt-sm-h-1
+                lt-md-x-1
+                lt-md-y-0
+                lt-md-w-1
+                lt-md-h-1
+                lt-lg-x-0
+                lt-lg-y-1
+                lt-lg-w-1
+                lt-lg-h-1">
+            <div class="lt-body text-center">
+                <h3>rect 3</h3>
+            </div>
+        </div>
+        <div class="other-rect">
+            some other
+        </div>
+    </div>
+</div>
+</body>
+</html>
