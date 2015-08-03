@@ -1,22 +1,10 @@
-language: php
+language: node_js
 
-php:
-  - 5.4
-  - 5.5
-  - hhvm
+node_js:
+  - 0.10
 
 before_install:
-  - composer selfupdate
-
-install:
-  - composer install
-
-before_script:
-  - mkdir -p build/logs
+  - npm install -g grunt-cli
 
 script:
-  - phpunit --coverage-clover build/logs/clover.xml
-
-after_script:
-  - test -e build/logs/clover.xml && wget https://scrutinizer-ci.com/ocular.phar
-  - test -e build/logs/clover.xml && php ocular.phar code-coverage:upload --format=php-clover build/logs/clover.xml
+  - grunt
