@@ -441,13 +441,16 @@
             var data = JSON.stringify({
                 LTWidget: '#' + $(this).lt_ensure_id().attr('id'),
             });
+
             $.lt.currentEventData = data;
+
             event.originalEvent.dataTransfer.setData('text/plain', data);
         })
 
         .on('dragover.layout-grid.data-api', '[data-arrange="layout-grid"]', function (event) {
             var $this = $(this);
             var dataString = event.originalEvent.dataTransfer.getData('text/plain') || $.lt.currentEventData;
+
             if (dataString) {
                 var data = JSON.parse(dataString);
 
