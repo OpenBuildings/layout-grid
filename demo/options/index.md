@@ -4,33 +4,41 @@ layout: index
 <div class="container">
     <h1>Configurable Options</h1>
 
-    <div class="lead">
+    <p class="lead">
         Modify options on the fly or set them as data attributes
-    </div>
+    </p>
+
+    <p>
+        You can use <code>data-overlap="..."</code> to allow or deny overlapping (defaults to false), <code>data-compact="..."</code> to reduce vertical space as much as possible (defaults to true) or <code>data-resize=".."</code> to resize the whole container to match its contents. This can also be done on the fly by using the <code>update()</code> method e.g. <code>$(...).lt_grid('update', 'overlap', true)</code>
+    </p>
+
+    <p>
+        Here's how it looks in action:
+    </p>
 
     <pre class="code">
 &lt;div
  data-arrange="layout-grid"
- data-overlap="false"
- data-compact="true"
- data-resize="true"&gt;
+ data-overlap="<strong id="data-overlap">false</strong>"
+ data-compact="<strong id="data-compact">true</strong>"
+ data-resize="<strong id="data-resize">true</strong>"&gt;
 &lt;/div&gt;</pre>
 
     <div class="checkbox">
         <label>
-            <input type="checkbox" onchange="$('#lt-grid').lt_grid('update', 'overlap', this.checked)"> Allow overlap on items when reordering
+            <input type="checkbox" onchange="$('#lt-grid').lt_grid('update', 'overlap', this.checked); $('#data-overlap').text(this.checked.toString());"> Allow overlap on items when reordering
         </label>
     </div>
 
     <div class="checkbox">
         <label>
-            <input type="checkbox" autocomplete="off" checked onchange="$('#lt-grid').lt_grid('update', 'compact', this.checked)"> Compact items after reorder, by reducing horizontal space
+            <input type="checkbox" autocomplete="off" checked onchange="$('#lt-grid').lt_grid('update', 'compact', this.checked); $('#data-compact').text(this.checked.toString());"> Compact items after reorder, by reducing horizontal space
         </label>
     </div>
 
     <div class="checkbox">
         <label>
-            <input type="checkbox" autocomplete="off" checked onchange="$('#lt-grid').lt_grid('update', 'resize', this.checked)"> Resize the container after reorder to encompass all items
+            <input type="checkbox" autocomplete="off" checked onchange="$('#lt-grid').lt_grid('update', 'resize', this.checked); $('#data-resize').text(this.checked.toString());"> Resize the container after reorder to encompass all items
         </label>
     </div>
 

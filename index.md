@@ -33,7 +33,7 @@ layout: index
     <h2>Demos</h2>
 
     <div class="row">
-        <div class="col-sm-3">
+        <div class="col-sm-4">
             <div class="panel panel-default">
                 <div class="panel-body">
                     <h4>
@@ -45,7 +45,7 @@ layout: index
                 </div>
             </div>
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-4">
             <div class="panel panel-default">
                 <div class="panel-body">
                     <h4>
@@ -57,7 +57,7 @@ layout: index
                 </div>
             </div>
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-4">
             <div class="panel panel-default">
                 <div class="panel-body">
                     <h4>
@@ -69,14 +69,28 @@ layout: index
                 </div>
             </div>
         </div>
-        <div class="col-sm-3">
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
             <div class="panel panel-default">
                 <div class="panel-body">
                     <h4>
                         <a href="{{ site.baseurl }}/demo/options">Configurable Options</a>
                     </h4>
                     <p>
-                        Modify options on the fly or set them as data attributes
+                        Modify options on the fly or set them as data attributes.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h4>
+                        <a href="{{ site.baseurl }}/demo/custom">Different Config Options</a>
+                    </h4>
+                    <p>
+                        You can have different column counts, aspect ratios and gaps from the defaults.
                     </p>
                 </div>
             </div>
