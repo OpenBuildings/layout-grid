@@ -146,15 +146,30 @@
      * @param  {integer} x
      * @param  {integer} y
      */
+    Grid.prototype.moveNoOverlap = function (rect, x, y) {
+        var self = this;
+
+        this.move(rect, x, y);
+
+        $.each(this.getIntersectingRects(rect), function () {
+            self.moveNoOverlap(this, this.x, rect.bottom());
+        });
+
+        return this;
+    };
+
+    /**
+     * Move a rect inside the grid
+     * If there is overlap move rects downards
+     * @param  {Rect} rect
+     * @param  {integer} x
+     * @param  {integer} y
+     */
     Grid.prototype.move = function (rect, x, y) {
         var self = this;
 
         rect.x = x;
         rect.y = y;
-
-        $.each(this.getIntersectingRects(rect), function () {
-            self.move(this, this.x, rect.bottom());
-        });
 
         return this;
     };
@@ -201,7 +216,11 @@
         this.$element = $(element);
         this.$ghost = null;
         this.$mask = null;
-        this.overlap = this.$element.data('overlap') || false;
+
+        this.resize = undefined !== this.$element.data('resize') ? this.$element.data('resize') : true;
+        this.overlap = undefined !== this.$element.data('overlap') ? this.$element.data('overlap') : false;
+        this.compact = undefined !== this.$element.data('compact') ? this.$element.data('compact') : true;
+
         this.options = $.extend(
             {
                 lg: {
@@ -279,7 +298,7 @@
     /**
      * Resize the grid to wrap all items
      */
-    LTGrid.prototype.resize = function () {
+    LTGrid.prototype.resizeHeight = function () {
         var size = this.size();
         var rect = new Rect(0, 0, 0, this.grid().height());
 
@@ -390,12 +409,21 @@
         var rect = $widget.lt_rect(size);
         var grid = this.grid();
 
-        grid
-            .move(rect, x, y)
-            .compact();
+        if (this.overlap) {
+            grid.move(rect, x, y);
+        } else {
+            grid.moveNoOverlap(rect, x, y);
+        }
+
+        if (this.compact) {
+            grid.compact();
+        }
 
         this.grid(grid);
-        this.resize();
+
+        if (this.resize) {
+            this.resizeHeight();
+        }
     };
 
     /**
@@ -408,9 +436,7 @@
         var $ghost = this.ghost($widget);
         var pos = $ghost.lt_rect(size);
 
-        if (false === this.overlap) {
-            this.reposition($widget, pos.x, pos.y);
-        }
+        this.reposition($widget, pos.x, pos.y);
     };
 
     // LAYOUT GRID PLUGIN DEFINITION

@@ -162,7 +162,7 @@ test('move-1', function () {
     ]);
 
     deepEqual(
-        grid.move(grid.rects[1], 4, 4).rects,
+        grid.moveNoOverlap(grid.rects[1], 4, 4).rects,
         [
             new $.lt.Rect(0,0,4,3),
             new $.lt.Rect(4,4,3,3),
@@ -205,7 +205,7 @@ test('move-2', function () {
     ]);
 
     deepEqual(
-        grid.move(grid.rects[1], 9, 1).rects,
+        grid.moveNoOverlap(grid.rects[1], 9, 1).rects,
         [
             new $.lt.Rect(0,0,4,3),
             new $.lt.Rect(9,1,3,3),
@@ -249,7 +249,7 @@ test('move-3', function () {
     ]);
 
     deepEqual(
-        grid.move(grid.rects[1], 1, 0).rects,
+        grid.moveNoOverlap(grid.rects[1], 1, 0).rects,
         [
             new $.lt.Rect(0,3,4,3),
             new $.lt.Rect(1,0,3,3),
