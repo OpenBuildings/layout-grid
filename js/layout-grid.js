@@ -253,6 +253,15 @@
     };
 
     /**
+     * Update an option directly
+     * @param  {string} name
+     * @param  {mixed} value
+     */
+    LTGrid.prototype.update = function (name, value) {
+        this[name] = value;
+    };
+
+    /**
      * Get the current screen size
      * @return {string} xs, sm, md or lg
      */
