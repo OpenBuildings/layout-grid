@@ -1,2 +1,3 @@
 title: Layout Grid
 baseurl: /layout-grid
+exclude: ['.sass-cache', 'node_modules', 'Gemfile', 'params.json']
