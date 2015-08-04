@@ -33,7 +33,7 @@ layout: index
     <h2>Demos</h2>
 
     <div class="row">
-        <div class="col-sm-4">
+        <div class="col-sm-3">
             <div class="panel panel-default">
                 <div class="panel-body">
                     <h4>
@@ -45,7 +45,7 @@ layout: index
                 </div>
             </div>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-3">
             <div class="panel panel-default">
                 <div class="panel-body">
                     <h4>
@@ -57,7 +57,7 @@ layout: index
                 </div>
             </div>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-3">
             <div class="panel panel-default">
                 <div class="panel-body">
                     <h4>
@@ -65,6 +65,18 @@ layout: index
                     </h4>
                     <p>
                         Can move items around between multiple containers. No additional code.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h4>
+                        <a href="{{ site.baseurl }}/demo/options">Configurable Options</a>
+                    </h4>
+                    <p>
+                        Modify options on the fly or set them as data attributes
                     </p>
                 </div>
             </div>
