@@ -438,25 +438,31 @@
 
     $(document)
         .on('dragstart.layout-grid.data-api', '[data-arrange="layout-grid"] .lt', function (event) {
-            event.originalEvent.dataTransfer.setData('text/plain', JSON.stringify({
+            var data = JSON.stringify({
                 LTWidget: '#' + $(this).lt_ensure_id().attr('id'),
-            }));
+            });
+            $.lt.currentEventData = data;
+            event.originalEvent.dataTransfer.setData('text/plain', data);
         })
 
         .on('dragover.layout-grid.data-api', '[data-arrange="layout-grid"]', function (event) {
             var $this = $(this);
-            var data = JSON.parse(event.originalEvent.dataTransfer.getData('text/plain'));
+            var dataString = event.originalEvent.dataTransfer.getData('text/plain') || $.lt.currentEventData;
+            if (dataString) {
+                var data = JSON.parse(dataString);
 
-            var mouseX = event.originalEvent.clientX + $(window).scrollLeft() - $this.offset().left;
-            var mouseY = event.originalEvent.clientY + $(window).scrollTop() - $this.offset().top;
+                var mouseX = event.originalEvent.clientX + $(window).scrollLeft() - $this.offset().left;
+                var mouseY = event.originalEvent.clientY + $(window).scrollTop() - $this.offset().top;
 
-            if (data && data.LTWidget) {
-                event.preventDefault();
+                if (data && data.LTWidget) {
+                    event.preventDefault();
 
-                $this
-                    .lt_grid('mask')
-                    .lt_grid('move_ghost', $(data.LTWidget),  mouseX, mouseY);
+                    $this
+                        .lt_grid('mask')
+                        .lt_grid('move_ghost', $(data.LTWidget),  mouseX, mouseY);
+                }
             }
+
         })
 
         .on('dragend.layout-grid.data-api', '[data-arrange="layout-grid"]', function (event) {
