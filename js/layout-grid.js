@@ -256,7 +256,7 @@
      * Get the current screen size
      * @return {string} xs, sm, md or lg
      */
-    LTGrid.prototype.size = function() {
+    LTGrid.prototype.size = function () {
         var currentSize;
         var windowWidth = $(window).width();
 
@@ -288,7 +288,7 @@
      * Remove the ghost element for this grid
      * @param  {jQuery} $widget
      */
-    LTGrid.prototype.remove_ghost = function () {
+    LTGrid.prototype.removeGhost = function () {
         if (this.$ghost) {
             this.$ghost.remove();
             this.$ghost = null;
@@ -313,7 +313,7 @@
      * @param  {string} size xs, sm, md or lg
      * @return {integer}
      */
-    LTGrid.prototype.item_width = function (size) {
+    LTGrid.prototype.itemWidth = function (size) {
         return (this.$element.width() - (this.options[size].cols - 1) * this.options[size].gap) / this.options[size].cols;
     };
 
@@ -322,8 +322,8 @@
      * @param  {string} size xs, sm, md or lg
      * @return {integer}
      */
-    LTGrid.prototype.item_height = function (size) {
-        return this.item_width(size) * this.options[size].aspect;
+    LTGrid.prototype.itemHeight = function (size) {
+        return this.itemWidth(size) * this.options[size].aspect;
     };
 
     /**
@@ -333,13 +333,13 @@
      * @param  {integer} mouseX
      * @param  {integer} mouseY
      */
-    LTGrid.prototype.move_ghost = function ($widget, mouseX, mouseY) {
+    LTGrid.prototype.moveGhost = function ($widget, mouseX, mouseY) {
         var size = this.size();
         var $ghost = this.ghost($widget);
         var rect = $ghost.lt_rect(size);
 
-        rect.x = Math.floor(mouseX / (this.item_width(size) + this.options[size].gap));
-        rect.y = Math.floor(mouseY / (this.item_height(size) + this.options[size].gap));
+        rect.x = Math.floor(mouseX / (this.itemWidth(size) + this.options[size].gap));
+        rect.y = Math.floor(mouseY / (this.itemHeight(size) + this.options[size].gap));
 
         rect.x = Math.min(Math.max(0, rect.x), this.options[size].cols - rect.w);
 
@@ -350,8 +350,8 @@
      * Clear artefacts like mask and ghost
      */
     LTGrid.prototype.end = function () {
-        this.remove_mask();
-        this.remove_ghost();
+        this.removeMask();
+        this.removeGhost();
     };
 
     /**
@@ -370,7 +370,7 @@
     /**
      * Remove the mask
      */
-    LTGrid.prototype.remove_mask = function () {
+    LTGrid.prototype.removeMask = function () {
         if (null !== this.$mask) {
             this.$mask.remove();
             this.$mask = null;
@@ -430,7 +430,7 @@
      * Move the widget to its corresponding ghost position
      * @param  {jQuery} $widget
      */
-    LTGrid.prototype.move_to_ghost = function ($widget) {
+    LTGrid.prototype.moveToGhost = function ($widget) {
         this.$element.append($widget);
         var size = this.size();
         var $ghost = this.ghost($widget);
@@ -488,7 +488,7 @@
 
                     $this
                         .lt_grid('mask')
-                        .lt_grid('move_ghost', $(data.LTWidget),  mouseX, mouseY);
+                        .lt_grid('moveGhost', $(data.LTWidget),  mouseX, mouseY);
                 }
             }
 
@@ -519,7 +519,7 @@
                 event.preventDefault();
 
                 $(this)
-                    .lt_grid('move_to_ghost', $(data.LTWidget))
+                    .lt_grid('moveToGhost', $(data.LTWidget))
                     .lt_grid('end');
             }
         });
