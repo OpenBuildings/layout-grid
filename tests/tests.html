@@ -5,25 +5,28 @@
   <title>Layout Grid Tests</title>
 
   <link type="text/css" rel="stylesheet" href="http://code.jquery.com/qunit/qunit-1.18.0.css">
-  <link type="text/css" rel="stylesheet" href="../dist/layout-grid.css">
-  <link type="text/css" rel="stylesheet" href="../dist/layout-reorder.css">
+  <link type="text/css" rel="stylesheet" href="../dist/layout-grid.min.css">
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
   <script type="text/javascript" src="http://code.jquery.com/qunit/qunit-1.18.0.js"></script>
-  <script type="text/javascript" src="../js/layout-grid.js"></script>
+  <script type="text/javascript" src='../js/layout-grid.js'></script>
   <script type="text/javascript" src='RectTest.js'></script>
   <script type="text/javascript" src='GridTest.js'></script>
   <script type="text/javascript" src='lt_rectTest.js'></script>
   <script type="text/javascript" src='lt_ensure_idTest.js'></script>
+  <script type="text/javascript" src='saveloadWidgetTest.js'></script>
+  <script type="text/javascript" src='LTGridTest.js'></script>
 </head>
 <body>
 
 <div id="qunit"></div>
-<div id="qunitFixture">
-    <div class="lt-container
-                lt-xs-h-16
-                lt-sm-h-12
-                lt-md-h-8
-                lt-lg-h-6">
+<div id="qunit-fixture">
+    <div
+     id="container1"
+     class="lt-container
+            lt-xs-h-16
+            lt-sm-h-12
+            lt-md-h-8
+            lt-lg-h-6">
         <div
          id="rect1"
          draggable="true"
@@ -90,7 +93,7 @@
                 lt-md-w-1
                 lt-md-h-1
                 lt-lg-x-0
-                lt-lg-y-1
+                lt-lg-y-2
                 lt-lg-w-1
                 lt-lg-h-1">
             <div class="lt-body text-center">
@@ -99,6 +102,40 @@
         </div>
         <div class="other-rect">
             some other
+        </div>
+    </div>
+
+    <div
+     id="container2"
+     class="lt-container
+            lt-xs-h-16
+            lt-sm-h-12
+            lt-md-h-8
+            lt-lg-h-6">
+        <div
+         id="rect4"
+         draggable="true"
+         class="lt
+                test-class
+                lt-xs-x-0
+                lt-xs-y-0
+                lt-xs-w-1
+                lt-xs-h-1
+                lt-sm-x-0
+                lt-sm-y-0
+                lt-sm-w-1
+                lt-sm-h-1
+                lt-md-x-0
+                lt-md-y-0
+                lt-md-w-1
+                lt-md-h-1
+                lt-lg-x-0
+                lt-lg-y-0
+                lt-lg-w-1
+                lt-lg-h-1">
+            <div class="lt-body text-center">
+                <h3>rect 4</h3>
+            </div>
         </div>
     </div>
 </div>

@@ -214,7 +214,7 @@
 
     function saveWidget (event, $widget) {
         var data = JSON.stringify({
-            LTWidget: '#' + $widget.lt_ensure_id().attr('id'),
+            LTWidget: '#' + $widget.lt_ensure_id().attr('id')
         });
 
         $.lt.currentEventData = data;
@@ -268,7 +268,7 @@
                 maxWidth: 768,
                 cols: 1,
                 aspect: 2/3
-            },
+            }
         }
     };
 
@@ -282,13 +282,17 @@
         this.options[name] = value;
     };
 
+    LTGrid.prototype.windowWidth = function () {
+        return $(window).width();
+    };
+
     /**
      * Get the current screen size
      * @return {string} xs, sm, md or lg
      */
     LTGrid.prototype.size = function () {
         var currentSize;
-        var windowWidth = $(window).width();
+        var windowWidth = this.windowWidth();
 
         $.each(this.options.params, function (size, sizeOptions) {
             if (windowWidth < sizeOptions.maxWidth) {
@@ -487,10 +491,10 @@
     function Plugin(option, param1, param2, param3) {
         return this.each(function () {
             var $this = $(this);
-            var data  = $this.data('cl.lt_grid');
+            var data  = $this.data('lt-grid');
             var options = $.extend(true, {}, LTGrid.DEFAULTS, $this.data(), typeof option == 'object' && option);
 
-            if (!data) $this.data('cl.lt_grid', (data = new LTGrid(this, options)));
+            if (!data) $this.data('lt-grid', (data = new LTGrid(this, options)));
             if (typeof option == 'string') data[option](param1, param2, param3);
         });
     }
