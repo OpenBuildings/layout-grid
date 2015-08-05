@@ -1,0 +1,28 @@
+{
+  "name": "clippings/layout-grid",
+  "version": "1.1.0",
+  "homepage": "https://clippings/github.com/layout-grid",
+  "authors": [
+    "Ivan Kerin <ikerin@gmail.com>"
+  ],
+  "description": "Static responsive grid with pure css. Javascript using native Drag and drop to reorder for each screen size.",
+  "main": [
+    "js/layout-grid.min.js",
+    "css/layout-grid.min.css",
+    "sass/layout-grid.sass"
+  ],
+  "keywords": [
+    "masonay",
+    "grid",
+    "static",
+    "reorder"
+  ],
+  "license": "BSD-3-Clause",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "examples",
+    "tests"
+  ]
+}
