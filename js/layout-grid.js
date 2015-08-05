@@ -517,8 +517,9 @@
             var $this = $(this);
 
             if ($widget) {
-                var mouseX = event.originalEvent.clientX + $(window).scrollLeft() - $this.offset().left;
-                var mouseY = event.originalEvent.clientY + $(window).scrollTop() - $this.offset().top;
+                var pos = event.originalEvent.touches ? event.originalEvent.touches[0] : event.originalEvent;
+                var mouseX = pos.pageX - $this.offset().left;
+                var mouseY = pos.pageY - $this.offset().top;
 
                 event.preventDefault();
 
