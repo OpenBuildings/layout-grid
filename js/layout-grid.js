@@ -370,6 +370,14 @@
     LTGrid.prototype.end = function () {
         this.removeMask();
         this.removeGhost();
+
+        if (this.options.compact) {
+            this.compact();
+        }
+
+        if (this.options.resize) {
+            this.resize();
+        }
     };
 
     /**
@@ -433,14 +441,6 @@
         }
 
         this.grid(size, grid);
-
-        if (this.options.compact) {
-            this.compact();
-        }
-
-        if (this.options.resize) {
-            this.resize();
-        }
     };
 
     /**
@@ -457,11 +457,7 @@
 
         this.reposition($widget, pos.x, pos.y);
 
-        if (this.$element !== $parent) {
-            $parent
-                .lt_grid('compact')
-                .lt_grid('resize');;
-        }
+        $parent.add(this.$element).lt_grid('end');
     };
 
     // LAYOUT GRID PLUGIN DEFINITION
