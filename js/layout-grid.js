@@ -212,57 +212,53 @@
         return this;
     };
 
-    var LTGrid = function (element) {
+    var LTGrid = function (element, options) {
         this.$element = $(element);
         this.$ghost = null;
         this.$mask = null;
-
-        this.resize = undefined !== this.$element.data('resize') ? this.$element.data('resize') : true;
-        this.overlap = undefined !== this.$element.data('overlap') ? this.$element.data('overlap') : false;
-        this.compact = undefined !== this.$element.data('compact') ? this.$element.data('compact') : true;
-
-        this.options = $.extend(
-            true,
-            {},
-            LTGrid.DEFAULT_OPTIONS,
-            this.$element.data('options') || {}
-        );
+        this.options = options;
     };
 
-    LTGrid.DEFAULT_OPTIONS = {
-        lg: {
-            gap: 1,
-            maxWidth: Number.MAX_VALUE,
-            cols: 4,
-            aspect: 2/3
-        },
-        md: {
-            gap: 2,
-            maxWidth: 1200,
-            cols: 3,
-            aspect: 2/3
-        },
-        sm: {
-            gap: 3,
-            maxWidth: 992,
-            cols: 2,
-            aspect: 2/3
-        },
-        xs: {
-            gap: 4,
-            maxWidth: 768,
-            cols: 1,
-            aspect: 2/3
-        },
+    LTGrid.DEFAULTS = {
+        resize: true,
+        overlap: false,
+        compact: true,
+        params: {
+            lg: {
+                gap: 1,
+                maxWidth: Number.MAX_VALUE,
+                cols: 4,
+                aspect: 2/3
+            },
+            md: {
+                gap: 2,
+                maxWidth: 1200,
+                cols: 3,
+                aspect: 2/3
+            },
+            sm: {
+                gap: 3,
+                maxWidth: 992,
+                cols: 2,
+                aspect: 2/3
+            },
+            xs: {
+                gap: 4,
+                maxWidth: 768,
+                cols: 1,
+                aspect: 2/3
+            },
+        }
     };
 
     /**
      * Update an option directly
+     *
      * @param  {string} name
      * @param  {mixed} value
      */
-    LTGrid.prototype.update = function (name, value) {
-        this[name] = value;
+    LTGrid.prototype.option = function (name, value) {
+        this.options[name] = value;
     };
 
     /**
@@ -273,7 +269,7 @@
         var currentSize;
         var windowWidth = $(window).width();
 
-        $.each(this.options, function (size, sizeOptions) {
+        $.each(this.options.params, function (size, sizeOptions) {
             if (windowWidth < sizeOptions.maxWidth) {
                 currentSize = size;
             }
@@ -309,11 +305,20 @@
     };
 
     /**
-     * Resize the grid to wrap all items
+     * Compact the grid for current size
      */
-    LTGrid.prototype.resizeHeight = function () {
+    LTGrid.prototype.compact = function () {
         var size = this.size();
-        var rect = new Rect(0, 0, 0, this.grid().height());
+
+        this.grid(size, this.grid(size).compact());
+    };
+
+    /**
+     * Resize container to match items
+     */
+    LTGrid.prototype.resize = function () {
+        var size = this.size();
+        var rect = new Rect(0, 0, 0, this.grid(size).height());
 
         this.$element.attr(
             'class',
@@ -327,7 +332,7 @@
      * @return {integer}
      */
     LTGrid.prototype.itemWidth = function (size) {
-        return (this.$element.width() - (this.options[size].cols - 1) * this.options[size].gap) / this.options[size].cols;
+        return (this.$element.width() - (this.options.params[size].cols - 1) * this.options.params[size].gap) / this.options.params[size].cols;
     };
 
     /**
@@ -336,7 +341,7 @@
      * @return {integer}
      */
     LTGrid.prototype.itemHeight = function (size) {
-        return this.itemWidth(size) * this.options[size].aspect;
+        return this.itemWidth(size) * this.options.params[size].aspect;
     };
 
     /**
@@ -351,10 +356,10 @@
         var $ghost = this.ghost($widget);
         var rect = $ghost.lt_rect(size);
 
-        rect.x = Math.floor(mouseX / (this.itemWidth(size) + this.options[size].gap));
-        rect.y = Math.floor(mouseY / (this.itemHeight(size) + this.options[size].gap));
+        rect.x = Math.floor(mouseX / (this.itemWidth(size) + this.options.params[size].gap));
+        rect.y = Math.floor(mouseY / (this.itemHeight(size) + this.options.params[size].gap));
 
-        rect.x = Math.min(Math.max(0, rect.x), this.options[size].cols - rect.w);
+        rect.x = Math.min(Math.max(0, rect.x), this.options.params[size].cols - rect.w);
 
         $ghost.lt_rect(size, rect);
     };
@@ -395,8 +400,7 @@
      * @param  {Grid} grid
      * @return {Grid}
      */
-    LTGrid.prototype.grid = function (grid) {
-        var size = this.size();
+    LTGrid.prototype.grid = function (size, grid) {
         var $items = this.$element.children('[draggable]');
 
         if (undefined === grid) {
@@ -420,22 +424,22 @@
     LTGrid.prototype.reposition = function ($widget, x, y) {
         var size = this.size();
         var rect = $widget.lt_rect(size);
-        var grid = this.grid();
+        var grid = this.grid(size);
 
-        if (this.overlap) {
+        if (this.options.overlap) {
             grid.move(rect, x, y);
         } else {
             grid.moveNoOverlap(rect, x, y);
         }
 
-        if (this.compact) {
-            grid.compact();
+        this.grid(size, grid);
+
+        if (this.options.compact) {
+            this.compact();
         }
 
-        this.grid(grid);
-
-        if (this.resize) {
-            this.resizeHeight();
+        if (this.options.resize) {
+            this.resize();
         }
     };
 
@@ -444,12 +448,20 @@
      * @param  {jQuery} $widget
      */
     LTGrid.prototype.moveToGhost = function ($widget) {
-        this.$element.append($widget);
         var size = this.size();
+        var $parent = $widget.parent();
         var $ghost = this.ghost($widget);
         var pos = $ghost.lt_rect(size);
 
+        this.$element.append($widget);
+
         this.reposition($widget, pos.x, pos.y);
+
+        if (this.$element !== $parent) {
+            $parent
+                .lt_grid('compact')
+                .lt_grid('resize');;
+        }
     };
 
     // LAYOUT GRID PLUGIN DEFINITION
@@ -459,8 +471,9 @@
         return this.each(function () {
             var $this = $(this);
             var data  = $this.data('cl.lt_grid');
+            var options = $.extend(true, {}, LTGrid.DEFAULTS, $this.data(), typeof option == 'object' && option);
 
-            if (!data) $this.data('cl.lt_grid', (data = new LTGrid(this)));
+            if (!data) $this.data('cl.lt_grid', (data = new LTGrid(this, options)));
             if (typeof option == 'string') data[option](param1, param2, param3);
         });
     }
