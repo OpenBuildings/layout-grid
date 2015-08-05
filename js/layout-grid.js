@@ -212,6 +212,27 @@
         return this;
     };
 
+    function saveWidget (event, $widget) {
+        var data = JSON.stringify({
+            LTWidget: '#' + $widget.lt_ensure_id().attr('id'),
+        });
+
+        $.lt.currentEventData = data;
+
+        if (event.originalEvent.dataTransfer) {
+            event.originalEvent.dataTransfer.setData('text/plain', data);
+        }
+    }
+
+    function loadWidget (event) {
+        var dataString = (event.originalEvent.dataTransfer && event.originalEvent.dataTransfer.getData('text/plain')) || $.lt.currentEventData;
+
+        if (dataString) {
+            var data = JSON.parse(dataString);
+            return $(data.LTWidget);
+        }
+    }
+
     var LTGrid = function (element, options) {
         this.$element = $(element);
         this.$ghost = null;
@@ -478,50 +499,37 @@
     $.fn.lt_grid.Constructor = LTGrid;
     $.lt = {
         Grid: Grid,
-        Rect: Rect
+        Rect: Rect,
+        saveWidget: saveWidget,
+        loadWidget: loadWidget
     };
 
     // LAYOUT GRID DATA-API
     // ====================
 
     $(document)
-        .on('dragstart.layout-grid.data-api', '[data-arrange="layout-grid"] .lt', function (event) {
-            var data = JSON.stringify({
-                LTWidget: '#' + $(this).lt_ensure_id().attr('id'),
-            });
-
-            $.lt.currentEventData = data;
-
-            event.originalEvent.dataTransfer.setData('text/plain', data);
+        .on('dragstart.layout-grid.data-api touchstart.layout-grid.data-api', '[data-arrange="layout-grid"] .lt', function (event) {
+            saveWidget(event, $(this));
         })
 
-        .on('dragover.layout-grid.data-api', '[data-arrange="layout-grid"]', function (event) {
+        .on('dragover.layout-grid.data-api touchmove.layout-grid.data-api', '[data-arrange="layout-grid"]', function (event) {
+            var $widget = loadWidget(event);
             var $this = $(this);
-            var dataString = event.originalEvent.dataTransfer.getData('text/plain') || $.lt.currentEventData;
 
-            if (dataString) {
-                var data = JSON.parse(dataString);
-
+            if ($widget) {
                 var mouseX = event.originalEvent.clientX + $(window).scrollLeft() - $this.offset().left;
                 var mouseY = event.originalEvent.clientY + $(window).scrollTop() - $this.offset().top;
 
-                if (data && data.LTWidget) {
-                    event.preventDefault();
+                event.preventDefault();
 
-                    $this
-                        .lt_grid('mask')
-                        .lt_grid('moveGhost', $(data.LTWidget),  mouseX, mouseY);
-                }
+                $this
+                    .lt_grid('mask')
+                    .lt_grid('moveGhost', $widget,  mouseX, mouseY);
             }
-
         })
 
-        .on('dragend.layout-grid.data-api', '[data-arrange="layout-grid"]', function (event) {
+        .on('dragend.layout-grid.data-api touchcancel.layout-grid.data-api', '[data-arrange="layout-grid"]', function (event) {
             $(this).lt_grid('end');
-        })
-
-        .on('dragleave.layout-grid.data-api', '[data-arrange="layout-grid"]', function (event) {
-            event.preventDefault();
         })
 
         .on('dragleave.layout-grid.data-api', '[data-arrange="layout-grid"]', function (event) {
@@ -533,15 +541,14 @@
             }
         })
 
-        .on('drop.layout-grid.data-api', '[data-arrange="layout-grid"]', function (event) {
-            var data = JSON.parse(event.originalEvent.dataTransfer.getData('text/plain'));
+        .on('drop.layout-grid.data-api touchend.layout-grid.data-api', '[data-arrange="layout-grid"]', function (event) {
+            var $widget = loadWidget(event);
 
-            if (data && data.LTWidget) {
-
+            if ($widget) {
                 event.preventDefault();
 
                 $(this)
-                    .lt_grid('moveToGhost', $(data.LTWidget))
+                    .lt_grid('moveToGhost', $widget)
                     .lt_grid('end');
             }
         });
