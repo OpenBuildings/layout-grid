@@ -95,3 +95,32 @@ $max-rows-lg: 10 !default
 
 @media (min-width: $screen-lg)
     @include responsive-visibility('lg', $cols-lg, $max-rows-lg, $gap-lg, $aspect-lg)
+
+
+/**
+ * Styles specific to the ordering process
+ */
+.lt
+    z-index: 1
+    transition: margin-left 0.1s ease-out, margin-top 0.1s ease-out
+
+.lt-ghost
+    opacity: 0.5
+    z-index: 2
+    pointer-events: none
+    background-color: black
+    transition: margin-left 0s ease-out, margin-top 0s ease-out
+
+.lt-container
+    transition: padding-bottom 0.1s ease-out
+
+.lt-container .lt-mask
+    display: block
+    border: 1px solid #AAA
+    position: absolute
+    z-index: 3
+    left: 0
+    right: 0
+    top: 0
+    bottom: 0
+

@@ -8,22 +8,21 @@ module.exports = function (grunt) {
         uglify: {
             js: {
                 files: {
-                    'dist/layout-grid.min.js': ['js/layout-grid.js']
+                    'js/layout-grid.min.js': ['js/layout-grid.js']
                 }
             }
         },
         sass: {
             dist: {
                 files: {
-                    'css/layout-grid.css': 'sass/layout-grid.sass',
-                    'css/layout-reorder.css': 'sass/layout-reorder.sass',
+                    'css/layout-grid.css': 'sass/layout-grid.sass'
                 }
             }
         },
         cssmin: {
           target: {
             files: {
-              'dist/layout-grid.min.css': ['css/layout-reorder.css', 'css/layout-grid.css']
+              'css/layout-grid.min.css': ['css/layout-grid.css']
             }
           }
         }

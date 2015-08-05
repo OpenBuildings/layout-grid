@@ -513,5 +513,31 @@
 
   .lt-lg-h-10 {
     padding-bottom: 170.66667%; } }
+/**
+ * Styles specific to the ordering process
+ */
+.lt {
+  z-index: 1;
+  transition: margin-left 0.1s ease-out, margin-top 0.1s ease-out; }
+
+.lt-ghost {
+  opacity: 0.5;
+  z-index: 2;
+  pointer-events: none;
+  background-color: black;
+  transition: margin-left 0s ease-out, margin-top 0s ease-out; }
+
+.lt-container {
+  transition: padding-bottom 0.1s ease-out; }
+
+.lt-container .lt-mask {
+  display: block;
+  border: 1px solid #AAA;
+  position: absolute;
+  z-index: 3;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0; }
 
 /*# sourceMappingURL=layout-grid.css.map */
