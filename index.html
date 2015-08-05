@@ -1,0 +1,248 @@
+---
+layout: index
+---
+<div class="jumbotron">
+    <div class="container">
+        <h1>{{ site.title }}</h1>
+        <p>
+            {{ site.github.project_tagline }}
+        </p>
+        <a
+         href="{{ site.github.releases[0].zipball_url }}"
+         class="btn btn-lg btn-primary">
+			<i class="fa fa-download"></i> Downlaod Latest Release
+        </a>
+    </div>
+</div>
+
+<div class="container">
+
+    <h2>Quick Example</h2>
+
+    <div class="lead">
+        Heres' a quick preview of how it could look like. You can drag these items arround and see how they react to resizing.
+    </div>
+</div>
+
+<div class="container">
+
+	{% include reorder-small.html %}
+
+    <h2>Demos</h2>
+
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h4>
+                        <a href="{{ site.baseurl }}/demo/static">
+                            <i class="fa fa-th"></i>
+                            Static HTML
+                        </a>
+                    </h4>
+                    <p>
+                        A static example without any javascript. Just a responsive grid.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h4>
+                        <a href="{{ site.baseurl }}/demo/reorder">
+                            <i class="fa fa-arrows"></i>
+                            Reorder
+                        </a>
+                    </h4>
+                    <p>
+                        Reorder using native drag'n'drop and a little bit of javascript.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h4>
+                        <a href="{{ site.baseurl }}/demo/multiple">
+                            <i class="fa fa-exchange"></i>
+                            Multiple Containers
+                        </a>
+                    </h4>
+                    <p>
+                        Can move items around between multiple containers. No additional code.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h4>
+                        <a href="{{ site.baseurl }}/demo/options">
+                            <i class="fa fa-cog"></i>
+                            Configurable Options
+                        </a>
+                    </h4>
+                    <p>
+                        Modify options on the fly or set them as data attributes.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h4>
+                        <a href="{{ site.baseurl }}/demo/custom">
+                            <i class="fa fa-cogs"></i>
+                            Custom columns and sizes
+                        </a>
+                    </h4>
+                    <p>
+                        You can have different column counts, aspect ratios and gaps from the defaults.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <h2>Usage</h2>
+
+    <p>
+        There are 2 primary components - the css, which is responsible for positioning and the javascript plugin, used to change that positioning. You can use only the css without any javascript and still get a nice responsive grid.
+    </p>
+
+    <p>
+        Layout grid uses <a href="http://getbootstrap.com/css/#grid-media-queries">bootstrap's breakpoints</a> by default (configurable). They are as follows:
+    </p>
+
+    <table class="table table-bordered table-constrained">
+        <tr>
+            <th class="col-sm-4">
+                Extra small devices <br>
+                <small>Phones (&lt;768px)</small>
+            </th>
+            <td class="col-sm-8">xs</td>
+        </tr>
+        <tr>
+            <th class="col-sm-4">
+                Small devices <br>
+                <small>Tablets (≥768px)</small>
+            </th>
+            <td class="col-sm-8">sm</td>
+        </tr>
+        <tr>
+            <th class="col-sm-4">
+                Medium devices <br>
+                <small>Desktops (≥992px)</small>
+            </th>
+            <td class="col-sm-8">md</td>
+        </tr>
+        <tr>
+            <th class="col-sm-4">
+                Large devices <br>
+                <small>Desktops (≥1200px)</small>
+            </th>
+            <td class="col-sm-8">lg</td>
+        </tr>
+    </table>
+
+    <p>
+        We start with the basic html structure:
+    </p>
+
+    <pre>
+&lt;div class="lt-container lt-xs-h-6"&gt;
+    &lt;div class="lt lt-xs-x-0 lt-xs-y-0 lt-xs-w-1 lt-xs-h-1"&gt;
+        &lt;div class="lt-body"&gt;
+            Your content
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</pre>
+
+    <p>
+        <code>lt-xs-h-6</code> on the lt-container means the height on screen size "xs" the height will be 6 counts. <code>lt-xs-x-0</code> on the item means the x position on screen size "xs"
+    </p>
+
+    <h4>Classes</h4>
+
+    <table class="table table-bordered table-constrained">
+        <tr>
+            <th class="col-sm-4">lt-{size}-x-{number}</th>
+            <td class="col-sm-8">Horizontal Position on xs screen size, starts from and defaults to 0</td>
+        </tr>
+        <tr>
+            <th class="col-sm-4">lt-{size}-y-{number}</th>
+            <td class="col-sm-8">Vertical Position on xs screen size, starts from and defaults to 0</td>
+        </tr>
+        <tr>
+            <th class="col-sm-4">lt-{size}-w-{number}</th>
+            <td class="col-sm-8">Width on xs screen size, starts from and defaults to 1</td>
+        </tr>
+        <tr>
+            <th class="col-sm-4">lt-{size}-h-{number}</th>
+            <td class="col-sm-8">Height on xs screen size, starts from and defaults to 1</td>
+        </tr>
+    </table>
+
+    <p>
+        Here's how it looks when every class for every screen size is set:
+    </p>
+
+    <pre>
+&lt;div class="lt-container lt-xs-h-6"&gt;
+    &lt;div class="lt
+                   lt-xs-x-0
+                   lt-xs-y-0
+                   lt-xs-w-1
+                   lt-xs-h-1
+                   lt-sm-x-0
+                   lt-sm-y-0
+                   lt-sm-w-1
+                   lt-sm-h-1
+                   lt-md-x-0
+                   lt-md-y-0
+                   lt-md-w-1
+                   lt-md-h-1
+                   lt-lg-x-0
+                   lt-lg-y-0
+                   lt-lg-w-1
+                   lt-lg-h-1"&gt;
+        &lt;div class="lt-body"&gt;
+            Your content
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</pre>
+
+    <p>
+        As with other bootstrap classes the smaller sizes act as the default for larger ones, so you need to set only the things that change of the larger sizes.
+    </p>
+
+    <h2>Reordering with Javascript</h2>
+
+    <p>
+        Javascript is initialized via <code>data-arrange="layout-grid"</code> and setting up html5's <code>draggable="true"</code> on the individual items. The javascript is initialized only on the event of a drag on these items.
+    </p>
+
+    <pre>
+&lt;div
+ class="lt-container lt-xs-h-6"&gt;
+ data-arrange="layout-grid"
+    &lt;div
+     class="lt lt-xs-x-0 lt-xs-y-0 lt-xs-w-1 lt-xs-h-1"&gt;
+     draggable="true"
+        &lt;div class="lt-body"&gt;
+            Your content
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</pre>
+
+    <p>
+        A project from <a href="https://github.com/ivank">Ivan Kerin</a> by <a href="https://clippings.com">Clippings.com</a>
+    </p>
+</div>

@@ -1,3 +1,9 @@
 body {
-	padding-top: 50px;
+	padding-top: 70px;
+}
+.jumbotron {
+	margin-top: -20px;
+}
+.lt-container {
+	margin: 20px 0;
 }
