@@ -1,15 +1,19 @@
 /**
  * Styles specific to the ordering process
  */
+.lt
+    z-index: 1
+    transition: margin-left 0.1s ease-out, margin-top 0.1s ease-out
+
 .lt-ghost
     opacity: 0.5
     z-index: 2
     pointer-events: none
     background-color: black
+    transition: margin-left 0s ease-out, margin-top 0s ease-out
 
-.lt
-    z-index: 1
-    transition: margin-left 0.1s ease-out, margin-top 0.1s ease-out
+.lt-container
+    transition: padding-bottom 0.1s ease-out
 
 .lt-container .lt-mask
     display: block
