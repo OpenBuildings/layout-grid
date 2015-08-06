@@ -1,5 +1,5 @@
 {
-  "name": "clippings/layout-grid",
+  "name": "clippings-layout-grid",
   "version": "1.1.0",
   "homepage": "https://clippings/github.com/layout-grid",
   "authors": [
@@ -11,6 +11,7 @@
     "css/layout-grid.min.css",
     "sass/layout-grid.sass"
   ],
+  "moduleType": "globals",
   "keywords": [
     "masonay",
     "grid",
