@@ -24,6 +24,10 @@
     "bower_components",
     "examples",
     ".sass-cache",
+    "Gruntfile.js",
     "tests"
-  ]
+  ],
+  "dependencies": {
+    "jquery": ">= 1.9.0"
+  }
 }
