@@ -1,14 +1,18 @@
 module('LTGrid');
 
-test('construct same item', function () {
+QUnit.begin(function () {
+    $.lt.currentEventData = null;
+});
+
+test('Constructor with default options', function () {
     var $container = $('#container1');
     var lt_grid = $container.lt_grid().data('lt-grid');
 
-    equal(lt_grid, $container.lt_grid().data('lt-grid'));
-    deepEqual(lt_grid.options, $.fn.lt_grid.Constructor.DEFAULTS);
+    equal(lt_grid, $container.lt_grid().data('lt-grid'), 'Set the lt_grid object as data object');
+    deepEqual(lt_grid.options, $.fn.lt_grid.Constructor.DEFAULTS, 'Set DEFAULTS to options');
 });
 
-test('construct options', function () {
+test('Constructor with custom options and modifiable options', function () {
     var $container = $('#container2');
 
     var expectedParams = {
@@ -65,60 +69,61 @@ test('construct options', function () {
         }
     });
 
-    equal($container.data('lt-grid').options.resize, false);
-    equal($container.data('lt-grid').options.compact, false);
-    equal($container.data('lt-grid').options.overlap, true);
-    deepEqual($container.data('lt-grid').options.params, expectedParams);
+    equal($container.data('lt-grid').options.resize, false, 'Match the passed option for resize');
+    equal($container.data('lt-grid').options.compact, false, 'Match the passed option for compact');
+    equal($container.data('lt-grid').options.overlap, true, 'Match the passed option for overlap');
+    deepEqual($container.data('lt-grid').options.params, expectedParams, 'Match the passed option for params');
 
     $container.lt_grid('option', 'resize', true);
     $container.lt_grid('option', 'compact', true);
     $container.lt_grid('option', 'overlap', false);
 
-    equal($container.data('lt-grid').options.resize, true);
-    equal($container.data('lt-grid').options.compact, true);
-    equal($container.data('lt-grid').options.overlap, false);
+    equal($container.data('lt-grid').options.resize, true, 'Match the changed option for resize');
+    equal($container.data('lt-grid').options.compact, true, 'Match the changed option for compact');
+    equal($container.data('lt-grid').options.overlap, false, 'Match the changed option for overlap');
 });
 
-test('windowWidth', function () {
+test('windowWidth method', function () {
     var lt_grid = new $.fn.lt_grid.Constructor($('#container1'), $.fn.lt_grid.Constructor.DEFAULTS);
     var width = $(window).width();
 
-    equal(lt_grid.windowWidth(), width);
+    equal(lt_grid.windowWidth(), width, 'Are the same width as window');
 });
 
-test('size', function () {
+test('size method', function () {
     var lt_grid = new $.fn.lt_grid.Constructor($('#container1'), $.fn.lt_grid.Constructor.DEFAULTS);
 
     lt_grid.windowWidth = function () { return 1500; };
-    equal(lt_grid.size(), 'lg');
+    equal(lt_grid.size(), 'lg', 'Match size for lg size (≥1200px)');
 
     lt_grid.windowWidth = function () { return 1000; };
-    equal(lt_grid.size(), 'md');
+    equal(lt_grid.size(), 'md', 'Match size for md size (≥992px) ');
 
     lt_grid.windowWidth = function () { return 800; };
-    equal(lt_grid.size(), 'sm');
+    equal(lt_grid.size(), 'sm', 'Match size for sm size (≥768px) ');
 
     lt_grid.windowWidth = function () { return 300; };
-    equal(lt_grid.size(), 'xs');
+    equal(lt_grid.size(), 'xs', 'Match size for xs size (<768px) ');
 });
 
-test('ghost', function () {
+test('ghost setter / getter', function () {
     var lt_grid = new $.fn.lt_grid.Constructor($('#container1'), $.fn.lt_grid.Constructor.DEFAULTS);
     var $widget = $('#rect1');
     var $ghost = lt_grid.ghost($widget);
 
-    equal($ghost[0], lt_grid.ghost($widget)[0]);
-    equal($ghost.parent()[0], $widget.parent()[0]);
-    deepEqual($ghost.lt_rect('lg'), $widget.lt_rect('lg'));
+    equal($ghost[0], lt_grid.ghost($widget)[0], 'Return the same object when called twice');
+    equal($ghost.parent()[0], $widget.parent()[0], 'Is inside the same container');
+    deepEqual($ghost.lt_rect('lg'), $widget.lt_rect('lg'), 'Is with the same Rect as the widget');
 
     lt_grid.removeGhost();
 
-    equal($ghost.parent().length, 0);
+    equal($ghost.parent().length, 0, 'Ghost is removed from the DOM');
+    equal(lt_grid.$ghost, null, 'Reference set to null');
 
     lt_grid.removeGhost();
 });
 
-test('compact', function () {
+test('compact method', function () {
     var lt_grid = new $.fn.lt_grid.Constructor($('#container1'), $.fn.lt_grid.Constructor.DEFAULTS);
     lt_grid.windowWidth = function () { return 1500; };
     lt_grid.compact();
@@ -129,31 +134,156 @@ test('compact', function () {
             new $.lt.Rect(0, 0, 1, 1),
             new $.lt.Rect(1, 0, 1, 2),
             new $.lt.Rect(0, 1, 1, 1)
-        ]
+        ],
+        'Rects of the widgets are properly compacted for the "lg" size'
     );
 });
 
-test('resize', function () {
+test('resize method', function () {
     var lt_grid = new $.fn.lt_grid.Constructor($('#container1'), $.fn.lt_grid.Constructor.DEFAULTS);
     lt_grid.windowWidth = function () { return 1500; };
     lt_grid.resize();
 
     var rect = $('#container1').lt_rect('lg');
 
-    equal(rect.h, 3);
+    equal(rect.h, 3, 'Height of the grid container should be shrinked to 3');
 });
 
-test('itemWidth', function () {
+test('itemWidth getter', function () {
     var lt_grid = new $.fn.lt_grid.Constructor($('#container1'), $.fn.lt_grid.Constructor.DEFAULTS);
     $('#container1').width(750);
-    equal(lt_grid.itemWidth('lg'), 186.75);
+    equal(lt_grid.itemWidth('lg'), 186.75, 'The width of a single cell in the grid with 750');
 });
 
-test('itemHeight', function () {
+test('itemHeight getter', function () {
     var lt_grid = new $.fn.lt_grid.Constructor($('#container1'), $.fn.lt_grid.Constructor.DEFAULTS);
 
     $('#container1').width(750);
 
-    equal(lt_grid.itemHeight('lg'), 124.5);
+    equal(lt_grid.itemHeight('lg'), 124.5, 'The height of a single cell in the grid with width 750');
 });
 
+test('moveGhost method', function () {
+    var lt_grid = new $.fn.lt_grid.Constructor($('#container1'), $.fn.lt_grid.Constructor.DEFAULTS);
+    var $widget = $('#rect1');
+    var $ghost = lt_grid.ghost($widget);
+    lt_grid.windowWidth = function () { return 1500; };
+
+    deepEqual($ghost.lt_rect('lg'), new $.lt.Rect(0, 0, 1, 1), 'Initial position and size of the ghost');
+
+    lt_grid.moveGhost($widget, 500, 500);
+
+    deepEqual($ghost.lt_rect('lg'), new $.lt.Rect(1, 2, 1, 1), 'Moved position and size of the ghost');
+});
+
+test('mask getter / setter', function () {
+    var lt_grid = new $.fn.lt_grid.Constructor($('#container1'), $.fn.lt_grid.Constructor.DEFAULTS);
+    var $mask = lt_grid.mask();
+
+    equal($mask[0], lt_grid.mask()[0], 'Return the same object when called twice');
+    ok($mask.hasClass('lt-mask'), 'Have a lt-mask class');
+    equal($mask.parent()[0], $('#container1')[0], 'Is child of the container');
+
+    lt_grid.removeMask();
+
+    equal($mask.parent().length, 0, 'Removed from container');
+    equal(lt_grid.$mask, null, 'Reference set to null');
+
+    lt_grid.removeMask();
+
+    equal(lt_grid.$mask, null, 'Fine to be called multiple times');
+});
+
+test('end method', function () {
+    var lt_grid = new $.fn.lt_grid.Constructor($('#container1'), $.fn.lt_grid.Constructor.DEFAULTS);
+    var $widget = $('#rect1');
+
+    lt_grid.windowWidth = function () { return 1500; };
+
+    lt_grid.ghost($widget);
+    lt_grid.mask();
+
+    lt_grid.end();
+
+    deepEqual(
+        lt_grid.grid('lg').rects,
+        [
+            new $.lt.Rect(0, 0, 1, 1),
+            new $.lt.Rect(1, 0, 1, 2),
+            new $.lt.Rect(0, 1, 1, 1)
+        ],
+        'Rects are compacted'
+    );
+
+    equal($('#container1').lt_rect('lg').h, 2, 'Container is resized');
+
+    ok($('#container1').find('lt-ghost').length === 0, 'Ghost is removed');
+    ok($('#container1').find('lt-mask').length === 0, 'Mask is removed');
+});
+
+test('grid getter / setter', function () {
+    var lt_grid = new $.fn.lt_grid.Constructor($('#container1'), $.fn.lt_grid.Constructor.DEFAULTS);
+    var grid = lt_grid.grid('lg');
+
+    ok(grid instanceof $.lt.Grid);
+
+    deepEqual(
+        grid.rects,
+        [
+            new $.lt.Rect(0, 0, 1, 1),
+            new $.lt.Rect(1, 0, 1, 2),
+            new $.lt.Rect(0, 2, 1, 1)
+        ],
+        'Rects of the widgets are retrieved properly for the "lg" size'
+    );
+
+    grid.rects[0].y = 1;
+    grid.rects[1].y = 2;
+    grid.rects[2].y = 4;
+
+    lt_grid.grid('lg', grid);
+
+    deepEqual($('#rect1').lt_rect('lg'), new $.lt.Rect(0, 1, 1, 1), 'Is modified by grid setter');
+    deepEqual($('#rect2').lt_rect('lg'), new $.lt.Rect(1, 2, 1, 2), 'Is modified by grid setter');
+    deepEqual($('#rect3').lt_rect('lg'), new $.lt.Rect(0, 4, 1, 1), 'Is modified by grid setter');
+});
+
+test('reposition method', function () {
+    var lt_grid = new $.fn.lt_grid.Constructor($('#container1'), $.fn.lt_grid.Constructor.DEFAULTS);
+    var $widget = $('#rect1');
+
+    lt_grid.windowWidth = function () { return 1500; };
+
+    lt_grid.reposition($widget, 1, 0);
+
+    deepEqual(
+        lt_grid.grid('lg').rects,
+        [
+            new $.lt.Rect(1, 0, 1, 1),
+            new $.lt.Rect(1, 1, 1, 2),
+            new $.lt.Rect(0, 2, 1, 1)
+        ],
+        'Widgets move around to keep the grid from overlapping after repositioning'
+    );
+});
+
+test('moveToGhost method', function () {
+    var lt_grid = new $.fn.lt_grid.Constructor($('#container1'), $.fn.lt_grid.Constructor.DEFAULTS);
+    var $widget = $('#rect1');
+    lt_grid.windowWidth = function () { return 1500; };
+    var $ghost = lt_grid.ghost($widget);
+
+    lt_grid.moveGhost($widget, 300, 160);
+
+    lt_grid.moveToGhost($widget);
+
+    deepEqual(
+        lt_grid.grid('lg').rects,
+        [
+            new $.lt.Rect(1, 1, 1, 2),
+            new $.lt.Rect(0, 2, 1, 1),
+            new $.lt.Rect(1, 0, 1, 1)
+        ],
+        'Widgets move around to keep the grid from overlapping after repositioning'
+    );
+});

@@ -1,4 +1,8 @@
-module('SaveLoadWidget')
+module('SaveLoadWidget');
+
+QUnit.begin(function () {
+    $.lt.currentEventData = null;
+});
 
 test('saveload', function () {
     var $item = $('#rect1');

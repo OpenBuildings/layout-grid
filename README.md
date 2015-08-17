@@ -19,6 +19,9 @@ Modification
 ``sass/layout-grid.sass`` allows you to modify a lot of variables for each screen size, overriding the defaults.
 If you're using reoder you'll need to tell the javascript plugin about these modifications as well.
 
+Development
+-----------
+After modification you can run the ``npm install`` and then ``grunt`` to build and minify all the js and sass
 
 License
 -------

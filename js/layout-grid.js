@@ -166,8 +166,6 @@
      * @param  {integer} y
      */
     Grid.prototype.move = function (rect, x, y) {
-        var self = this;
-
         rect.x = x;
         rect.y = y;
 
@@ -512,11 +510,11 @@
     // ====================
 
     $(document)
-        .on('dragstart.layout-grid.data-api touchstart.layout-grid.data-api', '[data-arrange="layout-grid"] .lt', function (event) {
+        .on('dragstart.layout-grid touchstart.layout-grid', '[data-arrange="layout-grid"] .lt', function (event) {
             saveWidget(event, $(this));
         })
 
-        .on('dragover.layout-grid.data-api touchmove.layout-grid.data-api', '[data-arrange="layout-grid"]', function (event) {
+        .on('dragover.layout-grid touchmove.layout-grid', '[data-arrange="layout-grid"]', function (event) {
             var $widget = loadWidget(event);
             var $this = $(this);
 
@@ -533,20 +531,20 @@
             }
         })
 
-        .on('dragend.layout-grid.data-api touchcancel.layout-grid.data-api', '[data-arrange="layout-grid"]', function (event) {
+        .on('dragend.layout-grid touchcancel.layout-grid', '[data-arrange="layout-grid"]', function (event) {
             $(this).lt_grid('end');
         })
 
-        .on('dragleave.layout-grid.data-api', '[data-arrange="layout-grid"]', function (event) {
+        .on('dragleave.layout-grid', '[data-arrange="layout-grid"]', function (event) {
             event.preventDefault();
 
             // We need to have a mask because of the event bubbling does not allow for a nice "do stuff on dragleave"
-            if ($(event.target).data('lt-grid') =='mask') {
+            if ($(event.target).data('lt-grid') == 'mask') {
                 $(this).lt_grid('end');
             }
         })
 
-        .on('drop.layout-grid.data-api touchend.layout-grid.data-api', '[data-arrange="layout-grid"]', function (event) {
+        .on('drop.layout-grid touchend.layout-grid', '[data-arrange="layout-grid"]', function (event) {
             var $widget = loadWidget(event);
 
             if ($widget) {
