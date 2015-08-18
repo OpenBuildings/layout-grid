@@ -6,15 +6,6 @@
 
   <link type="text/css" rel="stylesheet" href="http://code.jquery.com/qunit/qunit-1.18.0.css">
   <link type="text/css" rel="stylesheet" href="../css/layout-grid.min.css">
-  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-  <script type="text/javascript" src="http://code.jquery.com/qunit/qunit-1.18.0.js"></script>
-  <script type="text/javascript" src='../js/layout-grid.js'></script>
-  <script type="text/javascript" src='RectTest.js'></script>
-  <script type="text/javascript" src='GridTest.js'></script>
-  <script type="text/javascript" src='lt_rectTest.js'></script>
-  <script type="text/javascript" src='lt_ensure_idTest.js'></script>
-  <script type="text/javascript" src='saveloadWidgetTest.js'></script>
-  <script type="text/javascript" src='LTGridTest.js'></script>
 </head>
 <body>
 
@@ -22,6 +13,7 @@
 <div id="qunit-fixture">
     <div
      id="container1"
+     data-arrange="layout-grid"
      class="lt-container
             lt-xs-h-16
             lt-sm-h-12
@@ -139,5 +131,17 @@
         </div>
     </div>
 </div>
+
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/qunit/qunit-1.18.0.js"></script>
+<script type="text/javascript" src='../js/layout-grid.js'></script>
+<script type="text/javascript" src='RectTest.js'></script>
+<script type="text/javascript" src='GridTest.js'></script>
+<script type="text/javascript" src='lt_rectTest.js'></script>
+<script type="text/javascript" src='lt_ensure_idTest.js'></script>
+<script type="text/javascript" src='saveloadWidgetTest.js'></script>
+<script type="text/javascript" src='LTGridTest.js'></script>
+
 </body>
 </html>

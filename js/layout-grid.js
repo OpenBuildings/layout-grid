@@ -510,11 +510,11 @@
     // ====================
 
     $(document)
-        .on('dragstart.layout-grid touchstart.layout-grid', '[data-arrange="layout-grid"] .lt', function (event) {
+        .on('dragstart.lt touchstart.lt', '[data-arrange="layout-grid"] .lt', function (event) {
             saveWidget(event, $(this));
         })
 
-        .on('dragover.layout-grid touchmove.layout-grid', '[data-arrange="layout-grid"]', function (event) {
+        .on('dragover.lt touchmove.lt', '[data-arrange="layout-grid"]', function (event) {
             var $widget = loadWidget(event);
             var $this = $(this);
 
@@ -531,11 +531,11 @@
             }
         })
 
-        .on('dragend.layout-grid touchcancel.layout-grid', '[data-arrange="layout-grid"]', function (event) {
+        .on('dragend.lt touchcancel.lt', '[data-arrange="layout-grid"]', function (event) {
             $(this).lt_grid('end');
         })
 
-        .on('dragleave.layout-grid', '[data-arrange="layout-grid"]', function (event) {
+        .on('dragleave.lt', '[data-arrange="layout-grid"]', function (event) {
             event.preventDefault();
 
             // We need to have a mask because of the event bubbling does not allow for a nice "do stuff on dragleave"
@@ -544,7 +544,7 @@
             }
         })
 
-        .on('drop.layout-grid touchend.layout-grid', '[data-arrange="layout-grid"]', function (event) {
+        .on('drop.lt touchend.lt', '[data-arrange="layout-grid"]', function (event) {
             var $widget = loadWidget(event);
 
             if ($widget) {

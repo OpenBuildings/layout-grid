@@ -2,6 +2,7 @@ module('LTGrid');
 
 QUnit.begin(function () {
     $.lt.currentEventData = null;
+    $('#container1').removeData('lt-grid');
 });
 
 test('Constructor with default options', function () {
@@ -9,7 +10,7 @@ test('Constructor with default options', function () {
     var lt_grid = $container.lt_grid().data('lt-grid');
 
     equal(lt_grid, $container.lt_grid().data('lt-grid'), 'Set the lt_grid object as data object');
-    deepEqual(lt_grid.options, $.fn.lt_grid.Constructor.DEFAULTS, 'Set DEFAULTS to options');
+    deepEqual(lt_grid.options, $.extend($.fn.lt_grid.Constructor.DEFAULTS, {arrange: 'layout-grid'}), 'Set DEFAULTS to options');
 });
 
 test('Constructor with custom options and modifiable options', function () {
@@ -43,6 +44,7 @@ test('Constructor with custom options and modifiable options', function () {
     };
 
     $container.lt_grid({
+        arrange: 'layout-grid',
         resize: false,
         compact: false,
         overlap: true,
@@ -278,12 +280,48 @@ test('moveToGhost method', function () {
     lt_grid.moveToGhost($widget);
 
     deepEqual(
-        lt_grid.grid('lg').rects,
-        [
-            new $.lt.Rect(1, 1, 1, 2),
-            new $.lt.Rect(0, 2, 1, 1),
-            new $.lt.Rect(1, 0, 1, 1)
-        ],
-        'Widgets move around to keep the grid from overlapping after repositioning'
+        $widget.lt_rect('lg'),
+        new $.lt.Rect(1, 0, 1, 1),
+        'New rect postion the same as ghost'
     );
 });
+
+test('Events', function () {
+    var dragstart = $.Event('dragstart', {
+        originalEvent: {
+            dataTransfer: null
+        }
+    });
+
+    var dragover = $.Event('dragover', {
+        originalEvent: {
+            dataTransfer: null,
+            pageX: 300 + ($('#container1').offset().left),
+            pageY: 260 + ($('#container1').offset().top),
+        }
+    });
+
+    var drop = $.Event('drop', {
+        originalEvent: {
+            dataTransfer: null,
+        }
+    });
+
+    $('#container1').lt_grid().data('lt-grid').windowWidth = function () { return 1500; };
+
+    $('#rect1').trigger(dragstart);
+    $('#container1').trigger(dragover);
+
+    deepEqual(
+        $('#container1').lt_grid().data('lt-grid').ghost($('#rect1')).lt_rect('lg'),
+        new $.lt.Rect(1, 1, 1, 1)
+    );
+
+    $('#container1').trigger(drop);
+
+    deepEqual(
+        $('#rect1').lt_rect('lg'),
+        new $.lt.Rect(1, 0, 1, 1)
+    );
+});
+
