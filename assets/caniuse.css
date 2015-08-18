@@ -1,0 +1,190 @@
+/* fonts for browser icons (used with permission from IcoMoon.io) */
+@font-face {
+  font-family: 'agents';
+  src: url('../fonts/agents.eot');
+  src: url('../fonts/agents.eot?#iefix') format('embedded-opentype'), url('../fonts/agents.svg#agents') format('svg'), url('../fonts/agents.woff') format('woff'), url('../fonts/agents.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+.caniuse {
+  padding: 10px;
+}
+.caniuse h1,
+.caniuse h2,
+.caniuse h3,
+.caniuse h4,
+.caniuse p {
+  line-height: 1.4;
+  margin: 5px;
+  text-align: center;
+}
+.caniuse h1 {
+  font-size: 1.8em;
+}
+.caniuse h2 {
+  font-size: 1.4em;
+}
+.caniuse h3 {
+  font-size: 1.2em;
+}
+.caniuse p {
+  font-size: 0.8em;
+}
+.caniuse .status {
+  font-style: italic;
+}
+.caniuse .agents,
+.caniuse .legend {
+  margin: 0 auto;
+  max-width: 1200px;
+  overflow: hidden;
+  width: auto;
+  list-style-type: none;
+  margin: 0;
+  overflow: auto;
+  padding: 0;
+  width: auto;
+  margin: 0 auto;
+  max-width: 400px;
+}
+.caniuse .agents > li,
+.caniuse .legend > li {
+  float: left;
+}
+.caniuse .agents li,
+.caniuse .legend li {
+  box-shadow: inset 0 -5px 2px rgba(175, 175, 195, 0.02);
+  float: left;
+  margin-right: 1.2024048096192386%;
+  padding: 5px 0;
+  text-align: center;
+  width: 19.03807615230461%;
+}
+.caniuse .agents li.y,
+.caniuse .legend li.y,
+.caniuse .agents li.x,
+.caniuse .legend li.x {
+  background: #cf9;
+}
+.caniuse .agents li.a,
+.caniuse .legend li.a {
+  background: #cd5;
+}
+.caniuse .agents li.p,
+.caniuse .legend li.p {
+  background: #aaf;
+}
+.caniuse .agents li.n,
+.caniuse .legend li.n {
+  background: #f99;
+}
+.caniuse .agents li.u,
+.caniuse .legend li.u {
+  background: #ccc;
+}
+.caniuse .agents li:last-child,
+.caniuse .legend li:last-child {
+  margin-right: 0;
+}
+.caniuse .agents li {
+  font-size: 1em;
+  /* android */
+
+  /* chrome */
+
+  /* firefox */
+
+  /* ie */
+
+  /* ios */
+
+  /* opera */
+
+  /* safari */
+
+  /* hover states */
+
+}
+.caniuse .agents li:hover,
+.caniuse .agents li:hover:before {
+  color: #fff;
+  text-shadow: 0 1px 0 #aaa;
+}
+.caniuse .agents li:before {
+  color: #555;
+  font-size: 2em;
+}
+.caniuse .agents li[class^="icon-"]:before,
+.caniuse .agents li [class*=" icon-"]:before {
+  font-family: 'agents';
+  font-style: normal;
+  speak: none;
+  font-weight: normal;
+  -webkit-font-smoothing: antialiased;
+}
+.caniuse .agents li.icon-android:before {
+  content: "\e006";
+}
+.caniuse .agents li.icon-chrome:before,
+.caniuse .agents li.icon-and_chr:before {
+  content: "\e004";
+}
+.caniuse .agents li.icon-firefox:before,
+.caniuse .agents li.icon-and_ff:before {
+  content: "\e000";
+}
+.caniuse .agents li.icon-ie:before,
+.caniuse .agents li.icon-windows:before {
+  content: "\e001";
+  /* alternate windows icon: content: "\e007" */
+
+}
+.caniuse .agents li.icon-ios_saf:before {
+  content: "\e005";
+}
+.caniuse .agents li.icon-opera:before,
+.caniuse .agents li.icon-op_mini:before,
+.caniuse .agents li.icon-op_mob:before {
+  content: "\e002";
+}
+.caniuse .agents li.icon-safari:before {
+  content: "\e003";
+}
+.caniuse .agents li.icon-ios_saf:hover,
+.caniuse .agents li.icon-safari:hover {
+  background: #869abb;
+}
+.caniuse .agents li.icon-android:hover {
+  background: #97c03d;
+}
+.caniuse .agents li.icon-chrome:hover,
+.caniuse .agents li.icon-and_chr:hover {
+  background: #40ace8;
+}
+.caniuse .agents li.icon-firefox:hover,
+.caniuse .agents li.icon-and_ff:hover {
+  background: #dc6f26;
+}
+.caniuse .agents li.icon-ie:hover,
+.caniuse .agents li.icon-windows:hover {
+  background: #1a4cbd;
+}
+.caniuse .agents li.icon-opera:hover,
+.caniuse .agents li.icon-op_mini:hover,
+.caniuse .agents li.icon-op_mob:hover {
+  background: #f0232a;
+}
+.caniuse .legend {
+  border-top: 1px dotted #aaa;
+  margin: 20px auto 10px;
+  padding-top: 10px;
+}
+.caniuse .legend li {
+  font-size: 0.8em;
+}
+.caniuse .legend li.key {
+  font-weight: bold;
+}
+.caniuse .version {
+  display: block;
+}

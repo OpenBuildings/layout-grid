@@ -245,4 +245,114 @@ layout: index
     <p>
         A project from <a href="https://github.com/ivank">Ivan Kerin</a> by <a href="https://clippings.com">Clippings.com</a>
     </p>
+
+    <h2>Custom Options</h2>
+
+    <p>
+        Layout Grid comes with these options and their defaults. All of them can be changed both through javascript or using html5 data attributes. They can also be changed on the fly.
+    </p>
+
+    <pre>
+LTGrid.DEFAULTS = {
+    resize: true,
+    overlap: false,
+    compact: true,
+    params: {
+        lg: {
+            gap: 1,
+            maxWidth: Number.MAX_VALUE,
+            cols: 4,
+            aspect: 2/3
+        },
+        md: {
+            gap: 2,
+            maxWidth: 1200,
+            cols: 3,
+            aspect: 2/3
+        },
+        sm: {
+            gap: 3,
+            maxWidth: 992,
+            cols: 2,
+            aspect: 2/3
+        },
+        xs: {
+            gap: 4,
+            maxWidth: 768,
+            cols: 1,
+            aspect: 2/3
+        }
+    }
+};</pre>
+
+    <p>
+        <code>resize</code> is an option that when true will force the container of the grid to shrink to the shortest possible height, enclosing all the items.
+    </p>
+
+    <p>
+        <code>overlap</code> when set to false will forbid "overlapping" so items that find themseves holding the same space will be pushed downwards.
+    </p>
+
+    <p>
+        <code>compact</code> when set to true will try to reduce the vertical spaces between items as much as possible
+    </p>
+
+    <p>
+        <code>params</code> holds the default values from the sass variables. You'll need to set them to the new values here if you've changed them in the sass file, since we can't infer them from the css automatically.
+    </p>
+
+    <p>
+        You can set options like this:
+    </p>
+
+    <pre>
+<strong>// Javascript</strong>
+$('#grid').lt_grid({resize: false, params: {xs: {cols: 2}}});
+
+<strong>// Data attributes</strong>
+&lt;div
+ id="grid"
+ class="lt-container lt-xs-h-6"&gt;
+ data-arrange="layout-grid"
+ data-resize="false"
+ data-params='{"xs":{"cols":2}}'
+   ...
+&lt;/div&gt;
+
+<strong>// On the fly modification</strong>
+$('#grid').lt_grid('option', 'resize', false);
+$('#grid').lt_grid('option', 'params', {xs: {cols: 2}});</pre>
+
+    <h2>Support and requirements</h2>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <p>
+                Layout grid only requires jquery. It uses native html5 drag-n-drop so all the browsers that support that (all the major browsers) should work.
+            </p>
+            <p>
+                Mobile browsers are also supported and it uses native touch events there.
+            </p>
+        </div>
+        <div class="col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="panel-title">Native Drag'n'Drop browser support</div>
+                </div>
+                <div class="panel-body">
+                    <div class="caniuse" data-feature="dragndrop"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h2>
+        Insparation
+    </h2>
+
+    <p>
+        Thanks a lot to the creator of <a href="http://gridster.net/">gridster.js</a>, where I got the insparation for this plugin.
+    </p>
 </div>
+
+
