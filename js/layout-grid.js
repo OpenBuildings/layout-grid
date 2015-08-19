@@ -495,7 +495,7 @@
 
         this.reposition($widget, {x: pos.x, y: pos.y});
 
-        $parent.add(this.$element);
+        $parent.add(this.$element).lt_grid('update');
     };
 
     // LAYOUT GRID PLUGIN DEFINITION
