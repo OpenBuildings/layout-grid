@@ -91,20 +91,23 @@ test('loadCss', function () {
     var rect2 = (new $.lt.Rect()).loadCss('lt-lg-x-1 lt-lg-y-2 lt-lg-h-8 lt-lg-w-5', 'lg');
     var rect3 = (new $.lt.Rect()).loadCss('lt-lg-x-1 lt-lg-y-2', 'lg');
 
-    equal(rect1.x, 12);
-    equal(rect1.y, 3);
-    equal(rect1.w, 3);
-    equal(rect1.h, 2);
+    deepEqual(
+        rect1,
+        new $.lt.Rect(12, 3, 3, 2),
+        'Load x, y, w, h appropriately from css classes of the xs size'
+    );
 
-    equal(rect2.x, 1);
-    equal(rect2.y, 2);
-    equal(rect2.w, 5);
-    equal(rect2.h, 8);
+    deepEqual(
+        rect2,
+        new $.lt.Rect(1, 2, 5, 8),
+        'Load x, y, w, h appropriately from css classes of the lg size'
+    );
 
-    equal(rect3.x, 1);
-    equal(rect3.y, 2);
-    equal(rect3.w, 1);
-    equal(rect3.h, 1);
+    deepEqual(
+        rect3,
+        new $.lt.Rect(1, 2, 1, 1),
+        'Load x, y appropriately from css classes, use rect defaults for w and h'
+    );
 });
 
 test('setCss', function () {
@@ -112,5 +115,9 @@ test('setCss', function () {
     var rect = new $.lt.Rect(3, 4, 8, 9);
     var newCss = rect.setCss(css, 'xs');
 
-    equal(newCss, 'some other class lt-xs-x-3 lt-xs-y-4 lt-xs-w-8 lt-xs-h-9');
+    equal(
+        newCss,
+        'some other class lt-xs-x-3 lt-xs-y-4 lt-xs-w-8 lt-xs-h-9',
+        'Update css classes without changing other classes'
+    );
 });

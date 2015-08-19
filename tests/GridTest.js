@@ -38,7 +38,7 @@ test('getIntersectingRects', function () {
  * │       └────┘│    │             │
  * └─────────────┘    └─────────────┘
  */
-test('compact', function () {
+test('compact method', function () {
     var rect1 = new $.lt.Rect(0,0,4,3);
     var rect2 = new $.lt.Rect(4,0,3,3);
     var rect3 = new $.lt.Rect(10,0,3,6);
@@ -49,15 +49,19 @@ test('compact', function () {
 
     var grid = new $.lt.Grid([rect1, rect2, rect3, rect4, rect5, rect6, rect7]);
 
-    deepEqual(grid.compact().rects, [
-        new $.lt.Rect(0,0,4,3),
-        new $.lt.Rect(4,0,3,3),
-        new $.lt.Rect(10,0,3,6),
-        new $.lt.Rect(1,3,3,3),
-        new $.lt.Rect(7,0,3,3),
-        new $.lt.Rect(4,3,3,3),
-        new $.lt.Rect(7,6,6,3)
-    ]);
+    deepEqual(
+        grid.compact().rects,
+        [
+            new $.lt.Rect(0,0,4,3),
+            new $.lt.Rect(4,0,3,3),
+            new $.lt.Rect(10,0,3,6),
+            new $.lt.Rect(1,3,3,3),
+            new $.lt.Rect(7,0,3,3),
+            new $.lt.Rect(4,3,3,3),
+            new $.lt.Rect(7,6,6,3)
+        ],
+        'Horisontal space reduced, as in the diagram in the comment'
+    );
 });
 
 /**
@@ -75,7 +79,7 @@ test('compact', function () {
  * │└──┘   └────┘│    │             │
  * └─────────────┘    └─────────────┘
  */
-test('compact', function () {
+test('compact method another configuration', function () {
     var rect1 = new $.lt.Rect(0,8,4,3);
     var rect2 = new $.lt.Rect(4,0,3,3);
     var rect3 = new $.lt.Rect(10,0,3,6);
@@ -86,15 +90,19 @@ test('compact', function () {
 
     var grid = new $.lt.Grid([rect1, rect2, rect3, rect4, rect5, rect6, rect7]);
 
-    deepEqual(grid.compact().rects, [
-        new $.lt.Rect(0,3,4,3),
-        new $.lt.Rect(4,0,3,3),
-        new $.lt.Rect(10,0,3,6),
-        new $.lt.Rect(1,0,3,3),
-        new $.lt.Rect(7,0,3,3),
-        new $.lt.Rect(4,3,3,3),
-        new $.lt.Rect(7,6,6,3)
-    ]);
+    deepEqual(
+        grid.compact().rects,
+        [
+            new $.lt.Rect(0,3,4,3),
+            new $.lt.Rect(4,0,3,3),
+            new $.lt.Rect(10,0,3,6),
+            new $.lt.Rect(1,0,3,3),
+            new $.lt.Rect(7,0,3,3),
+            new $.lt.Rect(4,3,3,3),
+            new $.lt.Rect(7,6,6,3)
+        ],
+        'Horisontal space reduced, as in the diagram in the comment'
+    );
 });
 
 /**
@@ -126,10 +134,30 @@ test('height', function () {
     var grid3 = new $.lt.Grid([rect1, rect2, rect3, rect4, rect5, rect6]);
     var grid4 = new $.lt.Grid([rect1, rect2, rect3, rect4, rect5, rect6, rect7]);
 
-    equal(grid1.height(), 3);
-    equal(grid2.height(), 6);
-    equal(grid3.height(), 9);
-    equal(grid4.height(), 11);
+    equal(
+        grid1.height(),
+        3,
+        'Height for rect1, rect2'
+    );
+
+    equal(
+        grid2.height(),
+        6,
+        'Height for rect1, rect2, rect3, rect4'
+    );
+
+    equal(
+        grid3.height(),
+        9,
+        'Height for rect1, rect2, rect3, rect4, rect5, rect6'
+    );
+
+    equal(
+        grid4.height(),
+        11,
+        'Height for rect1, rect2, rect3, rect4, rect5, rect6, rect7'
+     );
+
 });
 
 /**
