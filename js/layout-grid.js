@@ -140,34 +140,34 @@
     };
 
     /**
-     * Move a rect inside the grid
+     * Move a rect inside the grid, or update its size
      * If there is overlap move rects downards
      * @param  {Rect} rect
-     * @param  {integer} x
-     * @param  {integer} y
+     * @param  {object} params An object with optional keys x, y, w, h to modify the rect
      */
-    Grid.prototype.moveNoOverlap = function (rect, x, y) {
+    Grid.prototype.updateNoOverlap = function (rect, params) {
         var self = this;
 
-        this.move(rect, x, y);
+        this.update(rect, params);
 
         $.each(this.getIntersectingRects(rect), function () {
-            self.moveNoOverlap(this, this.x, rect.bottom());
+            self.updateNoOverlap(this, {x: this.x, y: rect.bottom()});
         });
 
         return this;
     };
 
     /**
-     * Move a rect inside the grid
-     * If there is overlap move rects downards
+     * Move a rect inside the grid, or update its size
      * @param  {Rect} rect
-     * @param  {integer} x
-     * @param  {integer} y
+     * @param  {object} params An object with optional keys x, y, w, h to modify the rect
      */
-    Grid.prototype.move = function (rect, x, y) {
-        rect.x = x;
-        rect.y = y;
+    Grid.prototype.update = function (rect, params) {
+
+        rect.x = ('x' in params) ? params.x : rect.x;
+        rect.y = ('y' in params) ? params.y : rect.y;
+        rect.w = ('w' in params) ? params.w : rect.w;
+        rect.h = ('h' in params) ? params.h : rect.h;
 
         return this;
     };
@@ -449,18 +449,17 @@
      * Move a widget within the grid, repositioning other elements
      * so there is no overlapping
      * @param  {jQuery} $widget
-     * @param  {integer} x
-     * @param  {integer} y
+     * @param  {object} params An object with optional keys x, y, w, h to modify the rect
      */
-    LTGrid.prototype.reposition = function ($widget, x, y) {
+    LTGrid.prototype.reposition = function ($widget, params) {
         var size = this.size();
         var rect = $widget.lt_rect(size);
         var grid = this.grid(size);
 
         if (this.options.overlap) {
-            grid.move(rect, x, y);
+            grid.update(rect, params);
         } else {
-            grid.moveNoOverlap(rect, x, y);
+            grid.updateNoOverlap(rect, params);
         }
 
         this.grid(size, grid);
@@ -478,7 +477,7 @@
 
         this.$element.append($widget);
 
-        this.reposition($widget, pos.x, pos.y);
+        this.reposition($widget, { x: pos.x, y: pos.y});
 
         $parent.add(this.$element).lt_grid('end');
     };

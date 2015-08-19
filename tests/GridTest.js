@@ -150,7 +150,7 @@ test('height', function () {
  * │             ││             │
  * └─────────────┘└─────────────┘
  */
-test('move-1', function () {
+test('updateNoOverlap method move with pushing down one element - 6', function () {
     var grid = new $.lt.Grid([
         new $.lt.Rect(0,0,4,3),
         new $.lt.Rect(4,0,3,3),
@@ -162,7 +162,7 @@ test('move-1', function () {
     ]);
 
     deepEqual(
-        grid.moveNoOverlap(grid.rects[1], 4, 4).rects,
+        grid.updateNoOverlap(grid.rects[1], {x: 4, y: 4}).rects,
         [
             new $.lt.Rect(0,0,4,3),
             new $.lt.Rect(4,4,3,3),
@@ -193,7 +193,7 @@ test('move-1', function () {
  * │             ││       └────┘│
  * └─────────────┘└─────────────┘
  */
-test('move-2', function () {
+test('updateNoOverlap with pushing three element downward, 5, 4 and 7', function () {
     var grid = new $.lt.Grid([
         new $.lt.Rect(0,0,4,3),
         new $.lt.Rect(4,0,3,3),
@@ -205,7 +205,7 @@ test('move-2', function () {
     ]);
 
     deepEqual(
-        grid.moveNoOverlap(grid.rects[1], 9, 1).rects,
+        grid.updateNoOverlap(grid.rects[1], {x: 9, y: 1}).rects,
         [
             new $.lt.Rect(0,0,4,3),
             new $.lt.Rect(9,1,3,3),
@@ -237,7 +237,7 @@ test('move-2', function () {
  * │             ││             │
  * └─────────────┘└─────────────┘
  */
-test('move-3', function () {
+test('updateNoOverlap with pushing two elements downward - 1 and 4', function () {
     var grid = new $.lt.Grid([
         new $.lt.Rect(0,0,4,3),
         new $.lt.Rect(4,0,3,3),
@@ -249,7 +249,7 @@ test('move-3', function () {
     ]);
 
     deepEqual(
-        grid.moveNoOverlap(grid.rects[1], 1, 0).rects,
+        grid.updateNoOverlap(grid.rects[1], {x:1, y:0}).rects,
         [
             new $.lt.Rect(0,3,4,3),
             new $.lt.Rect(1,0,3,3),
@@ -262,3 +262,46 @@ test('move-3', function () {
     );
 });
 
+/**
+ * Initial        moved
+ * ┌─────────────┐┌─────────────┐
+ * │┌──┐╔═╗   ┌─┐││┌──┐      ┌─┐│
+ * ││1 │║2║   │ ││││1 │      │ ││
+ * │└──┘╚═╝   │3│││└──┘      │3││
+ * │ ┌─┐   ┌─┐│ │││ ┌─┐      │ ││
+ * │ │4│   │5││ │││ │4│╔═══╗ │ ││
+ * │ └─┘   └─┘└─┘││ └─┘║2  ║ └─┘│
+ * │    ┌─┐      ││    ║   ║    │
+ * │    │6│      ││    ╚═══╝    │
+ * │    └─┘┌────┐││    ┌─┐┌─┐   │
+ * │       │ 7  │││    │6││5│   │
+ * │       └────┘││    └─┘└─┘   │
+ * │             ││       ┌────┐│
+ * │             ││       │ 7  ││
+ * │             ││       └────┘│
+ * └─────────────┘└─────────────┘
+ */
+test('updateNoOverlap method move and resize an item, pushing down 6, 5 and 7', function () {
+    var grid = new $.lt.Grid([
+        new $.lt.Rect(0,0,4,3),
+        new $.lt.Rect(4,0,3,3),
+        new $.lt.Rect(10,0,3,6),
+        new $.lt.Rect(1,3,3,3),
+        new $.lt.Rect(7,3,3,3),
+        new $.lt.Rect(4,6,3,3),
+        new $.lt.Rect(7,8,6,3),
+    ]);
+
+    deepEqual(
+        grid.updateNoOverlap(grid.rects[1], {x: 4, y: 4, w: 5, h: 4}).rects,
+        [
+            new $.lt.Rect(0,0,4,3),
+            new $.lt.Rect(4,4,5,4),
+            new $.lt.Rect(10,0,3,6),
+            new $.lt.Rect(1,3,3,3),
+            new $.lt.Rect(7,8,3,3),
+            new $.lt.Rect(4,8,3,3),
+            new $.lt.Rect(7,11,6,3)
+        ]
+    );
+});

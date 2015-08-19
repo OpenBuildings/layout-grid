@@ -256,13 +256,13 @@ test('reposition method', function () {
 
     lt_grid.windowWidth = function () { return 1500; };
 
-    lt_grid.reposition($widget, 1, 0);
+    lt_grid.reposition($widget, {x: 1, y: 0, w: 2, h: 2});
 
     deepEqual(
         lt_grid.grid('lg').rects,
         [
-            new $.lt.Rect(1, 0, 1, 1),
-            new $.lt.Rect(1, 1, 1, 2),
+            new $.lt.Rect(1, 0, 2, 2),
+            new $.lt.Rect(1, 2, 1, 2),
             new $.lt.Rect(0, 2, 1, 1)
         ],
         'Widgets move around to keep the grid from overlapping after repositioning'
