@@ -263,9 +263,9 @@ test('reposition method', function () {
         [
             new $.lt.Rect(1, 0, 2, 2),
             new $.lt.Rect(1, 2, 1, 2),
-            new $.lt.Rect(0, 2, 1, 1)
+            new $.lt.Rect(0, 0, 1, 1)
         ],
-        'Widgets move around to keep the grid from overlapping after repositioning'
+        'Widgets move around to keep the grid from overlapping after repositioning, compact & resize'
     );
 });
 
