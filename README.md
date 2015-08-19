@@ -21,7 +21,7 @@ If you're using reoder you'll need to tell the javascript plugin about these mod
 
 Development
 -----------
-After modification you can run the ``npm install`` and then ``grunt`` to build and minify all the js and sass
+After modification you can run the ``npm install`` and then ``grunt`` to build and minify all the js and sass. Use ``grunt qunit`` to execute the tests.
 
 License
 -------
