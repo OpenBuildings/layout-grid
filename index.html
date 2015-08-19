@@ -93,6 +93,23 @@ layout: index
                 </div>
             </div>
         </div>
+
+        <div class="col-sm-4">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h4>
+                        <a href="{{ site.baseurl }}/demo/resize">
+                            <i class="fa fa-cogs"></i>
+                            Resize grid items
+                        </a>
+                    </h4>
+                    <p>
+                        Modify width and hight while keeping items from overlapping
+                    </p>
+                </div>
+            </div>
+        </div>
+
         <div class="col-sm-4">
             <div class="panel panel-default">
                 <div class="panel-body">
@@ -322,6 +339,123 @@ $('#grid').lt_grid({resize: false, params: {xs: {cols: 2}}});
 <strong>// On the fly modification</strong>
 $('#grid').lt_grid('option', 'resize', false);
 $('#grid').lt_grid('option', 'params', {xs: {cols: 2}});</pre>
+
+    <h2>Methods</h2>
+
+    <p>
+        Layout grid has a lot of methods that it uses internally but can be called as part of the API - some of the methods are documented here, all the others have docs in the source.
+    </p>
+
+    <h3>
+        Rect object
+    </h3>
+
+    <p>
+        Layout grid uses a "Rect" object internally to do calculations, this is simply an object that holds width, height, x and y, and has some utility methods along the way.
+    </p>
+
+    <p>
+        You can create your own "Rect" objects like this <code>var rect = new $.lt.Rect(x, y, width, height)</code>.
+    </p>
+
+    <p>
+        <code>rect.x</code> <code>rect.y</code> <code>rect.w</code> <code>rect.h</code> attributes for x, y, width and hight respectively
+    </p>
+
+    <p>
+        <code>rect.bottom()</code> to get the height + y
+    </p>
+
+    <p>
+        <code>rect.right()</code> to get the width + x
+    </p>
+
+    <p>
+        <code>rect.intersect(rect2)</code> returns true if the two rects intersect
+    </p>
+
+    <p>
+        <code>rect.setCss(classes, size)</code> Modify a "css classes" string with the pos and size of this rect, for a specific screen size
+    </p>
+
+    <p>
+        <code>rect.loadCss(classes, size)</code> Load data from "css classes", for a specific screen size
+    </p>
+
+    <h3>
+        lt_rect
+    </h3>
+
+    <p>
+        <code>$(..).lt_rect()</code> is a jquery function that is a setter / getter for the "rect" object of a given widget. You can
+        <pre>
+var rect = $('#widget1.lt').lt_rect('lg')
+rect.x = 2;
+rect.w = 2;
+$('#widget1.lt').lt_rect('lg', rect);</pre>
+    </p>
+
+    <h3>
+        lt_size
+    </h3>
+
+    <p>
+        <code>$(..).lt_size()</code> is a jquery function to get the current "size" of the grid, can be "lg", "md", "sm" or "xs"
+    </p>
+
+    <pre>
+var rect = $('#container').lt_size();
+console.log(size);</pre>
+
+    <h3>
+        option
+    </h3>
+
+    <p>
+        <code>$(..).lt_grid('option', option, value)</code> allows you to set an option on the fly
+    </p>
+
+    <pre>$('#container').lt_grid('option', 'compact', false);</pre>
+
+    <h3>
+        compact
+    </h3>
+
+    <p>
+        <code>$(..).lt_grid('compact')</code> Compacts the grid, reducing horizontal space. It ignores the compact option setting.
+    </p>
+
+    <pre>$('#container').lt_grid('compact');</pre>
+
+    <h3>
+        resize
+    </h3>
+
+    <p>
+        <code>$(..).lt_grid('resize')</code> Resize the grid, setting the minimum possible size for the container. It ignores the resize option setting.
+    </p>
+
+    <pre>$('#container').lt_grid('resize');</pre>
+
+    <h3>
+        update
+    </h3>
+
+    <p>
+        <code>$(..).lt_grid('update')</code> Call resize and compact, based on the options.
+    </p>
+
+    <pre>$('#container').lt_grid('update');</pre>
+
+    <h3>
+        reposition
+    </h3>
+
+    <p>
+        <code>$(..).lt_grid('reposition', $widget, {x: 1, y: 1, w: 1, h: 1})</code> Modify the position or size of a widget inside the grid (and call "update" method). Any parameter can be omitted so you can either set only position or only size.
+    </p>
+
+    <pre>$('#container').lt_grid('reposition', $('#widget1'), {x: 1, y: 1, w: 1, h: 1});</pre>
 
     <h2>Support and requirements</h2>
 
