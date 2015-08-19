@@ -11,8 +11,8 @@ Javascript using native Drag'n'drop to reorder for each screen size.
 Instalation
 -----------
 
-For only static positioning include ``dist/layout-grid.css``
-For ordering items around include ``dist/layout-reorder.css`` and ``dist/layout-grid.min.js``
+For only static positioning include ``css/layout-grid.min.css``
+For ordering items around include ``js/layout-grid.min.js``
 
 Modification
 ------------
