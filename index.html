@@ -20,7 +20,7 @@ layout: index
     <h2>Quick Example</h2>
 
     <div class="lead">
-        Heres' a quick preview of how it could look like. You can drag these items arround and see how they react to resizing.
+        Heres' a quick preview of how it could look like. You can drag these items around and see how they react to resizing.
     </div>
 </div>
 
@@ -303,7 +303,7 @@ LTGrid.DEFAULTS = {
     </p>
 
     <p>
-        <code>overlap</code> when set to false will forbid "overlapping" so items that find themseves holding the same space will be pushed downwards.
+        <code>overlap</code> when set to false will forbid "overlapping" so items that find themselves holding the same space will be pushed downwards.
     </p>
 
     <p>
@@ -383,7 +383,8 @@ $('#grid').lt_grid('option', 'params', {xs: {cols: 2}});</pre>
     </h3>
 
     <p>
-        <code>$(..).lt_rect()</code> is a jquery function that is a setter / getter for the "rect" object of a given widget. You can
+        <code>$(..).lt_rect()</code> is a jquery function that is a setter / getter for the "rect" object of a given widget.
+        You need to pass "size" as the first argument so it knows for which size the rect is being viewed / modified.
         <pre>
 var rect = $('#widget1.lt').lt_rect('lg')
 rect.x = 2;
@@ -408,7 +409,7 @@ $('#widget1.lt').lt_rect('lg', rect);</pre>
     </p>
 
     <pre>
-var rect = $('#container').lt_size();
+var size = $('#container').lt_size();
 console.log(size);</pre>
 
     <h3>
@@ -489,7 +490,7 @@ console.log(size);</pre>
     </h2>
 
     <p>
-        Thanks a lot to the creator of <a href="http://gridster.net/">gridster.js</a>, where I got the insparation for this plugin.
+        Thanks a lot to the creator of <a href="http://gridster.net/">gridster.js</a>, where I got the inspiration for this plugin.
     </p>
 
     <p>
