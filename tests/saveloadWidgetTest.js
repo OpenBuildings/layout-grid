@@ -44,7 +44,7 @@ test('saveWidget and loadWidget with DataTransfer', function () {
 
     deepEqual($item, $loaded);
 
-    equal(event.originalEvent.dataTransfer.type, 'text/plain');
+    equal(event.originalEvent.dataTransfer.type, 'text');
     equal(event.originalEvent.dataTransfer.data, '{"LTWidget":"#rect1"}');
 });
 

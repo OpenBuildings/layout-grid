@@ -226,12 +226,12 @@
         $.lt.currentEventData = data;
 
         if (event.originalEvent.dataTransfer) {
-            event.originalEvent.dataTransfer.setData('text/plain', data);
+            event.originalEvent.dataTransfer.setData('text', data);
         }
     }
 
     function loadWidget (event) {
-        var dataString = (event.originalEvent.dataTransfer && event.originalEvent.dataTransfer.getData('text/plain')) || $.lt.currentEventData;
+        var dataString = (event.originalEvent.dataTransfer && event.originalEvent.dataTransfer.getData('text')) || $.lt.currentEventData;
 
         if (dataString) {
             var data = JSON.parse(dataString);
