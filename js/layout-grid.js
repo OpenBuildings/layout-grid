@@ -5,7 +5,7 @@
  * Copyright 2015 Clippings Ltd.
  * Licensed under BSD (https://github.com/clippings/layout-grid/blob/master/LICENSE)
  * ================================================================================= */
-+function ($, undefined) {
+(function ($, undefined) {
     'use strict';
 
     /**
@@ -575,4 +575,4 @@
             }
         });
 
-}(jQuery);
+}(jQuery));
