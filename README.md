@@ -8,7 +8,7 @@ Documentaion and demos: [Layout Grid Site](https://clippings.github.com/layout-g
 Static responsive grid with pure css.
 Javascript using native Drag'n'drop to reorder for each screen size.
 
-![Example Layout Grid](http://imgur.com/vtkdKg5 "Layout Example")
+![Example Layout Grid](http://i.imgur.com/vtkdKg5.png "Layout Example")
 
 Instalation
 -----------
