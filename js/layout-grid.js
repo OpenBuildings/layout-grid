@@ -505,10 +505,15 @@
         return this.each(function () {
             var $this = $(this);
             var data  = $this.data('lt-grid');
-            var options = $.extend(true, {}, LTGrid.DEFAULTS, $this.data(), typeof option == 'object' && option);
+            var options = $.extend(true, {}, LTGrid.DEFAULTS, $this.data(), typeof option === 'object' && option);
 
-            if (!data) $this.data('lt-grid', (data = new LTGrid(this, options)));
-            if (typeof option == 'string') data[option](param1, param2, param3);
+            if (!data) {
+                $this.data('lt-grid', (data = new LTGrid(this, options)));
+            }
+
+            if (typeof option === 'string') {
+                data[option](param1, param2, param3);
+            }
         });
     }
 
@@ -546,7 +551,7 @@
             }
         })
 
-        .on('dragend.lt touchcancel.lt', '[data-arrange="layout-grid"]', function (event) {
+        .on('dragend.lt touchcancel.lt', '[data-arrange="layout-grid"]', function () {
             $(this).lt_grid('end');
         })
 
@@ -554,7 +559,7 @@
             event.preventDefault();
 
             // We need to have a mask because of the event bubbling does not allow for a nice "do stuff on dragleave"
-            if ($(event.target).data('lt-grid') == 'mask') {
+            if ($(event.target).data('lt-grid') === 'mask') {
                 $(this).lt_grid('end');
             }
         })
