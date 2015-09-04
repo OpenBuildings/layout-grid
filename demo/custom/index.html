@@ -14,8 +14,8 @@ layout: index
         This has custom sass configuration. Modified gap, column count and aspect ratio for each screen size. In order for these changes to work with the javascript though, we need to pass them as data attribute to the plugin
     </p>
 
-    <pre class="code">
-&lt;div
+    {% highlight html %}
+<div
  data-arrange="layout-grid"
  class="lt-container
         lt-xs-h-6
@@ -39,7 +39,8 @@ layout: index
         "gap":12,
         "cols":2,
         "aspect":1.5}
- }'&gt;</pre>
+ }'>
+    {% endhighlight %}
 
     <div
      data-arrange="layout-grid"

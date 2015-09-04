@@ -173,14 +173,15 @@ layout: index
         We start with the basic html structure:
     </p>
 
-    <pre>
-&lt;div class="lt-container lt-xs-h-6"&gt;
-    &lt;div class="lt lt-xs-x-0 lt-xs-y-0 lt-xs-w-1 lt-xs-h-1"&gt;
-        &lt;div class="lt-body"&gt;
+    {% highlight html %}
+<div class="lt-container lt-xs-h-6">
+    <div class="lt lt-xs-x-0 lt-xs-y-0 lt-xs-w-1 lt-xs-h-1">
+        <div class="lt-body">
             Your content
-        &lt;/div&gt;
-    &lt;/div&gt;
-&lt;/div&gt;</pre>
+        </div>
+    </div>
+</div>
+    {% endhighlight %}
 
     <p>
         <code>lt-xs-h-6</code> on the lt-container means the height on screen size "xs" the height will be 6 counts. <code>lt-xs-x-0</code> on the item means the x position on screen size "xs"
@@ -211,9 +212,9 @@ layout: index
         Here's how it looks when every class for every screen size is set:
     </p>
 
-    <pre>
-&lt;div class="lt-container lt-xs-h-6"&gt;
-    &lt;div class="lt
+    {% highlight html %}
+<div class="lt-container lt-xs-h-6">
+    <div class="lt
                    lt-xs-x-0
                    lt-xs-y-0
                    lt-xs-w-1
@@ -229,12 +230,13 @@ layout: index
                    lt-lg-x-0
                    lt-lg-y-0
                    lt-lg-w-1
-                   lt-lg-h-1"&gt;
-        &lt;div class="lt-body"&gt;
+                   lt-lg-h-1">
+        <div class="lt-body">
             Your content
-        &lt;/div&gt;
-    &lt;/div&gt;
-&lt;/div&gt;</pre>
+        </div>
+    </div>
+</div>
+    {% endhighlight %}
 
     <p>
         As with other bootstrap classes the smaller sizes act as the default for larger ones, so you need to set only the things that change of the larger sizes.
@@ -246,18 +248,19 @@ layout: index
         Javascript is initialized via <code>data-arrange="layout-grid"</code> and setting up html5's <code>draggable="true"</code> on the individual items. The javascript is initialized only on the event of a drag on these items.
     </p>
 
-    <pre>
-&lt;div
- class="lt-container lt-xs-h-6"&gt;
- data-arrange="layout-grid"
-    &lt;div
-     class="lt lt-xs-x-0 lt-xs-y-0 lt-xs-w-1 lt-xs-h-1"&gt;
+    {% highlight html %}
+<div
+ class="lt-container lt-xs-h-6"
+ data-arrange="layout-grid">
+    <div
+     class="lt lt-xs-x-0 lt-xs-y-0 lt-xs-w-1 lt-xs-h-1">
      draggable="true"
-        &lt;div class="lt-body"&gt;
+        <div class="lt-body">
             Your content
-        &lt;/div&gt;
-    &lt;/div&gt;
-&lt;/div&gt;</pre>
+        </div>
+    </div>
+</div>
+    {% endhighlight %}
 
     <h2>Custom Options</h2>
 
@@ -265,7 +268,7 @@ layout: index
         Layout Grid comes with these options and their defaults. All of them can be changed both through javascript or using html5 data attributes. They can also be changed on the fly.
     </p>
 
-    <pre>
+    {% highlight javascript %}
 LTGrid.DEFAULTS = {
     resize: true,
     overlap: false,
@@ -296,7 +299,8 @@ LTGrid.DEFAULTS = {
             aspect: 2/3
         }
     }
-};</pre>
+};
+    {% endhighlight %}
 
     <p>
         <code>resize</code> is an option that when true will force the container of the grid to shrink to the shortest possible height, enclosing all the items.
@@ -315,26 +319,31 @@ LTGrid.DEFAULTS = {
     </p>
 
     <p>
-        You can set options like this:
+        You can set options with data attributes:
     </p>
-
-    <pre>
-<strong>// Javascript</strong>
-$('#grid').lt_grid({resize: false, params: {xs: {cols: 2}}});
-
-<strong>// Data attributes</strong>
-&lt;div
+    {% highlight html %}
+<div
  id="grid"
- class="lt-container lt-xs-h-6"&gt;
+ class="lt-container lt-xs-h-6"
  data-arrange="layout-grid"
  data-resize="false"
- data-params='{"xs":{"cols":2}}'
+ data-params='{"xs":{"cols":2}}'>
    ...
-&lt;/div&gt;
+</div>
+    {% endhighlight %}
 
-<strong>// On the fly modification</strong>
+    <p>
+        Or with javascript directly
+    </p>
+
+    {% highlight javascript %}
+// Javascript
+$('#grid').lt_grid({resize: false, params: {xs: {cols: 2}}});
+
+// On the fly modification
 $('#grid').lt_grid('option', 'resize', false);
-$('#grid').lt_grid('option', 'params', {xs: {cols: 2}});</pre>
+$('#grid').lt_grid('option', 'params', {xs: {cols: 2}});
+    {% endhighlight %}
 
     <h2>Methods</h2>
 
@@ -385,12 +394,14 @@ $('#grid').lt_grid('option', 'params', {xs: {cols: 2}});</pre>
     <p>
         <code>$(..).lt_rect()</code> is a jquery function that is a setter / getter for the "rect" object of a given widget.
         You need to pass "size" as the first argument so it knows for which size the rect is being viewed / modified.
-        <pre>
+    </p>
+
+    {% highlight javascript %}
 var rect = $('#widget1.lt').lt_rect('lg')
 rect.x = 2;
 rect.w = 2;
-$('#widget1.lt').lt_rect('lg', rect);</pre>
-    </p>
+$('#widget1.lt').lt_rect('lg', rect);
+    {% endhighlight %}
 
     <h3>
         lt_size
@@ -408,9 +419,10 @@ $('#widget1.lt').lt_rect('lg', rect);</pre>
         <code>$(..).lt_ensure_id()</code> Used internally to set a unique ID on an item that doesn't have one.
     </p>
 
-    <pre>
+    {% highlight javascript %}
 var size = $('#container').lt_size();
-console.log(size);</pre>
+console.log(size);
+    {% endhighlight %}
 
     <h3>
         option
@@ -420,7 +432,9 @@ console.log(size);</pre>
         <code>$(..).lt_grid('option', option, value)</code> allows you to set an option on the fly
     </p>
 
-    <pre>$('#container').lt_grid('option', 'compact', false);</pre>
+    {% highlight javascript %}
+$('#container').lt_grid('option', 'compact', false);
+    {% endhighlight %}
 
     <h3>
         compact
@@ -430,7 +444,9 @@ console.log(size);</pre>
         <code>$(..).lt_grid('compact')</code> Compacts the grid, reducing horizontal space. It ignores the compact option setting.
     </p>
 
-    <pre>$('#container').lt_grid('compact');</pre>
+    {% highlight javascript %}
+$('#container').lt_grid('compact');
+    {% endhighlight %}
 
     <h3>
         resize
@@ -440,7 +456,9 @@ console.log(size);</pre>
         <code>$(..).lt_grid('resize')</code> Resize the grid, setting the minimum possible size for the container. It ignores the resize option setting.
     </p>
 
-    <pre>$('#container').lt_grid('resize');</pre>
+    {% highlight javascript %}
+$('#container').lt_grid('resize');
+    {% endhighlight %}
 
     <h3>
         update
@@ -450,7 +468,9 @@ console.log(size);</pre>
         <code>$(..).lt_grid('update')</code> Call resize and compact, based on the options.
     </p>
 
-    <pre>$('#container').lt_grid('update');</pre>
+    {% highlight javascript %}
+$('#container').lt_grid('update');
+    {% endhighlight %}
 
     <h3>
         reposition
@@ -460,7 +480,9 @@ console.log(size);</pre>
         <code>$(..).lt_grid('reposition', $widget, {x: 1, y: 1, w: 1, h: 1})</code> Modify the position or size of a widget inside the grid (and call "update" method). Any parameter can be omitted so you can either set only position or only size.
     </p>
 
-    <pre>$('#container').lt_grid('reposition', $('#widget1'), {x: 1, y: 1, w: 1, h: 1});</pre>
+    {% highlight javascript %}
+$('#container').lt_grid('reposition', $('#widget1'), {x: 1, y: 1, w: 1, h: 1});
+    {% endhighlight %}
 
     <h2>Support and requirements</h2>
 
