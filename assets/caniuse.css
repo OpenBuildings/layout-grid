@@ -1,8 +1,8 @@
 /* fonts for browser icons (used with permission from IcoMoon.io) */
 @font-face {
   font-family: 'agents';
-  src: url('../fonts/agents.eot');
-  src: url('../fonts/agents.eot?#iefix') format('embedded-opentype'), url('../fonts/agents.svg#agents') format('svg'), url('../fonts/agents.woff') format('woff'), url('../fonts/agents.ttf') format('truetype');
+  src: url('fonts/agents.eot');
+  src: url('fonts/agents.eot?#iefix') format('embedded-opentype'), url('fonts/agents.svg#agents') format('svg'), url('fonts/agents.woff') format('woff'), url('fonts/agents.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
