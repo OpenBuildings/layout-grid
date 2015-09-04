@@ -3,6 +3,15 @@ module.exports = function (grunt) {
         pkg: grunt.file.readJSON('package.json'),
 
         qunit: {
+            options: {
+                '--web-security': 'no',
+                coverage: {
+                  src: ['js/layout-grid.js'],
+                  instrumentedFiles: 'temp/',
+                  htmlReport: 'build/coverage',
+                  lcovReport: 'build/',
+                }
+            },
             all: ['tests/*.html']
         },
         uglify: {
@@ -27,7 +36,8 @@ module.exports = function (grunt) {
           }
         }
     });
-    grunt.loadNpmTasks('grunt-contrib-qunit');
+    grunt.loadNpmTasks('grunt-qunit-istanbul');
+    // grunt.loadNpmTasks('grunt-contrib-qunit');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-contrib-cssmin');

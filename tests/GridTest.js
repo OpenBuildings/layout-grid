@@ -129,10 +129,17 @@ test('height', function () {
     var rect6 = new $.lt.Rect(4,6,3,3);
     var rect7 = new $.lt.Rect(7,8,6,3);
 
+    var grid0 = new $.lt.Grid([]);
     var grid1 = new $.lt.Grid([rect1, rect2]);
     var grid2 = new $.lt.Grid([rect1, rect2, rect3, rect4]);
     var grid3 = new $.lt.Grid([rect1, rect2, rect3, rect4, rect5, rect6]);
     var grid4 = new $.lt.Grid([rect1, rect2, rect3, rect4, rect5, rect6, rect7]);
+
+    equal(
+        grid0.height(),
+        0,
+        'Height for no rects'
+    );
 
     equal(
         grid1.height(),
@@ -158,6 +165,49 @@ test('height', function () {
         'Height for rect1, rect2, rect3, rect4, rect5, rect6, rect7'
      );
 
+});
+
+/**
+ * Initial        changed
+ * ┌─────────────┐┌─────────────┐
+ * │┌──┐╔═╗   ┌─┐││┌──┐╔═══╗ ┌─┐│
+ * ││1 │║2║   │ ││││1 │║ 2 ║ │ ││
+ * │└──┘╚═╝   │3│││└──┘║   ║ │3││
+ * │ ┌─┐   ┌─┐│ │││ ┌─┐╚═══╝ │ ││
+ * │ │4│   │5││ │││ │4│   ┌─┐│ ││
+ * │ └─┘   └─┘└─┘││ └─┘   │5│└─┘│
+ * │    ┌─┐      ││    ┌─┐└─┘   │
+ * │    │6│      ││    │6│      │
+ * │    └─┘┌────┐││    └─┘┌────┐│
+ * │       │ 7  │││       │ 7  ││
+ * │       └────┘││       └────┘│
+ * │             ││             │
+ * │             ││             │
+ * └─────────────┘└─────────────┘
+ */
+test('updateNoOverlap method change width and height keeping position', function () {
+    var grid = new $.lt.Grid([
+        new $.lt.Rect(0,0,4,3),
+        new $.lt.Rect(4,0,3,3),
+        new $.lt.Rect(10,0,3,6),
+        new $.lt.Rect(1,3,3,3),
+        new $.lt.Rect(7,3,3,3),
+        new $.lt.Rect(4,6,3,3),
+        new $.lt.Rect(7,8,6,3),
+    ]);
+
+    deepEqual(
+        grid.updateNoOverlap(grid.rects[1], {w: 5, h: 5}).rects,
+        [
+            new $.lt.Rect(0,0,4,3),
+            new $.lt.Rect(4,0,5,5),
+            new $.lt.Rect(10,0,3,6),
+            new $.lt.Rect(1,3,3,3),
+            new $.lt.Rect(7,5,3,3),
+            new $.lt.Rect(4,6,3,3),
+            new $.lt.Rect(7,8,6,3),
+        ]
+    );
 });
 
 /**

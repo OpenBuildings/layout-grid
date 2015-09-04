@@ -4,7 +4,7 @@ QUnit.begin(function () {
     $.lt.currentEventData = null;
 });
 
-test('saveload', function () {
+test('saveWidget and loadWidget', function () {
     var $item = $('#rect1');
     var event = $.Event('test');
     var $loaded;
@@ -18,7 +18,7 @@ test('saveload', function () {
     deepEqual($item, $loaded);
 });
 
-test('saveloadDataTransfer', function () {
+test('saveWidget and loadWidget with DataTransfer', function () {
     var $item = $('#rect1');
     var event = $.Event('test');
     var $loaded;
@@ -47,4 +47,26 @@ test('saveloadDataTransfer', function () {
     equal(event.originalEvent.dataTransfer.type, 'text/plain');
     equal(event.originalEvent.dataTransfer.data, '{"LTWidget":"#rect1"}');
 });
+
+
+test('loadWidget without data', function () {
+    var event = $.Event('test');
+    var $loaded;
+
+    $.lt.currentEventData = null;
+
+    event.originalEvent = {
+        dataTransfer: {
+            getData: function (type) {
+                return '';
+            }
+        }
+    };
+
+
+    $loaded = $.lt.loadWidget(event);
+
+    equal(undefined, $loaded);
+});
+
 

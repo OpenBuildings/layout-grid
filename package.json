@@ -2,11 +2,13 @@
   "name": "layout-grid",
   "version": "1.0.0",
   "devDependencies": {
+    "codeclimate-test-reporter": "^0.1.0",
     "grunt": "~0.4.1",
+    "grunt-contrib-cssmin": ">=0.13.0",
     "grunt-contrib-qunit": ">=0.2.1",
+    "grunt-contrib-sass": ">=0.9.0",
     "grunt-contrib-uglify": "^0.9.1",
     "grunt-contrib-watch": ">=0.3.1",
-    "grunt-contrib-sass": ">=0.9.0",
-    "grunt-contrib-cssmin": ">=0.13.0"
+    "grunt-qunit-istanbul": "^0.5.0"
   }
 }

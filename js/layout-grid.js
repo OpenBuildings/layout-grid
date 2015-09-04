@@ -136,7 +136,7 @@
             }
         );
 
-        return hights ? Math.max.apply(null, hights) : 0;
+        return hights.length ? Math.max.apply(null, hights) : 0;
     };
 
     /**
@@ -558,7 +558,6 @@
         .on('dragleave.lt', '[data-arrange="layout-grid"]', function (event) {
             event.preventDefault();
 
-            // We need to have a mask because of the event bubbling does not allow for a nice "do stuff on dragleave"
             if ($(event.target).data('lt-grid') === 'mask') {
                 $(this).lt_grid('end');
             }

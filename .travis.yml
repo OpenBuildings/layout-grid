@@ -12,3 +12,6 @@ before_install:
 
 script:
   - grunt qunit
+
+after_script:
+  - node_modules/codeclimate-test-reporter/bin/codeclimate.js < build/lcov.inf

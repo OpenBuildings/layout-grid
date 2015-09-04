@@ -165,6 +165,28 @@ test('itemHeight getter', function () {
     equal(lt_grid.itemHeight('lg'), 124.5, 'The height of a single cell in the grid with width 750');
 });
 
+test('update method without any options', function () {
+    var lt_grid = new $.fn.lt_grid.Constructor($('#container1'), $.fn.lt_grid.Constructor.DEFAULTS);
+    lt_grid.options.compact = false;
+    lt_grid.options.resize = false;
+
+    lt_grid.update();
+
+    deepEqual(
+        lt_grid.grid('lg').rects,
+        [
+            new $.lt.Rect(0, 0, 1, 1),
+            new $.lt.Rect(1, 0, 1, 2),
+            new $.lt.Rect(0, 2, 1, 1)
+        ],
+        'Rects of the widgets are properly compacted for the "lg" size'
+    );
+
+    lt_grid.options.compact = true;
+    lt_grid.options.resize = true;
+
+});
+
 test('moveGhost method', function () {
     var lt_grid = new $.fn.lt_grid.Constructor($('#container1'), $.fn.lt_grid.Constructor.DEFAULTS);
     var $widget = $('#rect1');
@@ -269,6 +291,31 @@ test('reposition method', function () {
     );
 });
 
+test('reposition method without overlap ', function () {
+    var lt_grid = new $.fn.lt_grid.Constructor($('#container1'), $.fn.lt_grid.Constructor.DEFAULTS);
+
+    lt_grid.option('overlap', true);
+
+    var $widget = $('#rect1');
+
+    lt_grid.windowWidth = function () { return 1500; };
+
+    lt_grid.reposition($widget, {x: 1, y: 0, w: 2, h: 2});
+
+    deepEqual(
+        lt_grid.grid('lg').rects,
+        [
+            new $.lt.Rect(1, 0, 2, 2),
+            new $.lt.Rect(1, 0, 1, 2),
+            new $.lt.Rect(0, 0, 1, 1)
+        ],
+        'Widgets move around with overlapping'
+    );
+
+    lt_grid.option('overlap', false);
+});
+
+
 test('moveToGhost method', function () {
     var lt_grid = new $.fn.lt_grid.Constructor($('#container1'), $.fn.lt_grid.Constructor.DEFAULTS);
     var $widget = $('#rect1');
@@ -301,7 +348,31 @@ test('Events', function () {
         }
     });
 
+    var dragoverTouch = $.Event('touchmove', {
+        originalEvent: {
+            dataTransfer: null,
+            touches: [
+                {
+                    pageX: 300 + ($('#container1').offset().left),
+                    pageY: 260 + ($('#container1').offset().top),
+                }
+            ]
+        }
+    });
+
     var drop = $.Event('drop', {
+        originalEvent: {
+            dataTransfer: null,
+        }
+    });
+
+    var dragleave = $.Event('dragleave', {
+        originalEvent: {
+            dataTransfer: null,
+        }
+    });
+
+    var dragend = $.Event('dragend', {
         originalEvent: {
             dataTransfer: null,
         }
@@ -317,11 +388,30 @@ test('Events', function () {
         new $.lt.Rect(1, 1, 1, 1)
     );
 
+    $('#container1').trigger(dragleave);
+
+    dragleave.target = $('#container1 .lt-mask')[0];
+    $('#container1').trigger(dragleave);
+
+    equal(0, $('#container1 lt-mask').length);
+
+    $('#container1').trigger(dragoverTouch);
+
     $('#container1').trigger(drop);
 
     deepEqual(
         $('#rect1').lt_rect('lg'),
         new $.lt.Rect(1, 0, 1, 1)
     );
+
+    $('#container1').trigger(dragend);
+
+    equal(0, $('#container1 .lt-ghost').length);
+
+    $.lt.currentEventData = null;
+
+    $('#container1').trigger(dragover);
+    $('#container1').trigger(drop);
+
 });
 
