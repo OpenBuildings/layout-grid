@@ -294,7 +294,7 @@ var canIUse = (function () {
 		var url = '',
 			script = document.createElement('SCRIPT');
 
-		url = 'http://query.yahooapis.com/v1/public/yql?q=' +
+		url = 'https://query.yahooapis.com/v1/public/yql?q=' +
 			'select * from json where url = \'' + SOURCE_DATA_URL + '\'' +
 			'&format=json&jsonCompat=new&callback=canIUseDataLoaded';
 
