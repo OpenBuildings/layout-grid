@@ -14,4 +14,4 @@ script:
   - grunt qunit
 
 after_script:
-  - node_modules/codeclimate-test-reporter/bin/codeclimate.js < build/lcov.inf
+  - node_modules/codeclimate-test-reporter/bin/codeclimate.js < build/lcov.info
