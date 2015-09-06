@@ -1,6 +1,9 @@
 {
   "name": "layout-grid",
   "version": "1.0.0",
+  "dependencies": {
+    "jquery": "^1.7, ^2.0"
+  },
   "devDependencies": {
     "codeclimate-test-reporter": "^0.1.0",
     "grunt": "~0.4.1",
