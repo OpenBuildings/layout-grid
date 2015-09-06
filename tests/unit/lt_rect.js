@@ -3,33 +3,32 @@ $(function () {
 
     QUnit.module('lt_rect')
 
-
-    QUnit.test('get', function () {
+    QUnit.test('get', function (assert) {
         var div1 = $('#rect1');
         var div2 = $('#rect2');
 
-        deepEqual(div1.lt_rect('xs'), new $.lt.Rect(0,0,1,1));
-        deepEqual(div1.lt_rect('sm'), new $.lt.Rect(0,0,1,1));
-        deepEqual(div1.lt_rect('md'), new $.lt.Rect(0,0,1,1));
-        deepEqual(div1.lt_rect('lg'), new $.lt.Rect(0,0,1,1));
+        assert.deepEqual(div1.lt_rect('xs'), new Rect(0,0,1,1));
+        assert.deepEqual(div1.lt_rect('sm'), new Rect(0,0,1,1));
+        assert.deepEqual(div1.lt_rect('md'), new Rect(0,0,1,1));
+        assert.deepEqual(div1.lt_rect('lg'), new Rect(0,0,1,1));
 
-        equal(div1.lt_rect('xs'), div1.lt_rect('xs'), 'Should return the same cached object');
-        equal(div1.lt_rect('md'), div1.lt_rect('md'), 'Should return the same cached object');
+        assert.equal(div1.lt_rect('xs'), div1.lt_rect('xs'), 'Should return the same cached object');
+        assert.equal(div1.lt_rect('md'), div1.lt_rect('md'), 'Should return the same cached object');
 
-        deepEqual(div2.lt_rect('xs'), new $.lt.Rect(0,1,1,2));
-        deepEqual(div2.lt_rect('sm'), new $.lt.Rect(1,0,1,2));
-        deepEqual(div2.lt_rect('md'), new $.lt.Rect(2,0,1,2));
-        deepEqual(div2.lt_rect('lg'), new $.lt.Rect(1,0,1,2));
+        assert.deepEqual(div2.lt_rect('xs'), new Rect(0,1,1,2));
+        assert.deepEqual(div2.lt_rect('sm'), new Rect(1,0,1,2));
+        assert.deepEqual(div2.lt_rect('md'), new Rect(2,0,1,2));
+        assert.deepEqual(div2.lt_rect('lg'), new Rect(1,0,1,2));
     });
 
 
-    QUnit.test('set', function () {
+    QUnit.test('set', function (assert) {
         var div = $('#rect1');
 
-        div.lt_rect('xs', new $.lt.Rect(4,3,1,1));
-        div.lt_rect('sm', new $.lt.Rect(1,2,1,1));
-        div.lt_rect('md', new $.lt.Rect(5,8,1,1));
-        div.lt_rect('lg', new $.lt.Rect(1,1,1,1));
+        div.lt_rect('xs', new Rect(4,3,1,1));
+        div.lt_rect('sm', new Rect(1,2,1,1));
+        div.lt_rect('md', new Rect(5,8,1,1));
+        div.lt_rect('lg', new Rect(1,1,1,1));
 
         var classes = $.grep(
             $.map(
@@ -43,8 +42,7 @@ $(function () {
             }
         );
 
-
-        deepEqual(classes, [
+        assert.deepEqual(classes, [
             "lt",
             "test-class",
             "lt-xs-x-4",
