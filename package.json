@@ -1,8 +1,18 @@
 {
   "name": "layout-grid",
-  "version": "1.0.0",
+  "license": "BSD-3-Clause",
   "dependencies": {
     "jquery": "^1.7, ^2.0"
+  },
+  "scripts": {
+    "test": "grunt qunit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/clippings/layout-grid.git"
+  },
+  "bugs": {
+    "url": "https://github.com/clippings/layout-grid/issues"
   },
   "devDependencies": {
     "codeclimate-test-reporter": "^0.1.0",
