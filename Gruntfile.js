@@ -54,15 +54,7 @@ module.exports = function (grunt) {
         },
 
         qunit: {
-            options: {
-                coverage: {
-                  src: ['js/layout-grid.js'],
-                  instrumentedFiles: 'temp/',
-                  htmlReport: 'build/coverage',
-                  lcovReport: 'build/',
-                }
-            },
-            all: ['tests/*.html']
+            all: ['js/tests/index.html']
         },
         uglify: {
             options: {
