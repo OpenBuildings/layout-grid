@@ -19,7 +19,7 @@ $(function () {
 
     QUnit.test('set and get', function (assert) {
         var item = $('#rect1')[0]
-        var event = new Event('test')
+        var event = {}
         var loaded
 
         Store.set(event, item)
@@ -31,7 +31,7 @@ $(function () {
 
     QUnit.test('set and get with DataTransfer', function (assert) {
         var item = $('#rect1')[0]
-        var event = new Event('test')
+        var event = {}
         var loaded
 
         event.dataTransfer = {
@@ -58,7 +58,7 @@ $(function () {
 
 
     QUnit.test('get without data', function (assert) {
-        var event = new Event('test')
+        var event = {}
         var loaded
 
         event.dataTransfer = {

@@ -78,9 +78,9 @@ class Grid {
 
         this.update(rect, params)
 
-        for (let item of this.getIntersectingRects(rect)) {
+        this.getIntersectingRects(rect).forEach(item => {
             this.updateNoOverlap(item, {x: item.x, y: rect.bottom()})
-        }
+        })
 
         return this
     };

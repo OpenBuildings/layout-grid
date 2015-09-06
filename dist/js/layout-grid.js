@@ -95,33 +95,13 @@ var Grid = (function () {
          * @return {Grid}          self
          */
         value: function updateNoOverlap(rect, params) {
+            var _this2 = this;
 
             this.update(rect, params);
 
-            var _iteratorNormalCompletion = true;
-            var _didIteratorError = false;
-            var _iteratorError = undefined;
-
-            try {
-                for (var _iterator = this.getIntersectingRects(rect)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-                    var item = _step.value;
-
-                    this.updateNoOverlap(item, { x: item.x, y: rect.bottom() });
-                }
-            } catch (err) {
-                _didIteratorError = true;
-                _iteratorError = err;
-            } finally {
-                try {
-                    if (!_iteratorNormalCompletion && _iterator['return']) {
-                        _iterator['return']();
-                    }
-                } finally {
-                    if (_didIteratorError) {
-                        throw _iteratorError;
-                    }
-                }
-            }
+            this.getIntersectingRects(rect).forEach(function (item) {
+                _this2.updateNoOverlap(item, { x: item.x, y: rect.bottom() });
+            });
 
             return this;
         }
