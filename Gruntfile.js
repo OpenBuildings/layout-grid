@@ -1,10 +1,10 @@
 module.exports = function (grunt) {
-    grunt.initConfig({
-        pkg: grunt.file.readJSON('package.json'),
 
+    require('load-grunt-tasks')(grunt);
+
+    grunt.initConfig({
         qunit: {
             options: {
-                '--web-security': 'no',
                 coverage: {
                   src: ['js/layout-grid.js'],
                   instrumentedFiles: 'temp/',
@@ -36,10 +36,6 @@ module.exports = function (grunt) {
           }
         }
     });
-    grunt.loadNpmTasks('grunt-qunit-istanbul');
-    // grunt.loadNpmTasks('grunt-contrib-qunit');
-    grunt.loadNpmTasks('grunt-contrib-uglify');
-    grunt.loadNpmTasks('grunt-contrib-sass');
-    grunt.loadNpmTasks('grunt-contrib-cssmin');
+
     grunt.registerTask('default', ['sass', 'cssmin', 'uglify']);
 };
