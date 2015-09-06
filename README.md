@@ -2,7 +2,6 @@ Layout Grid
 ===========
 
 [![Build Status](https://travis-ci.org/clippings/layout-grid.svg?branch=master)](https://travis-ci.org/clippings/layout-grid)
-[![Test Coverage](https://codeclimate.com/github/clippings/layout-grid/badges/coverage.svg)](https://codeclimate.com/github/clippings/layout-grid/coverage)
 
 Documentation and demos: [Layout Grid Site](https://clippings.github.com/layout-grid)
 

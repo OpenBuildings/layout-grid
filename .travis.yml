@@ -9,9 +9,3 @@ node_js:
 
 before_install:
   - npm install -g grunt-cli
-
-script:
-  - grunt qunit
-
-after_script:
-  - node_modules/codeclimate-test-reporter/bin/codeclimate.js < build/lcov.info

@@ -1,4 +1,4 @@
 languages:
    JavaScript: true
 exclude_paths:
-- "tests/*"
+  - "js/dist/*"
