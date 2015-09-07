@@ -26,7 +26,7 @@ module.exports = function (grunt) {
                     archive: '<%= pkg.name %>.zip',
                     level: 9
                 },
-                src: ['dist/**', 'sass/*', 'LICENSE', 'README.md'],
+                src: ['dist/**', 'sass/*', 'LICENSE', 'README.md']
             }
         },
 
