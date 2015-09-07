@@ -2,5 +2,6 @@ js/
 .*
 build/
 bower.json
+layout-grid.zip
 CONTRIBUTING.md
 Gruntfile.js
