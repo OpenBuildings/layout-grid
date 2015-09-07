@@ -41,15 +41,17 @@ $(function () {
     })
 
     QUnit.test('getIntersectingRects', function (assert) {
-        var rect1 = new Rect(0, 0, 1, 1)
-        var rect2 = new Rect(0, 1, 1, 1)
-        var rect3 = new Rect(0, 0, 2, 2)
-        var rect4 = new Rect(0, 2, 2, 2)
+        var rects = [
+            new Rect(0, 0, 1, 1),
+            new Rect(0, 1, 1, 1),
+            new Rect(0, 0, 2, 2),
+            new Rect(0, 2, 2, 2)
+        ]
 
-        var grid = new Grid([rect1, rect2])
+        var grid = new Grid(rects.slice(0, 2))
 
-        assert.deepEqual(grid.getIntersectingRects(rect3), [rect1, rect2])
-        assert.deepEqual(grid.getIntersectingRects(rect4), [])
+        assert.deepEqual(grid.getIntersectingRects(rects[2]), rects.slice(0, 2))
+        assert.deepEqual(grid.getIntersectingRects(rects[3]), [])
     })
 
     /**
@@ -146,14 +148,12 @@ $(function () {
         var grid0 = new Grid([])
         var grid1 = new Grid(this.rects.slice(0, 2))
         var grid2 = new Grid(this.rects.slice(0, 4))
-        var grid3 = new Grid(this.rects.slice(0, 6))
-        var grid4 = new Grid(this.rects.slice(0, 7))
+        var grid3 = new Grid(this.rects.slice(0, 7))
 
         assert.equal(grid0.height(), 0, 'Height for no rects')
         assert.equal(grid1.height(), 3, 'Height for 1 - 2')
         assert.equal(grid2.height(), 6, 'Height for 1 - 4')
-        assert.equal(grid3.height(), 9, 'Height for 1 - 6')
-        assert.equal(grid4.height(), 11, 'Height for 1 - 7')
+        assert.equal(grid3.height(), 11, 'Height for 1 - 7')
 
     })
 
