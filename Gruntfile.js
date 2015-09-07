@@ -100,7 +100,7 @@ module.exports = function (grunt) {
         cssmin: {
             target: {
                 files: {
-                    'dist/css/layout-grid.min.css': ['css/layout-grid.css']
+                    'dist/css/layout-grid.min.css': ['dirst/css/layout-grid.css']
                 }
             }
         }
