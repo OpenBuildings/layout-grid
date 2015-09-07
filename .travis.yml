@@ -9,3 +9,15 @@ before_install:
 
 after_script:
   - node_modules/codeclimate-test-reporter/bin/codeclimate.js < build/lcov.info
+
+before_deploy: grunt dist
+
+deploy:
+  provider: releases
+  api_key:
+    secure: LGB8t9DzDMWDuabHE/ElCy6blsbFrbZunIM77nf0HDtszlqj4lhz1hUQRUuNeb4oUUkquwcW+ZEcg5m5T1RN1x65aq6dXDXEk7q05WRVVWDoI5VaDrwoEd1/+lzeRrFvn89nFa6T3HrPqzxLEHwYdbMUolcDr03XYuhl4vMzFozsNsVRKPkUhyOE4/2uVUCcTfrloEVj4YfPVo0hMtstmoH3swGGkeWOCwoXPf/8bdlkNd9u3bEgbZJIHk0Kv9YbQm4LpP+3c7wj9uHwjhz0dk0s8oTDKF4nNnExrHfMije2XKiOGN3wBMJ1nfRdGkWwfYGtzowG8h1ByieOy19NDr8jDpryq63KlGT3riGFembwjvIEzN2STW3jBaKtSS9JDuYMycpMpMQiC5ii7hxZCbsSSnPOAGZPslm/2rIkSLW8xy5SoynRo7NCzPS2HlMIhaevPllKhv3pIqZLIDsWF9T1BwGGLZ80TfdD6Z1VsBds0hZJK+uelcmCJL6nxKPLXqG/dEjNTkDuHjk/PHNqqkfSmuSL9hWnnrHqmKBu1SS7ZFuAMJrx69ZapdVIKBydiOXiOkw0IMDpCkryCUTYmhll8q5jUmeQa92fRfttIGW1ObV65ra6XqEM9tBK/T2gtt5eZuS/fMzwKwPaXJcsPnMxqP4RHCqinUgjLSFAH7M=
+  skip_cleanup: true
+  file: layout-grid.zip
+  on:
+    repo: clippings/layout-grid
+    tags: true
