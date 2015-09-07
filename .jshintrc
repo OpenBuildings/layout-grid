@@ -1,0 +1,16 @@
+{
+    "jquery"    :  true,
+    "browser"   :  true,
+    "asi"       :  true,
+    "qunit"     :  true,
+    "curly"     :  true,
+    "-W100"     :  true,
+    "globals"   :  {
+        "Rect"   : true,
+        "Grid"   : true,
+        "Store"  : true,
+        "LTRect" : true,
+        "LTSize" : true,
+        "LTGrid" : true
+    }
+}
