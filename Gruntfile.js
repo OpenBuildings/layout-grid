@@ -20,6 +20,16 @@ module.exports = function (grunt) {
             ]
         },
 
+        compress: {
+            main: {
+                options: {
+                    archive: '<%= pkg.name %>.zip',
+                    level: 9
+                },
+                src: ['dist/**', 'sass/*', 'LICENSE', 'README.md'],
+            }
+        },
+
         jscs: {
             options: {
                 config: 'js/.jscsrc'
@@ -100,5 +110,6 @@ module.exports = function (grunt) {
     grunt.registerTask('css', ['sass', 'cssmin'])
     grunt.registerTask('js', ['concat', 'uglify'])
     grunt.registerTask('test', ['eslint', 'jscs', 'qunit'])
+    grunt.registerTask('dist', ['default', 'compress'])
     grunt.registerTask('default', ['css', 'js'])
 }
