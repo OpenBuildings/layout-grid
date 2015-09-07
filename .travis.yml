@@ -1,23 +1,26 @@
 language: node_js
-
 cache:
   directories:
-    - node_modules
-
+  - node_modules
 before_install:
-  - npm install -g grunt-cli
-
+- npm install -g grunt-cli
 after_script:
-  - node_modules/codeclimate-test-reporter/bin/codeclimate.js < build/lcov.info
-
+- node_modules/codeclimate-test-reporter/bin/codeclimate.js < build/lcov.info
 before_deploy: grunt dist
-
 deploy:
-  provider: releases
+- provider: releases
   api_key:
     secure: LGB8t9DzDMWDuabHE/ElCy6blsbFrbZunIM77nf0HDtszlqj4lhz1hUQRUuNeb4oUUkquwcW+ZEcg5m5T1RN1x65aq6dXDXEk7q05WRVVWDoI5VaDrwoEd1/+lzeRrFvn89nFa6T3HrPqzxLEHwYdbMUolcDr03XYuhl4vMzFozsNsVRKPkUhyOE4/2uVUCcTfrloEVj4YfPVo0hMtstmoH3swGGkeWOCwoXPf/8bdlkNd9u3bEgbZJIHk0Kv9YbQm4LpP+3c7wj9uHwjhz0dk0s8oTDKF4nNnExrHfMije2XKiOGN3wBMJ1nfRdGkWwfYGtzowG8h1ByieOy19NDr8jDpryq63KlGT3riGFembwjvIEzN2STW3jBaKtSS9JDuYMycpMpMQiC5ii7hxZCbsSSnPOAGZPslm/2rIkSLW8xy5SoynRo7NCzPS2HlMIhaevPllKhv3pIqZLIDsWF9T1BwGGLZ80TfdD6Z1VsBds0hZJK+uelcmCJL6nxKPLXqG/dEjNTkDuHjk/PHNqqkfSmuSL9hWnnrHqmKBu1SS7ZFuAMJrx69ZapdVIKBydiOXiOkw0IMDpCkryCUTYmhll8q5jUmeQa92fRfttIGW1ObV65ra6XqEM9tBK/T2gtt5eZuS/fMzwKwPaXJcsPnMxqP4RHCqinUgjLSFAH7M=
   skip_cleanup: true
   file: layout-grid.zip
+  on:
+    repo: clippings/layout-grid
+    tags: true
+- provider: npm
+  email: ikerin@gmail.com
+  skip_cleanup: true
+  api_key:
+    secure: kxPKEexWkVYRhEKngye+ND8nIV9chG3lnX/TSUFXz1Aar/Z46V6O7IXWEsIvVJSZZiHhgP8N8audqM1lQ8OxbkDGH1XZz+1vySOtLXPzXGbMjS4oCD61pFh9/2m/0vObfvfj/V/n+mkPR/IHKxXSp2ODseAc0XSoDDhHohR4IFjUUWsTlTBvMNrtNO3Uqjz97XzKIHhQDAxI9q+ddpHo9MHbRYG9OtjjrIr/XD0n9IKgTGMMF/Bz2xbjD+/18O0onBWzbZNzHUXcNXGiprFR/96m2wvXuwKEVrhCQwockzut4a0PG7cA9kRn2e5zyZefOLyYjrOR/XcpQeybydbItRo89EwmPNGZLT4hdFdDKqdtwiOmftYiV0NZ0yjafBDeiWwJlseyA4gOMIVr0XgvtGl531JPcJ6L1GNGRluA6F6fWkslQ7iFPac2wvXQB/bGy0RctK7O7jr5DBKpHVVHDJrmUQcTB14XonocViFOtxBrrhXdEoUAaniBed86X1wK4cMyOZbjuc2WTGALX/UpAjwhNThVXZEDgr/FQZgF1Dm6D+Z5E7koEQBoV4amRj5O9e9JnhKseWc8LhZ7JePJTtiMzIRGvbiz2BaQqn9FFCJTNrDBzCQhlEjkK9q9m4dW8cV6Fh9kc1v4Wid2zAqe4sKtmm76D0V8XyDoh8RVAKo=
   on:
     repo: clippings/layout-grid
     tags: true
