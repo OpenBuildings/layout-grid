@@ -87,9 +87,5 @@ $(function () {
 
         Store.clear()
         $('#container1').removeData('lt-grid')
-
-
     })
-
-
 })
