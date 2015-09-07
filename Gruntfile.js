@@ -31,7 +31,7 @@ module.exports = function (grunt) {
         lineremover: {
             usestrict: {
                 options: {
-                    exclusionPattern: /^('use strict';)/g
+                    exclusionPattern: /^('use strict')/g
                 },
                 files: {
                     '<%= concat.js.dest %>': '<%= concat.js.dest %>'
@@ -107,6 +107,7 @@ module.exports = function (grunt) {
     });
 
     grunt.registerTask('css', ['sass', 'cssmin']);
-    grunt.registerTask('js', ['concat', 'lineremover', 'stamp']);
+    grunt.registerTask('js', ['concat', 'lineremover', 'stamp', 'uglify']);
+    grunt.registerTask('test', ['eslint', 'jscs', 'qunit']);
     grunt.registerTask('default', ['css', 'js']);
 };

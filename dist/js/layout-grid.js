@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
  var LTGrid = (function ($) {
 
@@ -10,7 +10,8 @@
  * Licensed under BSD (https://github.com/clippings/layout-grid/blob/master/LICENSE)
  * ================================================================================= */
 
-'use strict'
+/* exported Grid */
+
 
 /**
  * A collection of rect objects
@@ -32,7 +33,7 @@ var Grid = (function () {
      */
     Grid.prototype.getIntersectingRects = function (rect) {
         return this.rects.filter(function (item) {
-            return rect !== item && rect.intersect(item);
+            return rect !== item && rect.intersect(item)
         })
     }
 
@@ -71,7 +72,7 @@ var Grid = (function () {
         })
 
         return hights.length ? Math.max.apply(null, hights) : 0
-    };
+    }
 
     /**
      * Move a rect inside the grid, or update its size
@@ -93,7 +94,7 @@ var Grid = (function () {
             })
 
         return this
-    };
+    }
 
     /**
      * Move a rect inside the grid, or update its size
@@ -112,8 +113,8 @@ var Grid = (function () {
         return this
     }
 
-    return Grid;
-})();
+    return Grid
+})()
 
 /* =================================================================================
  * Layout Grid
@@ -123,7 +124,8 @@ var Grid = (function () {
  * Licensed under BSD (https://github.com/clippings/layout-grid/blob/master/LICENSE)
  * ================================================================================= */
 
-'use strict'
+ /* exported LTGrid */
+
 
 var LTGrid = (function ($) {
 
@@ -136,7 +138,6 @@ var LTGrid = (function ($) {
     var NAME                = 'ltGrid'
     var DATA_KEY            = 'lt.grid'
     var EVENT_KEY           = '.' + DATA_KEY
-    var DATA_API_KEY        = '.data-api'
 
     var Event = {
         START   : 'dragstart.' + EVENT_KEY + ' touchstart. ' + EVENT_KEY,
@@ -197,13 +198,13 @@ var LTGrid = (function ($) {
     function LTGrid(element, options) {
         this.$element = $(element)
         this._options  = this._getOptions(options || {})
-        this.$mask    = null
-        this.$ghost   = null
+        this.$mask    = undefined
+        this.$ghost   = undefined
     }
 
     // getters
 
-    LTGrid.Default = Default;
+    LTGrid.Default = Default
 
     LTGrid.NAME = NAME
 
@@ -251,7 +252,7 @@ var LTGrid = (function ($) {
      * @return {jQuery}
      */
     LTGrid.prototype.ghost = function ($widget) {
-        if (null === this.$ghost) {
+        if (undefined === this.$ghost) {
             this.$ghost = $('<div class="' + $widget.attr('class') + ' lt-ghost"></div>')
             this.$element.append(this.$ghost)
         }
@@ -267,7 +268,7 @@ var LTGrid = (function ($) {
     LTGrid.prototype.removeGhost = function () {
         if (this.$ghost) {
             this.$ghost.remove()
-            this.$ghost = null
+            this.$ghost = undefined
         }
     }
 
@@ -344,21 +345,21 @@ var LTGrid = (function ($) {
      * @return {jQuery}
      */
     LTGrid.prototype.mask = function () {
-        if (null === this.$mask) {
-            this.$mask = $('<div class="lt-mask" data-lt-grid="mask"></div>');
-            this.$element.append(this.$mask);
+        if (undefined === this.$mask) {
+            this.$mask = $('<div class="lt-mask" data-lt-grid="mask"></div>')
+            this.$element.append(this.$mask)
         }
 
-        return this.$mask;
+        return this.$mask
     }
 
     /**
      * Remove the mask
      */
     LTGrid.prototype.removeMask = function () {
-        if (null !== this.$mask) {
+        if (undefined !== this.$mask) {
             this.$mask.remove()
-            this.$mask = null
+            this.$mask = undefined
         }
     }
 
@@ -372,15 +373,15 @@ var LTGrid = (function ($) {
     LTGrid.prototype.grid = function (size, grid) {
         var $items = this.$element.children('[draggable]')
 
-        if (undefined === grid) {
-            return new Grid($.map($items.toArray(), function (item) {
-                return $(item)[LTRect.NAME](size)
-            }))
-        } else {
-            for (var index in grid.rects) {
-                $items.eq(index)[LTRect.NAME](size, grid.rects[index])
-            }
+        if (undefined !== grid) {
+            grid.rects.forEach(function (rect, index) {
+                $items.eq(index)[LTRect.NAME](size, rect)
+            })
         }
+
+        return new Grid($.map($items.toArray(), function (item) {
+            return $(item)[LTRect.NAME](size)
+        }))
     }
 
     /**
@@ -396,9 +397,9 @@ var LTGrid = (function ($) {
         var grid = this.grid(size)
 
         if (this._options.overlap) {
-            grid.update(rect, params);
+            grid.update(rect, params)
         } else {
-            grid.updateNoOverlap(rect, params);
+            grid.updateNoOverlap(rect, params)
         }
 
         this.grid(size, grid)
@@ -448,7 +449,7 @@ var LTGrid = (function ($) {
     LTGrid.prototype._itemHeight = function (size) {
         var aspect = this._options.params[size].aspect
 
-        return this._itemWidth(size) * aspect;
+        return this._itemWidth(size) * aspect
     }
 
     /**
@@ -539,7 +540,7 @@ var LTGrid = (function ($) {
                 $this[NAME]('moveToGhost', $widget)
                 $this[NAME]('end')
             }
-        });
+        })
 
     /**
     * ------------------------------------------------------------------------
@@ -552,7 +553,7 @@ var LTGrid = (function ($) {
 
     return LTGrid
 
-})(jQuery);
+})(jQuery)
 
 /* =================================================================================
  * Layout Grid
@@ -562,7 +563,8 @@ var LTGrid = (function ($) {
  * Licensed under BSD (https://github.com/clippings/layout-grid/blob/master/LICENSE)
  * ================================================================================= */
 
-'use strict'
+/* exported LTRect */
+
 
 var LTRect = (function ($) {
 
@@ -587,20 +589,20 @@ var LTRect = (function ($) {
     $.fn[NAME] = function (size, newRect) {
         if (undefined === newRect) {
             if (undefined === this.data(DATA_KEY + size)) {
-                this.data(DATA_KEY + size, (new Rect()).loadCss(this.attr('class'), size));
+                this.data(DATA_KEY + size, (new Rect()).loadCss(this.attr('class'), size))
             }
-            return this.data(DATA_KEY + size);
+            return this.data(DATA_KEY + size)
         }
 
-        this.data(DATA_KEY + size, newRect);
-        this.attr('class', newRect.setCss(this.attr('class'), size));
+        this.data(DATA_KEY + size, newRect)
+        this.attr('class', newRect.setCss(this.attr('class'), size))
 
-        return this;
+        return this
     }
 
-    return LTRect;
+    return LTRect
 
-})(jQuery);
+})(jQuery)
 
 /* =================================================================================
  * Layout Grid
@@ -610,11 +612,16 @@ var LTRect = (function ($) {
  * Licensed under BSD (https://github.com/clippings/layout-grid/blob/master/LICENSE)
  * ================================================================================= */
 
-'use strict'
+ /* exported LTSize */
 
-(function ($) {
+
+var LTSize = (function ($) {
 
     var NAME = 'ltSize'
+
+    var LTSize = {
+        NAME: NAME
+    }
 
     /**
      * Get the current size of the grid
@@ -623,7 +630,9 @@ var LTRect = (function ($) {
         return this[LTGrid.NAME]().data(LTGrid.DATA_KEY).size()
     }
 
-})(jQuery);
+    return LTSize
+
+})(jQuery)
 
 /* =================================================================================
  * Layout Grid
@@ -633,7 +642,8 @@ var LTRect = (function ($) {
  * Licensed under BSD (https://github.com/clippings/layout-grid/blob/master/LICENSE)
  * ================================================================================= */
 
-'use strict'
+/* exported Rect */
+
 
 /**
  * Object that represents a rectangle with many supporting methods
@@ -649,10 +659,10 @@ var Rect = (function () {
      * @param  {Number} h height, default 1
      */
     function Rect(x, y, w, h) {
-        this.x = x || 0;
-        this.y = y || 0;
-        this.w = w || 1;
-        this.h = h || 1;
+        this.x = x || 0
+        this.y = y || 0
+        this.w = w || 1
+        this.h = h || 1
     }
 
     /**
@@ -711,15 +721,15 @@ var Rect = (function () {
             var match = classes.match(new RegExp('lt-' + size + '-' + name + '-(\\d+)'))
 
             if (match) {
-                self[name] = parseInt(match[1])
+                self[name] = parseInt(match[1], 10)
             }
         })
 
         return this
     }
 
-    return Rect;
-})();
+    return Rect
+})()
 
 /* =================================================================================
  * Layout Grid
@@ -729,7 +739,8 @@ var Rect = (function () {
  * Licensed under BSD (https://github.com/clippings/layout-grid/blob/master/LICENSE)
  * ================================================================================= */
 
-'use strict'
+/* exported Store */
+
 
 /**
  * A class to store / retrieve element inside of dataTransfer object of an event
@@ -737,7 +748,7 @@ var Rect = (function () {
  */
 var Store = (function () {
 
-    var Store = {};
+    var Store = {}
 
     /**
      * Genrate a time based random number
@@ -802,8 +813,8 @@ var Store = (function () {
         }
     }
 
-    return Store;
-})();
+    return Store
+})()
     LTGrid.Rect = Rect
     LTGrid.Grid = Grid
     return LTGrid
