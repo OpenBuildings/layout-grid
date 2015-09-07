@@ -19,7 +19,6 @@ var Grid = (function () {
      */
     function Grid(rects) {
         this.rects = rects || []
-        console.log('asd');
     }
 
     /**
