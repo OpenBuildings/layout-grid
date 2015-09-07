@@ -33,14 +33,11 @@ $(function () {
     })
 
     QUnit.test('constructor', function (assert) {
-        var rect1 = new Rect(1, 1, 1, 1)
-        var rect2 = new Rect(2, 2, 2, 2)
-
         var grid1 = new Grid()
-        var grid2 = new Grid([rect1, rect2])
+        var grid2 = new Grid(this.rects.slice(0, 2))
 
         assert.deepEqual(grid1.rects, [])
-        assert.deepEqual(grid2.rects, [rect1, rect2])
+        assert.deepEqual(grid2.rects, this.rects.slice(0, 2))
     })
 
     QUnit.test('getIntersectingRects', function (assert) {
@@ -71,17 +68,19 @@ $(function () {
      * └─────────────┘    └─────────────┘
      */
     QUnit.test('compact method', function (assert) {
+        var expected = [
+            new Rect(0, 0, 4, 3),
+            new Rect(4, 0, 3, 3),
+            new Rect(10, 0, 3, 6),
+            new Rect(1, 3, 3, 3),
+            new Rect(7, 0, 3, 3),
+            new Rect(4, 3, 3, 3),
+            new Rect(7, 6, 6, 3)
+        ]
+
         assert.deepEqual(
             this.grid.compact().rects,
-            [
-                new Rect(0, 0, 4, 3),
-                new Rect(4, 0, 3, 3),
-                new Rect(10, 0, 3, 6),
-                new Rect(1, 3, 3, 3),
-                new Rect(7, 0, 3, 3),
-                new Rect(4, 3, 3, 3),
-                new Rect(7, 6, 6, 3)
-            ],
+            expected,
             'Horisontal space reduced, as in the diagram in the comment'
         )
     })
@@ -150,35 +149,11 @@ $(function () {
         var grid3 = new Grid(this.rects.slice(0, 6))
         var grid4 = new Grid(this.rects.slice(0, 7))
 
-        assert.equal(
-            grid0.height(),
-            0,
-            'Height for no rects'
-        )
-
-        assert.equal(
-            grid1.height(),
-            3,
-            'Height for rect1, rect2'
-        )
-
-        assert.equal(
-            grid2.height(),
-            6,
-            'Height for rect1, rect2, rect3, rect4'
-        )
-
-        assert.equal(
-            grid3.height(),
-            9,
-            'Height for rect1, rect2, rect3, rect4, rect5, rect6'
-        )
-
-        assert.equal(
-            grid4.height(),
-            11,
-            'Height for rect1, rect2, rect3, rect4, rect5, rect6, rect7'
-         )
+        assert.equal(grid0.height(), 0, 'Height for no rects')
+        assert.equal(grid1.height(), 3, 'Height for 1 - 2')
+        assert.equal(grid2.height(), 6, 'Height for 1 - 4')
+        assert.equal(grid3.height(), 9, 'Height for 1 - 6')
+        assert.equal(grid4.height(), 11, 'Height for 1 - 7')
 
     })
 
