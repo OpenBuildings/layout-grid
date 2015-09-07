@@ -8,12 +8,12 @@
 
 /* exported Grid */
 
-'use strict'
-
 /**
  * A collection of rect objects
  */
 var Grid = (function () {
+
+    'use strict'
 
     /**
      * @param  {Array}  rects array of Rect objects

@@ -42,7 +42,7 @@ module.exports = function (grunt) {
         concat: {
             options: {
                 stripBanners: true,
-                banner: '// LICENSE: <%= pkg.license %>\n// http://git.io/vZkLP\n\n\'use strict\';\n\n var LTGrid = (function ($) {\n',
+                banner: '// LICENSE: <%= pkg.license %>\n// http://git.io/vZkLP\n\n var LTGrid = (function ($) {\n\n\'use strict\';\n\n',
                 footer: '\nLTGrid.Rect = Rect\nLTGrid.Grid = Grid\n\nreturn LTGrid\n\n})(jQuery);',
                 process: function (src, filepath) {
                     return src.replace('\'use strict\'', '')

@@ -8,12 +8,12 @@
 
 /* exported Rect */
 
-'use strict'
-
 /**
  * Object that represents a rectangle with many supporting methods
  */
 var Rect = (function () {
+
+    'use strict'
 
     var paramNames = ['x', 'y', 'w', 'h']
 

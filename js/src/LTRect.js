@@ -8,9 +8,9 @@
 
 /* exported LTRect */
 
-'use strict'
-
 var LTRect = (function ($) {
+
+    'use strict'
 
     var NAME     = 'ltRect'
     var DATA_KEY = 'lt.rect'

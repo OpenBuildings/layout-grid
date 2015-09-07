@@ -35,6 +35,7 @@
         "valid-typeof": 2,
 
         //Best Practices
+        "strict": [2, "function"],
         "accessor-pairs": 2,
         "block-scoped-var": 2,
         "consistent-return": 2,

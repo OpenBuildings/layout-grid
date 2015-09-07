@@ -8,9 +8,9 @@
 
  /* exported LTSize */
 
-'use strict'
-
 var LTSize = (function ($) {
+
+    'use strict'
 
     var NAME = 'ltSize'
 

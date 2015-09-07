@@ -1,17 +1,18 @@
 // LICENSE: BSD-3-Clause
 // http://git.io/vZkLP
 
+ var LTGrid = (function ($) {
+
 'use strict';
 
- var LTGrid = (function ($) {
 /* exported Grid */
-
-
 
 /**
  * A collection of rect objects
  */
 var Grid = (function () {
+
+    
 
     /**
      * @param  {Array}  rects array of Rect objects
@@ -113,9 +114,9 @@ var Grid = (function () {
 
 /* exported LTGrid */
 
-
-
 var LTGrid = (function ($) {
+
+    
 
     /**
      * ------------------------------------------------------------------------
@@ -546,8 +547,9 @@ var LTGrid = (function ($) {
 /* exported LTRect */
 
 
-
 var LTRect = (function ($) {
+
+    
 
     var NAME     = 'ltRect'
     var DATA_KEY = 'lt.rect'
@@ -588,8 +590,9 @@ var LTRect = (function ($) {
 /* exported LTSize */
 
 
-
 var LTSize = (function ($) {
+
+    
 
     var NAME = 'ltSize'
 
@@ -611,11 +614,12 @@ var LTSize = (function ($) {
 /* exported Rect */
 
 
-
 /**
  * Object that represents a rectangle with many supporting methods
  */
 var Rect = (function () {
+
+    
 
     var paramNames = ['x', 'y', 'w', 'h']
 
@@ -701,12 +705,13 @@ var Rect = (function () {
 /* exported Store */
 
 
-
 /**
  * A class to store / retrieve element inside of dataTransfer object of an event
  * Fall back to a static variable if dataTransfer is not available
  */
 var Store = (function () {
+
+    
 
     var Store = {}
 

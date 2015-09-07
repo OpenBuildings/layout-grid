@@ -8,9 +8,9 @@
 
  /* exported LTGrid */
 
-'use strict'
-
 var LTGrid = (function ($) {
+
+    'use strict'
 
     /**
      * ------------------------------------------------------------------------

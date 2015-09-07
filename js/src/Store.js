@@ -8,13 +8,13 @@
 
 /* exported Store */
 
-'use strict'
-
 /**
  * A class to store / retrieve element inside of dataTransfer object of an event
  * Fall back to a static variable if dataTransfer is not available
  */
 var Store = (function () {
+
+    'use strict'
 
     var Store = {}
 

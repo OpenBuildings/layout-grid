@@ -8,6 +8,7 @@
     "globals"   :  {
         "Rect"   : true,
         "Grid"   : true,
+        "Store"  : true,
         "LTRect" : true,
         "LTSize" : true,
         "LTGrid" : true
