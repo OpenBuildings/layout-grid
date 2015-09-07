@@ -8,20 +8,19 @@ after_script:
 - node_modules/codeclimate-test-reporter/bin/codeclimate.js < build/lcov.info
 before_deploy: grunt dist
 deploy:
-  matrix:
-  - provider: releases
-    api_key:
-      secure: LGB8t9DzDMWDuabHE/ElCy6blsbFrbZunIM77nf0HDtszlqj4lhz1hUQRUuNeb4oUUkquwcW+ZEcg5m5T1RN1x65aq6dXDXEk7q05WRVVWDoI5VaDrwoEd1/+lzeRrFvn89nFa6T3HrPqzxLEHwYdbMUolcDr03XYuhl4vMzFozsNsVRKPkUhyOE4/2uVUCcTfrloEVj4YfPVo0hMtstmoH3swGGkeWOCwoXPf/8bdlkNd9u3bEgbZJIHk0Kv9YbQm4LpP+3c7wj9uHwjhz0dk0s8oTDKF4nNnExrHfMije2XKiOGN3wBMJ1nfRdGkWwfYGtzowG8h1ByieOy19NDr8jDpryq63KlGT3riGFembwjvIEzN2STW3jBaKtSS9JDuYMycpMpMQiC5ii7hxZCbsSSnPOAGZPslm/2rIkSLW8xy5SoynRo7NCzPS2HlMIhaevPllKhv3pIqZLIDsWF9T1BwGGLZ80TfdD6Z1VsBds0hZJK+uelcmCJL6nxKPLXqG/dEjNTkDuHjk/PHNqqkfSmuSL9hWnnrHqmKBu1SS7ZFuAMJrx69ZapdVIKBydiOXiOkw0IMDpCkryCUTYmhll8q5jUmeQa92fRfttIGW1ObV65ra6XqEM9tBK/T2gtt5eZuS/fMzwKwPaXJcsPnMxqP4RHCqinUgjLSFAH7M=
-    skip_cleanup: true
-    file: layout-grid.zip
-    on:
-      repo: clippings/layout-grid
-      tags: true
-  - provider: npm
-    email: ikerin@gmail.com
-    skip_cleanup: true
-    api_key:
-      secure: qv4djinToo2F4HF81FwZz9ShSwuggfQSlcIZS62Nyw10KNjYT5Nkbox+kHJWfXi9IFauFc+HkskhjJiVQrRypP5nKGmQSPHJGmEE1j71lKEKCc39P2tk6fiG20C/yLFnN/zPVfOE6s0iQ5JZqMCOsInpLQegSw197z4RNN1SW8upjethl+7FLXWnZRc35uEPUW2jB/CPVZ2kwpBZPS6RKCl16C2do4zZnUuqgGjYQoBKX6oXAiU4Q0FCaDednWV9CVQ5bNr5Rpj8Qi+rKB1tT3ffOCq+Vb9cLhX933pbCmDD9o4NKg1Adf7vc4z/nA340ElK+SphXbEwvKrrCbvIx2648zi5gjgoQBIhulZTWoA4Mqi8rMgIvvYdAlAqxeWXKnc9uQnP/LCe1Tz0ds6a8xrNuxz6scLN4S9W3/5R0hIc7GKxwFKTC9YbeQpdZ0vwx1KX1vHQ2o9n7t6r8/HX22+YOoE4N2wfOoObKIMLMT+vh5fIDdVcYqZ2lMaeiF4xZZurijuP9H/tZV5s54gSyPerZDB4EJhlV5dqFAmVZJ4f/RxkTKt/5/0bgJAmYsgcL4Xllbr6zkSynVlvUrodzmBBk1i6Ej33CqMVp+g4PMkrL3uckYpdByg2cqzcaRuco8CP6mTrOZ+SAOZQVabaVmEt5Bnlcw6cozj5wkmles4=
-    on:
-      repo: clippings/layout-grid
-      tags: true
+- provider: releases
+  api_key:
+    secure: LGB8t9DzDMWDuabHE/ElCy6blsbFrbZunIM77nf0HDtszlqj4lhz1hUQRUuNeb4oUUkquwcW+ZEcg5m5T1RN1x65aq6dXDXEk7q05WRVVWDoI5VaDrwoEd1/+lzeRrFvn89nFa6T3HrPqzxLEHwYdbMUolcDr03XYuhl4vMzFozsNsVRKPkUhyOE4/2uVUCcTfrloEVj4YfPVo0hMtstmoH3swGGkeWOCwoXPf/8bdlkNd9u3bEgbZJIHk0Kv9YbQm4LpP+3c7wj9uHwjhz0dk0s8oTDKF4nNnExrHfMije2XKiOGN3wBMJ1nfRdGkWwfYGtzowG8h1ByieOy19NDr8jDpryq63KlGT3riGFembwjvIEzN2STW3jBaKtSS9JDuYMycpMpMQiC5ii7hxZCbsSSnPOAGZPslm/2rIkSLW8xy5SoynRo7NCzPS2HlMIhaevPllKhv3pIqZLIDsWF9T1BwGGLZ80TfdD6Z1VsBds0hZJK+uelcmCJL6nxKPLXqG/dEjNTkDuHjk/PHNqqkfSmuSL9hWnnrHqmKBu1SS7ZFuAMJrx69ZapdVIKBydiOXiOkw0IMDpCkryCUTYmhll8q5jUmeQa92fRfttIGW1ObV65ra6XqEM9tBK/T2gtt5eZuS/fMzwKwPaXJcsPnMxqP4RHCqinUgjLSFAH7M=
+  skip_cleanup: true
+  file: layout-grid.zip
+  on:
+    repo: clippings/layout-grid
+    tags: true
+- provider: npm
+  email: ikerin@gmail.com
+  skip_cleanup: true
+  api_key:
+    secure: qv4djinToo2F4HF81FwZz9ShSwuggfQSlcIZS62Nyw10KNjYT5Nkbox+kHJWfXi9IFauFc+HkskhjJiVQrRypP5nKGmQSPHJGmEE1j71lKEKCc39P2tk6fiG20C/yLFnN/zPVfOE6s0iQ5JZqMCOsInpLQegSw197z4RNN1SW8upjethl+7FLXWnZRc35uEPUW2jB/CPVZ2kwpBZPS6RKCl16C2do4zZnUuqgGjYQoBKX6oXAiU4Q0FCaDednWV9CVQ5bNr5Rpj8Qi+rKB1tT3ffOCq+Vb9cLhX933pbCmDD9o4NKg1Adf7vc4z/nA340ElK+SphXbEwvKrrCbvIx2648zi5gjgoQBIhulZTWoA4Mqi8rMgIvvYdAlAqxeWXKnc9uQnP/LCe1Tz0ds6a8xrNuxz6scLN4S9W3/5R0hIc7GKxwFKTC9YbeQpdZ0vwx1KX1vHQ2o9n7t6r8/HX22+YOoE4N2wfOoObKIMLMT+vh5fIDdVcYqZ2lMaeiF4xZZurijuP9H/tZV5s54gSyPerZDB4EJhlV5dqFAmVZJ4f/RxkTKt/5/0bgJAmYsgcL4Xllbr6zkSynVlvUrodzmBBk1i6Ej33CqMVp+g4PMkrL3uckYpdByg2cqzcaRuco8CP6mTrOZ+SAOZQVabaVmEt5Bnlcw6cozj5wkmles4=
+  on:
+    repo: clippings/layout-grid
+    tags: true
