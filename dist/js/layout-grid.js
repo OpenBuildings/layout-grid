@@ -3,7 +3,7 @@
 
  var LTGrid = (function ($) {
 
-'use strict';
+'use strict'
 
 /* exported Grid */
 
@@ -173,7 +173,6 @@ var LTGrid = (function ($) {
         }
     }
 
-
     /**
      * ------------------------------------------------------------------------
      * Class Definition
@@ -235,34 +234,6 @@ var LTGrid = (function ($) {
     }
 
     /**
-     * Return a ghost item for a widget, cache ghost
-     *
-     * @param  {jQuery} $widget
-     * @return {jQuery}
-     */
-    LTGrid.prototype.ghost = function ($widget) {
-        if (undefined === this.$ghost) {
-            this.$ghost = $('<div class="' + $widget.attr('class') + ' lt-ghost"></div>')
-            this.$element.append(this.$ghost)
-        }
-
-        return this.$ghost
-    }
-
-    /**
-     * Remove the ghost element for this grid
-     *
-     * @param  {jQuery} $widget
-     */
-    LTGrid.prototype.removeGhost = function () {
-        if (this.$ghost) {
-            this.$ghost.remove()
-            this.$ghost = undefined
-        }
-    }
-
-
-    /**
      * Compact the grid for current size
      */
     LTGrid.prototype.compact = function () {
@@ -284,34 +255,11 @@ var LTGrid = (function ($) {
     }
 
     /**
-     * Move the ghost element of a widget inside the grid.
-     * Pass a mouse x and y coords, relative to the grid
-     *
-     * @param  {jQuery} $widget
-     * @param  {Number} mouseX
-     * @param  {Number} mouseY
-     */
-    LTGrid.prototype.moveGhost = function ($widget, mouseX, mouseY) {
-        var size = this.size()
-        var $ghost = this.ghost($widget)
-        var rect = $ghost[LTRect.NAME](size)
-        var gap = this._options.params[size].gap
-        var cols = this._options.params[size].cols
-
-        rect.x = Math.floor(mouseX / (this._itemWidth(size) + gap))
-        rect.y = Math.floor(mouseY / (this._itemHeight(size) + gap))
-
-        rect.x = Math.min(Math.max(0, rect.x), cols - rect.w)
-
-        $ghost[LTRect.NAME](size, rect)
-    }
-
-    /**
      * Clear artefacts like mask and ghost and update
      */
     LTGrid.prototype.end = function () {
-        this.removeMask()
-        this.removeGhost()
+        this._removeMask()
+        this._removeGhost()
         this.update()
     }
 
@@ -325,30 +273,6 @@ var LTGrid = (function ($) {
 
         if (this._options.resize) {
             this.resize()
-        }
-    }
-
-    /**
-     * Get the mask of the grid. Create one if there is none.
-     *
-     * @return {jQuery}
-     */
-    LTGrid.prototype.mask = function () {
-        if (undefined === this.$mask) {
-            this.$mask = $('<div class="lt-mask" data-lt-grid="mask"></div>')
-            this.$element.append(this.$mask)
-        }
-
-        return this.$mask
-    }
-
-    /**
-     * Remove the mask
-     */
-    LTGrid.prototype.removeMask = function () {
-        if (undefined !== this.$mask) {
-            this.$mask.remove()
-            this.$mask = undefined
         }
     }
 
@@ -395,15 +319,68 @@ var LTGrid = (function ($) {
         this.update()
     }
 
+    // private
+    // ------------------------------------------------------------------------
+
+    /**
+     * Move the ghost element of a widget inside the grid.
+     * Pass a mouse x and y coords, relative to the grid
+     *
+     * @param  {jQuery} $widget
+     * @param  {Number} mouseX
+     * @param  {Number} mouseY
+     */
+    LTGrid.prototype._moveGhost = function ($widget, mouseX, mouseY) {
+        var size = this.size()
+        var $ghost = this._getGhost($widget)
+        var rect = $ghost[LTRect.NAME](size)
+        var gap = this._options.params[size].gap
+        var cols = this._options.params[size].cols
+
+        rect.x = Math.floor(mouseX / (this._itemWidth(size) + gap))
+        rect.y = Math.floor(mouseY / (this._itemHeight(size) + gap))
+
+        rect.x = Math.min(Math.max(0, rect.x), cols - rect.w)
+
+        $ghost[LTRect.NAME](size, rect)
+    }
+
+    /**
+     * Return a ghost item for a widget, cache ghost
+     *
+     * @param  {jQuery} $widget
+     * @return {jQuery}
+     */
+    LTGrid.prototype._getGhost = function ($widget) {
+        if (undefined === this.$ghost) {
+            this.$ghost = $('<div class="' + $widget.attr('class') + ' lt-ghost"></div>')
+            this.$element.append(this.$ghost)
+        }
+
+        return this.$ghost
+    }
+
+    /**
+     * Remove the ghost element for this grid
+     *
+     * @param  {jQuery} $widget
+     */
+    LTGrid.prototype._removeGhost = function () {
+        if (this.$ghost) {
+            this.$ghost.remove()
+            this.$ghost = undefined
+        }
+    }
+
     /**
      * Move the widget to its corresponding ghost position
      *
      * @param  {jQuery} $widget
      */
-    LTGrid.prototype.moveToGhost = function ($widget) {
+    LTGrid.prototype._moveToGhost = function ($widget) {
         var size = this.size()
         var $parent = $widget.parent()
-        var $ghost = this.ghost($widget)
+        var $ghost = this._getGhost($widget)
         var pos = $ghost[LTRect.NAME](size)
 
         this.$element.append($widget)
@@ -413,8 +390,29 @@ var LTGrid = (function ($) {
         $parent.add(this.$element)[NAME]('update')
     }
 
+    /**
+     * Get the mask of the grid. Create one if there is none.
+     *
+     * @return {jQuery}
+     */
+    LTGrid.prototype._getMask = function () {
+        if (undefined === this.$mask) {
+            this.$mask = $('<div class="lt-mask" data-lt-grid="mask"></div>')
+            this.$element.append(this.$mask)
+        }
 
-    // private
+        return this.$mask
+    }
+
+    /**
+     * Remove the mask
+     */
+    LTGrid.prototype._removeMask = function () {
+        if (undefined !== this.$mask) {
+            this.$mask.remove()
+            this.$mask = undefined
+        }
+    }
 
     /**
      * The width of a single grid count, in pixels
@@ -493,17 +491,18 @@ var LTGrid = (function ($) {
         .on(Event.OVER, Selector.GRID, function (event) {
             var original = event.originalEvent
             var $widget = $(Store.get(original))
-            var $this = $(this)
 
             if ($widget.length) {
                 var pos = original.touches ? original.touches[0] : original
+                var $this = $(this)
                 var mouseX = pos.pageX - $this.offset().left
                 var mouseY = pos.pageY - $this.offset().top
+                var grid = $this[NAME]().data(DATA_KEY)
 
                 event.preventDefault()
 
-                $this[NAME]('mask')
-                $this[NAME]('moveGhost', $widget,  mouseX, mouseY)
+                grid._getMask()
+                grid._moveGhost($widget, mouseX, mouseY)
             }
         })
 
@@ -521,13 +520,15 @@ var LTGrid = (function ($) {
 
         .on(Event.DROP, Selector.GRID, function (event) {
             var $widget = $(Store.get(event.originalEvent))
-            var $this = $(this)
 
             if ($widget.length) {
+                var $this = $(this)
+                var grid = $this[NAME]().data(DATA_KEY)
+
                 event.preventDefault()
 
-                $this[NAME]('moveToGhost', $widget)
-                $this[NAME]('end')
+                grid._moveToGhost($widget)
+                grid.end()
             }
         })
 
@@ -545,7 +546,6 @@ var LTGrid = (function ($) {
 })(jQuery)
 
 /* exported LTRect */
-
 
 var LTRect = (function ($) {
 
@@ -589,7 +589,6 @@ var LTRect = (function ($) {
 
 /* exported LTSize */
 
-
 var LTSize = (function ($) {
 
     
@@ -612,7 +611,6 @@ var LTSize = (function ($) {
 })(jQuery)
 
 /* exported Rect */
-
 
 /**
  * Object that represents a rectangle with many supporting methods
@@ -704,7 +702,6 @@ var Rect = (function () {
 
 /* exported Store */
 
-
 /**
  * A class to store / retrieve element inside of dataTransfer object of an event
  * Fall back to a static variable if dataTransfer is not available
@@ -786,4 +783,4 @@ LTGrid.Grid = Grid
 
 return LTGrid
 
-})(jQuery);
+})(jQuery)

@@ -5,11 +5,18 @@ $(function () {
 
     QUnit.test('generate', function (assert) {
         var $grid = $('#container1')
+        var lt = $grid.ltGrid().data(LTGrid.DATA_KEY)
 
-        $grid.ltGrid().data(LTGrid.DATA_KEY)._windowWidth = function () { return 1500 }
+        lt._windowWidth = function () {
+            return 1500
+        }
+
         assert.equal($grid.ltSize(), 'lg')
 
-        $grid.ltGrid().data(LTGrid.DATA_KEY)._windowWidth = function () { return 300 }
+        lt._windowWidth = function () {
+            return 300
+        }
+
         assert.equal($grid.ltSize(), 'xs')
     })
 })

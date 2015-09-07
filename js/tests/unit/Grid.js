@@ -19,13 +19,13 @@ $(function () {
     QUnit.module('Grid', {
         beforeEach: function () {
             this.rects = [
-                new Rect(0,0,4,3),
-                new Rect(4,0,3,3),
-                new Rect(10,0,3,6),
-                new Rect(1,3,3,3),
-                new Rect(7,3,3,3),
-                new Rect(4,6,3,3),
-                new Rect(7,8,6,3)
+                new Rect(0, 0, 4, 3),
+                new Rect(4, 0, 3, 3),
+                new Rect(10, 0, 3, 6),
+                new Rect(1, 3, 3, 3),
+                new Rect(7, 3, 3, 3),
+                new Rect(4, 6, 3, 3),
+                new Rect(7, 8, 6, 3)
             ]
 
             this.grid = new Grid(this.rects)
@@ -33,8 +33,8 @@ $(function () {
     })
 
     QUnit.test('constructor', function (assert) {
-        var rect1 = new Rect(1,1,1,1)
-        var rect2 = new Rect(2,2,2,2)
+        var rect1 = new Rect(1, 1, 1, 1)
+        var rect2 = new Rect(2, 2, 2, 2)
 
         var grid1 = new Grid()
         var grid2 = new Grid([rect1, rect2])
@@ -44,10 +44,10 @@ $(function () {
     })
 
     QUnit.test('getIntersectingRects', function (assert) {
-        var rect1 = new Rect(0,0,1,1)
-        var rect2 = new Rect(0,1,1,1)
-        var rect3 = new Rect(0,0,2,2)
-        var rect4 = new Rect(0,2,2,2)
+        var rect1 = new Rect(0, 0, 1, 1)
+        var rect2 = new Rect(0, 1, 1, 1)
+        var rect3 = new Rect(0, 0, 2, 2)
+        var rect4 = new Rect(0, 2, 2, 2)
 
         var grid = new Grid([rect1, rect2])
 
@@ -74,13 +74,13 @@ $(function () {
         assert.deepEqual(
             this.grid.compact().rects,
             [
-                new Rect(0,0,4,3),
-                new Rect(4,0,3,3),
-                new Rect(10,0,3,6),
-                new Rect(1,3,3,3),
-                new Rect(7,0,3,3),
-                new Rect(4,3,3,3),
-                new Rect(7,6,6,3)
+                new Rect(0, 0, 4, 3),
+                new Rect(4, 0, 3, 3),
+                new Rect(10, 0, 3, 6),
+                new Rect(1, 3, 3, 3),
+                new Rect(7, 0, 3, 3),
+                new Rect(4, 3, 3, 3),
+                new Rect(7, 6, 6, 3)
             ],
             'Horisontal space reduced, as in the diagram in the comment'
         )
@@ -104,25 +104,25 @@ $(function () {
     QUnit.test('compact method another configuration', function (assert) {
 
         var grid = new Grid([
-            new Rect(0,8,4,3),
-            new Rect(4,0,3,3),
-            new Rect(10,0,3,6),
-            new Rect(1,3,3,3),
-            new Rect(7,3,3,3),
-            new Rect(4,6,3,3),
-            new Rect(7,8,6,3)
+            new Rect(0, 8, 4, 3),
+            new Rect(4, 0, 3, 3),
+            new Rect(10, 0, 3, 6),
+            new Rect(1, 3, 3, 3),
+            new Rect(7, 3, 3, 3),
+            new Rect(4, 6, 3, 3),
+            new Rect(7, 8, 6, 3)
         ])
 
         assert.deepEqual(
             grid.compact().rects,
             [
-                new Rect(0,3,4,3),
-                new Rect(4,0,3,3),
-                new Rect(10,0,3,6),
-                new Rect(1,0,3,3),
-                new Rect(7,0,3,3),
-                new Rect(4,3,3,3),
-                new Rect(7,6,6,3)
+                new Rect(0, 3, 4, 3),
+                new Rect(4, 0, 3, 3),
+                new Rect(10, 0, 3, 6),
+                new Rect(1, 0, 3, 3),
+                new Rect(7, 0, 3, 3),
+                new Rect(4, 3, 3, 3),
+                new Rect(7, 6, 6, 3)
             ],
             'Horisontal space reduced, as in the diagram in the comment'
         )
@@ -144,14 +144,6 @@ $(function () {
      * └─────────────┘
      */
     QUnit.test('height', function (assert) {
-        var rect1 = new Rect(0,0,4,3)
-        var rect2 = new Rect(4,0,3,3)
-        var rect3 = new Rect(10,0,3,6)
-        var rect4 = new Rect(1,3,3,3)
-        var rect5 = new Rect(7,3,3,3)
-        var rect6 = new Rect(4,6,3,3)
-        var rect7 = new Rect(7,8,6,3)
-
         var grid0 = new Grid([])
         var grid1 = new Grid(this.rects.slice(0, 2))
         var grid2 = new Grid(this.rects.slice(0, 4))
@@ -214,13 +206,13 @@ $(function () {
         assert.deepEqual(
             grid.rects,
             [
-                new Rect(0,0,4,3),
-                new Rect(4,0,5,5),
-                new Rect(10,0,3,6),
-                new Rect(1,3,3,3),
-                new Rect(7,5,3,3),
-                new Rect(4,6,3,3),
-                new Rect(7,8,6,3)
+                new Rect(0, 0, 4, 3),
+                new Rect(4, 0, 5, 5),
+                new Rect(10, 0, 3, 6),
+                new Rect(1, 3, 3, 3),
+                new Rect(7, 5, 3, 3),
+                new Rect(4, 6, 3, 3),
+                new Rect(7, 8, 6, 3)
             ]
         )
     })
@@ -249,13 +241,13 @@ $(function () {
         assert.deepEqual(
             grid.rects,
             [
-                new Rect(0,0,4,3),
-                new Rect(4,4,3,3),
-                new Rect(10,0,3,6),
-                new Rect(1,3,3,3),
-                new Rect(7,3,3,3),
-                new Rect(4,7,3,3),
-                new Rect(7,8,6,3)
+                new Rect(0, 0, 4, 3),
+                new Rect(4, 4, 3, 3),
+                new Rect(10, 0, 3, 6),
+                new Rect(1, 3, 3, 3),
+                new Rect(7, 3, 3, 3),
+                new Rect(4, 7, 3, 3),
+                new Rect(7, 8, 6, 3)
             ]
         )
     })
@@ -284,13 +276,13 @@ $(function () {
         assert.deepEqual(
             grid.rects,
             [
-                new Rect(0,0,4,3),
-                new Rect(9,1,3,3),
-                new Rect(10,4,3,6),
-                new Rect(1,3,3,3),
-                new Rect(7,4,3,3),
-                new Rect(4,6,3,3),
-                new Rect(7,10,6,3)
+                new Rect(0, 0, 4, 3),
+                new Rect(9, 1, 3, 3),
+                new Rect(10, 4, 3, 6),
+                new Rect(1, 3, 3, 3),
+                new Rect(7, 4, 3, 3),
+                new Rect(4, 6, 3, 3),
+                new Rect(7, 10, 6, 3)
             ]
         )
     })
@@ -320,13 +312,13 @@ $(function () {
         assert.deepEqual(
             grid.rects,
             [
-                new Rect(0,3,4,3),
-                new Rect(1,0,3,3),
-                new Rect(10,0,3,6),
-                new Rect(1,6,3,3),
-                new Rect(7,3,3,3),
-                new Rect(4,6,3,3),
-                new Rect(7,8,6,3)
+                new Rect(0, 3, 4, 3),
+                new Rect(1, 0, 3, 3),
+                new Rect(10, 0, 3, 6),
+                new Rect(1, 6, 3, 3),
+                new Rect(7, 3, 3, 3),
+                new Rect(4, 6, 3, 3),
+                new Rect(7, 8, 6, 3)
             ]
         )
     })
@@ -356,13 +348,13 @@ $(function () {
         assert.deepEqual(
             grid.rects,
             [
-                new Rect(0,0,4,3),
-                new Rect(4,4,5,4),
-                new Rect(10,0,3,6),
-                new Rect(1,3,3,3),
-                new Rect(7,8,3,3),
-                new Rect(4,8,3,3),
-                new Rect(7,11,6,3)
+                new Rect(0, 0, 4, 3),
+                new Rect(4, 4, 5, 4),
+                new Rect(10, 0, 3, 6),
+                new Rect(1, 3, 3, 3),
+                new Rect(7, 8, 3, 3),
+                new Rect(4, 8, 3, 3),
+                new Rect(7, 11, 6, 3)
             ]
         )
     })

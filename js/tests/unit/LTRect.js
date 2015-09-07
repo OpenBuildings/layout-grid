@@ -7,28 +7,28 @@ $(function () {
         var $div1 = $('#rect1')
         var $div2 = $('#rect2')
 
-        assert.deepEqual($div1.ltRect('xs'), new Rect(0,0,1,1))
-        assert.deepEqual($div1.ltRect('sm'), new Rect(0,0,1,1))
-        assert.deepEqual($div1.ltRect('md'), new Rect(0,0,1,1))
-        assert.deepEqual($div1.ltRect('lg'), new Rect(0,0,1,1))
+        assert.deepEqual($div1.ltRect('xs'), new Rect(0, 0, 1, 1))
+        assert.deepEqual($div1.ltRect('sm'), new Rect(0, 0, 1, 1))
+        assert.deepEqual($div1.ltRect('md'), new Rect(0, 0, 1, 1))
+        assert.deepEqual($div1.ltRect('lg'), new Rect(0, 0, 1, 1))
 
         assert.equal($div1.ltRect('xs'), $div1.ltRect('xs'), 'Should return the same cached object')
         assert.equal($div1.ltRect('md'), $div1.ltRect('md'), 'Should return the same cached object')
 
-        assert.deepEqual($div2.ltRect('xs'), new Rect(0,1,1,2))
-        assert.deepEqual($div2.ltRect('sm'), new Rect(1,0,1,2))
-        assert.deepEqual($div2.ltRect('md'), new Rect(2,0,1,2))
-        assert.deepEqual($div2.ltRect('lg'), new Rect(1,0,1,2))
+        assert.deepEqual($div2.ltRect('xs'), new Rect(0, 1, 1, 2))
+        assert.deepEqual($div2.ltRect('sm'), new Rect(1, 0, 1, 2))
+        assert.deepEqual($div2.ltRect('md'), new Rect(2, 0, 1, 2))
+        assert.deepEqual($div2.ltRect('lg'), new Rect(1, 0, 1, 2))
     })
 
 
     QUnit.test('set', function (assert) {
         var $div = $('#rect1')
 
-        $div.ltRect('xs', new Rect(4,3,1,1))
-        $div.ltRect('sm', new Rect(1,2,1,1))
-        $div.ltRect('md', new Rect(5,8,1,1))
-        $div.ltRect('lg', new Rect(1,1,1,1))
+        $div.ltRect('xs', new Rect(4, 3, 1, 1))
+        $div.ltRect('sm', new Rect(1, 2, 1, 1))
+        $div.ltRect('md', new Rect(5, 8, 1, 1))
+        $div.ltRect('lg', new Rect(1, 1, 1, 1))
 
         var classes = $.grep(
             $.map(

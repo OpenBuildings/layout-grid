@@ -1,6 +1,8 @@
 module.exports = function (grunt) {
 
-    require('load-grunt-tasks')(grunt);
+    'use strict'
+
+    require('load-grunt-tasks')(grunt)
 
     grunt.initConfig({
         // Metadata.
@@ -10,48 +12,37 @@ module.exports = function (grunt) {
             options: {
                 configFile: 'js/.eslintrc'
             },
-            target: 'js/src/*.js'
+            js: [
+                'Gruntfile.js',
+                'js/src/*.js',
+                'js/tests/unit/*.js'
+            ]
         },
 
         jscs: {
             options: {
                 config: 'js/.jscsrc'
             },
-            grunt: {
-                src: ['Gruntfile.js']
-            },
-            core: {
-                src: 'js/src/*.js'
-            },
-            test: {
-                src: 'js/tests/unit/*.js'
-            }
-        },
-
-        lineremover: {
-            usestrict: {
-                options: {
-                    exclusionPattern: /^('use strict')/g
-                },
-                files: {
-                    '<%= concat.js.dest %>': '<%= concat.js.dest %>'
-                }
+            files: {
+                src: [
+                    'Gruntfile.js',
+                    'js/src/*.js',
+                    'js/tests/unit/*.js'
+                ]
             }
         },
 
         concat: {
             options: {
                 stripBanners: true,
-                banner: '// LICENSE: <%= pkg.license %>\n// http://git.io/vZkLP\n\n var LTGrid = (function ($) {\n\n\'use strict\';\n\n',
-                footer: '\nLTGrid.Rect = Rect\nLTGrid.Grid = Grid\n\nreturn LTGrid\n\n})(jQuery);',
-                process: function (src, filepath) {
+                banner: '// LICENSE: <%= pkg.license %>\n// http://git.io/vZkLP\n\n var LTGrid = (function ($) {\n\n\'use strict\'\n\n',
+                footer: '\nLTGrid.Rect = Rect\nLTGrid.Grid = Grid\n\nreturn LTGrid\n\n})(jQuery)',
+                process: function (src) {
                     return src.replace('\'use strict\'', '')
                 }
             },
             js: {
-                src: [
-                  'js/src/*.js'
-                ],
+                src: 'js/src/*.js',
                 dest: 'dist/js/<%= pkg.name %>.js'
             }
         },
@@ -93,14 +84,14 @@ module.exports = function (grunt) {
         cssmin: {
             target: {
                 files: {
-                    'dist/css/layout-grid.min.css': ['dirst/css/layout-grid.css']
+                    'dist/css/layout-grid.min.css': ['dist/css/layout-grid.css']
                 }
             }
         }
-    });
+    })
 
-    grunt.registerTask('css', ['sass', 'cssmin']);
-    grunt.registerTask('js', ['concat', 'uglify']);
-    grunt.registerTask('test', ['eslint', 'jscs', 'qunit']);
-    grunt.registerTask('default', ['css', 'js']);
-};
+    grunt.registerTask('css', ['sass', 'cssmin'])
+    grunt.registerTask('js', ['concat', 'uglify'])
+    grunt.registerTask('test', ['eslint', 'jscs', 'qunit'])
+    grunt.registerTask('default', ['css', 'js'])
+}

@@ -62,7 +62,7 @@ $(function () {
         var loaded
 
         event.dataTransfer = {
-            getData: function (type) {
+            getData: function () {
                 return ''
             }
         }
