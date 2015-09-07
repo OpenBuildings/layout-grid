@@ -6,7 +6,9 @@
  * Licensed under BSD (https://github.com/clippings/layout-grid/blob/master/LICENSE)
  * ================================================================================= */
 
-'use strict';
+/* exported Grid */
+
+'use strict'
 
 /**
  * A collection of rect objects
@@ -28,7 +30,7 @@ var Grid = (function () {
      */
     Grid.prototype.getIntersectingRects = function (rect) {
         return this.rects.filter(function (item) {
-            return rect !== item && rect.intersect(item);
+            return rect !== item && rect.intersect(item)
         })
     }
 
@@ -46,7 +48,7 @@ var Grid = (function () {
                 return a.y - b.y
             })
             .forEach(function (item) {
-                 do {
+                do {
                     item.y -= 1
                 } while (item.y >= 0 && self.getIntersectingRects(item).length === 0)
 
@@ -67,7 +69,7 @@ var Grid = (function () {
         })
 
         return hights.length ? Math.max.apply(null, hights) : 0
-    };
+    }
 
     /**
      * Move a rect inside the grid, or update its size
@@ -85,11 +87,11 @@ var Grid = (function () {
 
         this.getIntersectingRects(rect)
             .forEach(function (item) {
-                self.updateNoOverlap(item, {x: item.x, y: rect.bottom()})
+                self.updateNoOverlap(item, { x: item.x, y: rect.bottom() })
             })
 
         return this
-    };
+    }
 
     /**
      * Move a rect inside the grid, or update its size
@@ -108,5 +110,5 @@ var Grid = (function () {
         return this
     }
 
-    return Grid;
-})();
+    return Grid
+})()

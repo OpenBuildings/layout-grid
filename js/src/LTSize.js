@@ -6,14 +6,25 @@
  * Licensed under BSD (https://github.com/clippings/layout-grid/blob/master/LICENSE)
  * ================================================================================= */
 
-'use strict';
+ /* exported LTSize */
 
-(function ($) {
+'use strict'
+
+var LTSize = (function ($) {
+
+    var NAME = 'ltSize'
+
+    var LTSize = {
+        NAME: NAME
+    }
+
     /**
      * Get the current size of the grid
      */
-    $.fn.lt_size = function () {
-        return this.lt_grid().data(LTGrid.DATA_KEY).size()
+    $.fn[NAME] = function () {
+        return this[LTGrid.NAME]().data(LTGrid.DATA_KEY).size()
     }
 
-})(jQuery);
+    return LTSize
+
+})(jQuery)

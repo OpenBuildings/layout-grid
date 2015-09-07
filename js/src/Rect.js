@@ -6,7 +6,9 @@
  * Licensed under BSD (https://github.com/clippings/layout-grid/blob/master/LICENSE)
  * ================================================================================= */
 
-'use strict';
+/* exported Rect */
+
+'use strict'
 
 /**
  * Object that represents a rectangle with many supporting methods
@@ -22,10 +24,10 @@ var Rect = (function () {
      * @param  {Number} h height, default 1
      */
     function Rect(x, y, w, h) {
-        this.x = x || 0;
-        this.y = y || 0;
-        this.w = w || 1;
-        this.h = h || 1;
+        this.x = x || 0
+        this.y = y || 0
+        this.w = w || 1
+        this.h = h || 1
     }
 
     /**
@@ -84,12 +86,12 @@ var Rect = (function () {
             var match = classes.match(new RegExp('lt-' + size + '-' + name + '-(\\d+)'))
 
             if (match) {
-                self[name] = parseInt(match[1])
+                self[name] = parseInt(match[1], 10)
             }
         })
 
         return this
     }
 
-    return Rect;
-})();
+    return Rect
+})()

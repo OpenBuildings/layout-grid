@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
  var LTGrid = (function ($) {
 
@@ -10,6 +10,7 @@
  * Licensed under BSD (https://github.com/clippings/layout-grid/blob/master/LICENSE)
  * ================================================================================= */
 
+'use strict'
 
 /**
  * A collection of rect objects
@@ -49,7 +50,7 @@ var Grid = (function () {
                 return a.y - b.y
             })
             .forEach(function (item) {
-                 do {
+                do {
                     item.y -= 1
                 } while (item.y >= 0 && self.getIntersectingRects(item).length === 0)
 
@@ -88,7 +89,7 @@ var Grid = (function () {
 
         this.getIntersectingRects(rect)
             .forEach(function (item) {
-                self.updateNoOverlap(item, {x: item.x, y: rect.bottom()})
+                self.updateNoOverlap(item, { x: item.x, y: rect.bottom() })
             })
 
         return this
@@ -122,6 +123,7 @@ var Grid = (function () {
  * Licensed under BSD (https://github.com/clippings/layout-grid/blob/master/LICENSE)
  * ================================================================================= */
 
+'use strict'
 
 var LTGrid = (function ($) {
 
@@ -131,22 +133,22 @@ var LTGrid = (function ($) {
      * ------------------------------------------------------------------------
      */
 
-    var NAME                = 'lt_grid'
+    var NAME                = 'ltGrid'
     var DATA_KEY            = 'lt.grid'
     var EVENT_KEY           = '.' + DATA_KEY
     var DATA_API_KEY        = '.data-api'
 
     var Event = {
-        START   : "dragstart." + EVENT_KEY + " touchstart. " + EVENT_KEY,
-        OVER    : "dragover." + EVENT_KEY + " touchmove. " + EVENT_KEY,
-        END     : "dragend." + EVENT_KEY + " touchcancel. " + EVENT_KEY,
-        DROP    : "drop." + EVENT_KEY + " touchend. " + EVENT_KEY,
-        LEAVE   : "dragleave." + EVENT_KEY
+        START   : 'dragstart.' + EVENT_KEY + ' touchstart. ' + EVENT_KEY,
+        OVER    : 'dragover.' + EVENT_KEY + ' touchmove. ' + EVENT_KEY,
+        END     : 'dragend.' + EVENT_KEY + ' touchcancel. ' + EVENT_KEY,
+        DROP    : 'drop.' + EVENT_KEY + ' touchend. ' + EVENT_KEY,
+        LEAVE   : 'dragleave.' + EVENT_KEY
     }
 
     var Selector = {
-        GRID   : '[data-arrange="layout-grid"]',
-        WIDGET : '[data-arrange="layout-grid"] .lt'
+        GRID   : '[data-arrange="lt-grid"]',
+        WIDGET : '[data-arrange="lt-grid"] .lt'
     }
 
     var Default = {
@@ -158,25 +160,25 @@ var LTGrid = (function ($) {
                 gap: 1,
                 maxWidth: Number.MAX_VALUE,
                 cols: 4,
-                aspect: 2/3
+                aspect: 2 / 3
             },
             md: {
                 gap: 2,
                 maxWidth: 1200,
                 cols: 3,
-                aspect: 2/3
+                aspect: 2 / 3
             },
             sm: {
                 gap: 3,
                 maxWidth: 992,
                 cols: 2,
-                aspect: 2/3
+                aspect: 2 / 3
             },
             xs: {
                 gap: 4,
                 maxWidth: 768,
                 cols: 1,
-                aspect: 2/3
+                aspect: 2 / 3
             }
         }
     }
@@ -192,18 +194,22 @@ var LTGrid = (function ($) {
      * @param  {jQuery} element
      * @param  {Object} options
      */
-    function LTGrid (element, options) {
-        this._element = $(element)
+    function LTGrid(element, options) {
+        this.$element = $(element)
         this._options  = this._getOptions(options || {})
-        this._mask    = null
-        this._ghost   = null
+        this.$mask    = null
+        this.$ghost   = null
     }
 
     // getters
 
     LTGrid.Default = Default;
 
-    LTGrid.DATA_KEY = DATA_KEY;
+    LTGrid.NAME = NAME
+
+    LTGrid.DATA_KEY = DATA_KEY
+
+    LTGrid.EVENT_KEY = EVENT_KEY
 
     LTGrid.prototype.options = function () {
         return this._options
@@ -245,12 +251,12 @@ var LTGrid = (function ($) {
      * @return {jQuery}
      */
     LTGrid.prototype.ghost = function ($widget) {
-        if (null === this._ghost) {
-            this._ghost = $('<div class="' + $widget.attr('class') + ' lt-ghost"></div>')
-            this._element.append(this._ghost)
+        if (null === this.$ghost) {
+            this.$ghost = $('<div class="' + $widget.attr('class') + ' lt-ghost"></div>')
+            this.$element.append(this.$ghost)
         }
 
-        return this._ghost
+        return this.$ghost
     }
 
     /**
@@ -259,9 +265,9 @@ var LTGrid = (function ($) {
      * @param  {jQuery} $widget
      */
     LTGrid.prototype.removeGhost = function () {
-        if (this._ghost) {
-            this._ghost.remove()
-            this._ghost = null
+        if (this.$ghost) {
+            this.$ghost.remove()
+            this.$ghost = null
         }
     }
 
@@ -282,9 +288,9 @@ var LTGrid = (function ($) {
     LTGrid.prototype.resize = function () {
         var size = this.size()
         var rect = new Rect(0, 0, 0, this.grid(size).height())
-        var modifiedClass = rect.setCss(this._element.attr('class'), size)
+        var modifiedClass = rect.setCss(this.$element.attr('class'), size)
 
-        this._element.attr('class', modifiedClass)
+        this.$element.attr('class', modifiedClass)
     }
 
     /**
@@ -298,7 +304,7 @@ var LTGrid = (function ($) {
     LTGrid.prototype.moveGhost = function ($widget, mouseX, mouseY) {
         var size = this.size()
         var $ghost = this.ghost($widget)
-        var rect = $ghost.lt_rect(size)
+        var rect = $ghost[LTRect.NAME](size)
         var gap = this._options.params[size].gap
         var cols = this._options.params[size].cols
 
@@ -307,7 +313,7 @@ var LTGrid = (function ($) {
 
         rect.x = Math.min(Math.max(0, rect.x), cols - rect.w)
 
-        $ghost.lt_rect(size, rect)
+        $ghost[LTRect.NAME](size, rect)
     }
 
     /**
@@ -338,21 +344,21 @@ var LTGrid = (function ($) {
      * @return {jQuery}
      */
     LTGrid.prototype.mask = function () {
-        if (null === this._mask) {
-            this._mask = $('<div class="lt-mask" data-lt-grid="mask"></div>');
-            this._element.append(this._mask);
+        if (null === this.$mask) {
+            this.$mask = $('<div class="lt-mask" data-lt-grid="mask"></div>');
+            this.$element.append(this.$mask);
         }
 
-        return this._mask;
+        return this.$mask;
     }
 
     /**
      * Remove the mask
      */
     LTGrid.prototype.removeMask = function () {
-        if (null !== this._mask) {
-            this._mask.remove()
-            this._mask = null
+        if (null !== this.$mask) {
+            this.$mask.remove()
+            this.$mask = null
         }
     }
 
@@ -364,15 +370,15 @@ var LTGrid = (function ($) {
      * @return {Grid}
      */
     LTGrid.prototype.grid = function (size, grid) {
-        var $items = this._element.children('[draggable]')
+        var $items = this.$element.children('[draggable]')
 
         if (undefined === grid) {
             return new Grid($.map($items.toArray(), function (item) {
-                return $(item).lt_rect(size)
+                return $(item)[LTRect.NAME](size)
             }))
         } else {
             for (var index in grid.rects) {
-                $items.eq(index).lt_rect(size, grid.rects[index])
+                $items.eq(index)[LTRect.NAME](size, grid.rects[index])
             }
         }
     }
@@ -386,7 +392,7 @@ var LTGrid = (function ($) {
      */
     LTGrid.prototype.reposition = function ($widget, params) {
         var size = this.size()
-        var rect = $widget.lt_rect(size)
+        var rect = $widget[LTRect.NAME](size)
         var grid = this.grid(size)
 
         if (this._options.overlap) {
@@ -408,13 +414,13 @@ var LTGrid = (function ($) {
         var size = this.size()
         var $parent = $widget.parent()
         var $ghost = this.ghost($widget)
-        var pos = $ghost.lt_rect(size)
+        var pos = $ghost[LTRect.NAME](size)
 
-        this._element.append($widget)
+        this.$element.append($widget)
 
-        this.reposition($widget, {x: pos.x, y: pos.y})
+        this.reposition($widget, { x: pos.x, y: pos.y })
 
-        $parent.add(this._element).lt_grid('update')
+        $parent.add(this.$element)[NAME]('update')
     }
 
 
@@ -430,7 +436,7 @@ var LTGrid = (function ($) {
         var cols = this._options.params[size].cols
         var gap = this._options.params[size].gap
 
-        return (this._element.width() - (cols - 1) * gap) / cols
+        return (this.$element.width() - (cols - 1) * gap) / cols
     }
 
     /**
@@ -506,33 +512,32 @@ var LTGrid = (function ($) {
 
                 event.preventDefault()
 
-                $this
-                    .lt_grid('mask')
-                    .lt_grid('moveGhost', $widget,  mouseX, mouseY)
+                $this[NAME]('mask')
+                $this[NAME]('moveGhost', $widget,  mouseX, mouseY)
             }
         })
 
         .on(Event.END, Selector.GRID, function () {
-            $(this).lt_grid('end')
+            $(this)[NAME]('end')
         })
 
         .on(Event.LEAVE, Selector.GRID, function (event) {
             event.preventDefault()
 
             if ($(event.target).data('lt-grid') === 'mask') {
-                $(this).lt_grid('end')
+                $(this)[NAME]('end')
             }
         })
 
         .on(Event.DROP, Selector.GRID, function (event) {
             var $widget = $(Store.get(event.originalEvent))
+            var $this = $(this)
 
             if ($widget.length) {
                 event.preventDefault()
 
-                $(this)
-                    .lt_grid('moveToGhost', $widget)
-                    .lt_grid('end')
+                $this[NAME]('moveToGhost', $widget)
+                $this[NAME]('end')
             }
         });
 
@@ -557,8 +562,17 @@ var LTGrid = (function ($) {
  * Licensed under BSD (https://github.com/clippings/layout-grid/blob/master/LICENSE)
  * ================================================================================= */
 
+'use strict'
 
-(function ($) {
+var LTRect = (function ($) {
+
+    var NAME     = 'ltRect'
+    var DATA_KEY = 'lt.rect'
+
+    var LTRect = {
+        NAME: NAME,
+        DATA_KEY: DATA_KEY
+    }
 
     /**
      * Getter / setter for div element's rect.
@@ -570,19 +584,21 @@ var LTGrid = (function ($) {
      * @param  {Rect}   newRect a Rect object to set
      * @return {jQuery}
      */
-   $.fn.lt_rect = function (size, newRect) {
-      if (undefined === newRect) {
-          if (undefined === this.data('lt-item-' + size)) {
-              this.data('lt-item-' + size, (new Rect()).loadCss(this.attr('class'), size));
-          }
-          return this.data('lt-item-' + size);
-      }
+    $.fn[NAME] = function (size, newRect) {
+        if (undefined === newRect) {
+            if (undefined === this.data(DATA_KEY + size)) {
+                this.data(DATA_KEY + size, (new Rect()).loadCss(this.attr('class'), size));
+            }
+            return this.data(DATA_KEY + size);
+        }
 
-      this.data('lt-item-' + size, newRect);
-      this.attr('class', newRect.setCss(this.attr('class'), size));
+        this.data(DATA_KEY + size, newRect);
+        this.attr('class', newRect.setCss(this.attr('class'), size));
 
-      return this;
-  }
+        return this;
+    }
+
+    return LTRect;
 
 })(jQuery);
 
@@ -594,13 +610,17 @@ var LTGrid = (function ($) {
  * Licensed under BSD (https://github.com/clippings/layout-grid/blob/master/LICENSE)
  * ================================================================================= */
 
+'use strict'
 
 (function ($) {
+
+    var NAME = 'ltSize'
+
     /**
      * Get the current size of the grid
      */
-    $.fn.lt_size = function () {
-        return this.lt_grid().data(LTGrid.DATA_KEY).size()
+    $.fn[NAME] = function () {
+        return this[LTGrid.NAME]().data(LTGrid.DATA_KEY).size()
     }
 
 })(jQuery);
@@ -613,6 +633,7 @@ var LTGrid = (function ($) {
  * Licensed under BSD (https://github.com/clippings/layout-grid/blob/master/LICENSE)
  * ================================================================================= */
 
+'use strict'
 
 /**
  * Object that represents a rectangle with many supporting methods
@@ -708,13 +729,15 @@ var Rect = (function () {
  * Licensed under BSD (https://github.com/clippings/layout-grid/blob/master/LICENSE)
  * ================================================================================= */
 
+'use strict'
+
 /**
  * A class to store / retrieve element inside of dataTransfer object of an event
  * Fall back to a static variable if dataTransfer is not available
  */
 var Store = (function () {
 
-    Store = {};
+    var Store = {};
 
     /**
      * Genrate a time based random number

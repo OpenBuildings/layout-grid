@@ -6,6 +6,28 @@ module.exports = function (grunt) {
         // Metadata.
         pkg: grunt.file.readJSON('package.json'),
 
+        eslint: {
+            options: {
+                configFile: 'js/.eslintrc'
+            },
+            target: 'js/src/*.js'
+        },
+
+        jscs: {
+            options: {
+                config: 'js/.jscsrc'
+            },
+            grunt: {
+                src: ['Gruntfile.js']
+            },
+            core: {
+                src: 'js/src/*.js'
+            },
+            test: {
+                src: 'js/tests/unit/*.js'
+            }
+        },
+
         lineremover: {
             usestrict: {
                 options: {
@@ -18,20 +40,20 @@ module.exports = function (grunt) {
         },
 
         concat: {
-          options: {
-            stripBanners: false
-          },
-          js: {
-            src: [
-              'js/src/*.js',
-            ],
-            dest: 'dist/js/<%= pkg.name %>.js'
-          }
+            options: {
+                stripBanners: false
+            },
+            js: {
+                src: [
+                  'js/src/*.js'
+                ],
+                dest: 'dist/js/<%= pkg.name %>.js'
+            }
         },
 
         stamp: {
             options: {
-                banner: "'use strict';\n\n var LTGrid = (function ($) {\n",
+                banner: '\'use strict\';\n\n var LTGrid = (function ($) {\n',
                 footer: '    LTGrid.Rect = Rect\n    LTGrid.Grid = Grid\n    return LTGrid\n})(jQuery);'
             },
             dist: {
@@ -44,10 +66,10 @@ module.exports = function (grunt) {
         qunit: {
             options: {
                 coverage: {
-                  src: ['dist/js/layout-grid.js'],
-                  instrumentedFiles: 'temp/',
-                  htmlReport: 'build/coverage',
-                  lcovReport: 'build/',
+                    src: ['dist/js/layout-grid.js'],
+                    instrumentedFiles: 'temp/',
+                    htmlReport: 'build/coverage',
+                    lcovReport: 'build/'
                 }
             },
             all: ['js/tests/index.html']
@@ -76,11 +98,11 @@ module.exports = function (grunt) {
         },
 
         cssmin: {
-          target: {
-            files: {
-              'dist/css/layout-grid.min.css': ['css/layout-grid.css']
+            target: {
+                files: {
+                    'dist/css/layout-grid.min.css': ['css/layout-grid.css']
+                }
             }
-          }
         }
     });
 

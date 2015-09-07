@@ -196,11 +196,11 @@ $(function () {
             new Rect(1,3,3,3),
             new Rect(7,3,3,3),
             new Rect(4,6,3,3),
-            new Rect(7,8,6,3),
+            new Rect(7,8,6,3)
         ])
 
         assert.deepEqual(
-            grid.updateNoOverlap(grid.rects[1], {w: 5, h: 5}).rects,
+            grid.updateNoOverlap(grid.rects[1], { w: 5, h: 5 }).rects,
             [
                 new Rect(0,0,4,3),
                 new Rect(4,0,5,5),
@@ -208,7 +208,7 @@ $(function () {
                 new Rect(1,3,3,3),
                 new Rect(7,5,3,3),
                 new Rect(4,6,3,3),
-                new Rect(7,8,6,3),
+                new Rect(7,8,6,3)
             ]
         )
     })
@@ -239,11 +239,11 @@ $(function () {
             new Rect(1,3,3,3),
             new Rect(7,3,3,3),
             new Rect(4,6,3,3),
-            new Rect(7,8,6,3),
+            new Rect(7,8,6,3)
         ])
 
         assert.deepEqual(
-            grid.updateNoOverlap(grid.rects[1], {x: 4, y: 4}).rects,
+            grid.updateNoOverlap(grid.rects[1], { x: 4, y: 4 }).rects,
             [
                 new Rect(0,0,4,3),
                 new Rect(4,4,3,3),
@@ -282,11 +282,11 @@ $(function () {
             new Rect(1,3,3,3),
             new Rect(7,3,3,3),
             new Rect(4,6,3,3),
-            new Rect(7,8,6,3),
+            new Rect(7,8,6,3)
         ])
 
         assert.deepEqual(
-            grid.updateNoOverlap(grid.rects[1], {x: 9, y: 1}).rects,
+            grid.updateNoOverlap(grid.rects[1], { x: 9, y: 1 }).rects,
             [
                 new Rect(0,0,4,3),
                 new Rect(9,1,3,3),
@@ -294,7 +294,7 @@ $(function () {
                 new Rect(1,3,3,3),
                 new Rect(7,4,3,3),
                 new Rect(4,6,3,3),
-                new Rect(7,10,6,3),
+                new Rect(7,10,6,3)
             ]
         )
     })
@@ -326,11 +326,11 @@ $(function () {
             new Rect(1,3,3,3),
             new Rect(7,3,3,3),
             new Rect(4,6,3,3),
-            new Rect(7,8,6,3),
+            new Rect(7,8,6,3)
         ])
 
         assert.deepEqual(
-            grid.updateNoOverlap(grid.rects[1], {x:1, y:0}).rects,
+            grid.updateNoOverlap(grid.rects[1], { x:1, y:0 }).rects,
             [
                 new Rect(0,3,4,3),
                 new Rect(1,0,3,3),
@@ -338,7 +338,7 @@ $(function () {
                 new Rect(1,6,3,3),
                 new Rect(7,3,3,3),
                 new Rect(4,6,3,3),
-                new Rect(7,8,6,3),
+                new Rect(7,8,6,3)
             ]
         )
     })
@@ -370,11 +370,11 @@ $(function () {
             new Rect(1,3,3,3),
             new Rect(7,3,3,3),
             new Rect(4,6,3,3),
-            new Rect(7,8,6,3),
+            new Rect(7,8,6,3)
         ])
 
         assert.deepEqual(
-            grid.updateNoOverlap(grid.rects[1], {x: 4, y: 4, w: 5, h: 4}).rects,
+            grid.updateNoOverlap(grid.rects[1], { x: 4, y: 4, w: 5, h: 4 }).rects,
             [
                 new Rect(0,0,4,3),
                 new Rect(4,4,5,4),

@@ -5,7 +5,10 @@
  * Copyright 2015 Clippings Ltd.
  * Licensed under BSD (https://github.com/clippings/layout-grid/blob/master/LICENSE)
  * ================================================================================= */
-'use strict';
+
+/* exported Store */
+
+'use strict'
 
 /**
  * A class to store / retrieve element inside of dataTransfer object of an event
@@ -13,7 +16,7 @@
  */
 var Store = (function () {
 
-    Store = {};
+    var Store = {}
 
     /**
      * Genrate a time based random number
@@ -78,5 +81,5 @@ var Store = (function () {
         }
     }
 
-    return Store;
-})();
+    return Store
+})()

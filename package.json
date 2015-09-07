@@ -17,6 +17,8 @@
   "devDependencies": {
     "codeclimate-test-reporter": "^0.1.0",
     "grunt": "^0.4.1",
+    "grunt-eslint": "^17.1.0",
+    "grunt-jscs": "~1.8.0",
     "grunt-contrib-concat": "^0.5.1",
     "grunt-contrib-cssmin": "^0.13.0",
     "grunt-qunit-istanbul": "^0.5.0",

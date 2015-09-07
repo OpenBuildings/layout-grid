@@ -6,9 +6,19 @@
  * Licensed under BSD (https://github.com/clippings/layout-grid/blob/master/LICENSE)
  * ================================================================================= */
 
-'use strict';
+/* exported LTRect */
 
-(function ($) {
+'use strict'
+
+var LTRect = (function ($) {
+
+    var NAME     = 'ltRect'
+    var DATA_KEY = 'lt.rect'
+
+    var LTRect = {
+        NAME: NAME,
+        DATA_KEY: DATA_KEY
+    }
 
     /**
      * Getter / setter for div element's rect.
@@ -20,18 +30,20 @@
      * @param  {Rect}   newRect a Rect object to set
      * @return {jQuery}
      */
-   $.fn.lt_rect = function (size, newRect) {
-      if (undefined === newRect) {
-          if (undefined === this.data('lt-item-' + size)) {
-              this.data('lt-item-' + size, (new Rect()).loadCss(this.attr('class'), size));
-          }
-          return this.data('lt-item-' + size);
-      }
+    $.fn[NAME] = function (size, newRect) {
+        if (undefined === newRect) {
+            if (undefined === this.data(DATA_KEY + size)) {
+                this.data(DATA_KEY + size, (new Rect()).loadCss(this.attr('class'), size))
+            }
+            return this.data(DATA_KEY + size)
+        }
 
-      this.data('lt-item-' + size, newRect);
-      this.attr('class', newRect.setCss(this.attr('class'), size));
+        this.data(DATA_KEY + size, newRect)
+        this.attr('class', newRect.setCss(this.attr('class'), size))
 
-      return this;
-  }
+        return this
+    }
 
-})(jQuery);
+    return LTRect
+
+})(jQuery)
