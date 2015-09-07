@@ -19,6 +19,7 @@ var Grid = (function () {
      */
     function Grid(rects) {
         this.rects = rects || []
+        console.log('asd');
     }
 
     /**
@@ -784,3 +785,4 @@ LTGrid.Grid = Grid
 return LTGrid
 
 })(jQuery)
+//# sourceMappingURL=layout-grid.js.map

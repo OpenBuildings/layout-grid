@@ -5,6 +5,7 @@ module.exports = function (grunt) {
     require('load-grunt-tasks')(grunt)
 
     grunt.initConfig({
+
         // Metadata.
         pkg: grunt.file.readJSON('package.json'),
 
@@ -34,6 +35,7 @@ module.exports = function (grunt) {
 
         concat: {
             options: {
+                sourceMap: true,
                 stripBanners: true,
                 banner: '// LICENSE: <%= pkg.license %>\n// http://git.io/vZkLP\n\n var LTGrid = (function ($) {\n\n\'use strict\'\n\n',
                 footer: '\nLTGrid.Rect = Rect\nLTGrid.Grid = Grid\n\nreturn LTGrid\n\n})(jQuery)',
@@ -50,7 +52,7 @@ module.exports = function (grunt) {
         qunit: {
             options: {
                 coverage: {
-                    src: ['dist/js/layout-grid.js'],
+                    src: ['dist/js/<%= pkg.name %>.js'],
                     instrumentedFiles: 'temp/',
                     htmlReport: 'build/coverage',
                     lcovReport: 'build/'
@@ -62,6 +64,8 @@ module.exports = function (grunt) {
         uglify: {
             options: {
                 mangle: true,
+                sourceMap: true,
+                sourceMapIn: 'dist/js/<%= pkg.name %>.js.map',
                 preserveComments: 'some'
             },
             core: {
@@ -72,19 +76,22 @@ module.exports = function (grunt) {
 
         sass: {
             options: {
-                sourcemap: 'none'
+                sourceMap: true
             },
             dist: {
                 files: {
-                    'dist/css/layout-grid.css': 'sass/layout-grid.sass'
+                    'dist/css/<%= pkg.name %>.css': 'sass/layout-grid.sass'
                 }
             }
         },
 
         cssmin: {
+            options: {
+                sourceMap: true
+            },
             target: {
                 files: {
-                    'dist/css/layout-grid.min.css': ['dist/css/layout-grid.css']
+                    'dist/css/<%= pkg.name %>.min.css': ['dist/css/<%= pkg.name %>.css']
                 }
             }
         }
