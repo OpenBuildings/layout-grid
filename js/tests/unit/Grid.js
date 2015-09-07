@@ -1,7 +1,36 @@
 $(function () {
     'use strict'
 
-    QUnit.module('Grid')
+    /**
+     * ┌─────────────┐
+     * │┌──┐┌─┐   ┌─┐│
+     * ││1 ││2│   │ ││
+     * │└──┘└─┘   │3││
+     * │ ┌─┐   ┌─┐│ ││
+     * │ │4│   │5││ ││
+     * │ └─┘   └─┘└─┘│
+     * │    ┌─┐      │
+     * │    │6│      │
+     * │    └─┘┌────┐│
+     * │       │ 7  ││
+     * │       └────┘│
+     * └─────────────┘
+     */
+    QUnit.module('Grid', {
+        beforeEach: function () {
+            this.rects = [
+                new Rect(0,0,4,3),
+                new Rect(4,0,3,3),
+                new Rect(10,0,3,6),
+                new Rect(1,3,3,3),
+                new Rect(7,3,3,3),
+                new Rect(4,6,3,3),
+                new Rect(7,8,6,3)
+            ]
+
+            this.grid = new Grid(this.rects)
+        }
+    })
 
     QUnit.test('constructor', function (assert) {
         var rect1 = new Rect(1,1,1,1)
@@ -42,18 +71,8 @@ $(function () {
      * └─────────────┘    └─────────────┘
      */
     QUnit.test('compact method', function (assert) {
-        var rect1 = new Rect(0,0,4,3)
-        var rect2 = new Rect(4,0,3,3)
-        var rect3 = new Rect(10,0,3,6)
-        var rect4 = new Rect(1,3,3,3)
-        var rect5 = new Rect(7,3,3,3)
-        var rect6 = new Rect(4,6,3,3)
-        var rect7 = new Rect(7,8,6,3)
-
-        var grid = new Grid([rect1, rect2, rect3, rect4, rect5, rect6, rect7])
-
         assert.deepEqual(
-            grid.compact().rects,
+            this.grid.compact().rects,
             [
                 new Rect(0,0,4,3),
                 new Rect(4,0,3,3),
@@ -83,15 +102,16 @@ $(function () {
      * └─────────────┘    └─────────────┘
      */
     QUnit.test('compact method another configuration', function (assert) {
-        var rect1 = new Rect(0,8,4,3)
-        var rect2 = new Rect(4,0,3,3)
-        var rect3 = new Rect(10,0,3,6)
-        var rect4 = new Rect(1,3,3,3)
-        var rect5 = new Rect(7,3,3,3)
-        var rect6 = new Rect(4,6,3,3)
-        var rect7 = new Rect(7,8,6,3)
 
-        var grid = new Grid([rect1, rect2, rect3, rect4, rect5, rect6, rect7])
+        var grid = new Grid([
+            new Rect(0,8,4,3),
+            new Rect(4,0,3,3),
+            new Rect(10,0,3,6),
+            new Rect(1,3,3,3),
+            new Rect(7,3,3,3),
+            new Rect(4,6,3,3),
+            new Rect(7,8,6,3)
+        ])
 
         assert.deepEqual(
             grid.compact().rects,
@@ -133,10 +153,10 @@ $(function () {
         var rect7 = new Rect(7,8,6,3)
 
         var grid0 = new Grid([])
-        var grid1 = new Grid([rect1, rect2])
-        var grid2 = new Grid([rect1, rect2, rect3, rect4])
-        var grid3 = new Grid([rect1, rect2, rect3, rect4, rect5, rect6])
-        var grid4 = new Grid([rect1, rect2, rect3, rect4, rect5, rect6, rect7])
+        var grid1 = new Grid(this.rects.slice(0, 2))
+        var grid2 = new Grid(this.rects.slice(0, 4))
+        var grid3 = new Grid(this.rects.slice(0, 6))
+        var grid4 = new Grid(this.rects.slice(0, 7))
 
         assert.equal(
             grid0.height(),
@@ -189,18 +209,10 @@ $(function () {
      * └─────────────┘└─────────────┘
      */
     QUnit.test('updateNoOverlap method change width and height keeping position', function (assert) {
-        var grid = new Grid([
-            new Rect(0,0,4,3),
-            new Rect(4,0,3,3),
-            new Rect(10,0,3,6),
-            new Rect(1,3,3,3),
-            new Rect(7,3,3,3),
-            new Rect(4,6,3,3),
-            new Rect(7,8,6,3)
-        ])
+        var grid = this.grid.updateNoOverlap(this.rects[1], { w: 5, h: 5 })
 
         assert.deepEqual(
-            grid.updateNoOverlap(grid.rects[1], { w: 5, h: 5 }).rects,
+            grid.rects,
             [
                 new Rect(0,0,4,3),
                 new Rect(4,0,5,5),
@@ -232,18 +244,10 @@ $(function () {
      * └─────────────┘└─────────────┘
      */
     QUnit.test('updateNoOverlap method move with pushing down one element - 6', function (assert) {
-        var grid = new Grid([
-            new Rect(0,0,4,3),
-            new Rect(4,0,3,3),
-            new Rect(10,0,3,6),
-            new Rect(1,3,3,3),
-            new Rect(7,3,3,3),
-            new Rect(4,6,3,3),
-            new Rect(7,8,6,3)
-        ])
+        var grid = this.grid.updateNoOverlap(this.rects[1], { x: 4, y: 4 })
 
         assert.deepEqual(
-            grid.updateNoOverlap(grid.rects[1], { x: 4, y: 4 }).rects,
+            grid.rects,
             [
                 new Rect(0,0,4,3),
                 new Rect(4,4,3,3),
@@ -275,18 +279,10 @@ $(function () {
      * └─────────────┘└─────────────┘
      */
     QUnit.test('updateNoOverlap with pushing three element downward, 5, 4 and 7', function (assert) {
-        var grid = new Grid([
-            new Rect(0,0,4,3),
-            new Rect(4,0,3,3),
-            new Rect(10,0,3,6),
-            new Rect(1,3,3,3),
-            new Rect(7,3,3,3),
-            new Rect(4,6,3,3),
-            new Rect(7,8,6,3)
-        ])
+        var grid = this.grid.updateNoOverlap(this.rects[1], { x: 9, y: 1 })
 
         assert.deepEqual(
-            grid.updateNoOverlap(grid.rects[1], { x: 9, y: 1 }).rects,
+            grid.rects,
             [
                 new Rect(0,0,4,3),
                 new Rect(9,1,3,3),
@@ -319,18 +315,10 @@ $(function () {
      * └─────────────┘└─────────────┘
      */
     QUnit.test('updateNoOverlap with pushing two elements downward - 1 and 4', function (assert) {
-        var grid = new Grid([
-            new Rect(0,0,4,3),
-            new Rect(4,0,3,3),
-            new Rect(10,0,3,6),
-            new Rect(1,3,3,3),
-            new Rect(7,3,3,3),
-            new Rect(4,6,3,3),
-            new Rect(7,8,6,3)
-        ])
+        var grid = this.grid.updateNoOverlap(this.rects[1], { x:1, y: 0 })
 
         assert.deepEqual(
-            grid.updateNoOverlap(grid.rects[1], { x:1, y:0 }).rects,
+            grid.rects,
             [
                 new Rect(0,3,4,3),
                 new Rect(1,0,3,3),
@@ -363,18 +351,10 @@ $(function () {
      * └─────────────┘└─────────────┘
      */
     QUnit.test('updateNoOverlap method move and resize an item, pushing down 6, 5 and 7', function (assert) {
-        var grid = new Grid([
-            new Rect(0,0,4,3),
-            new Rect(4,0,3,3),
-            new Rect(10,0,3,6),
-            new Rect(1,3,3,3),
-            new Rect(7,3,3,3),
-            new Rect(4,6,3,3),
-            new Rect(7,8,6,3)
-        ])
+        var grid = this.grid.updateNoOverlap(this.rects[1], { x: 4, y: 4, w: 5, h: 4 })
 
         assert.deepEqual(
-            grid.updateNoOverlap(grid.rects[1], { x: 4, y: 4, w: 5, h: 4 }).rects,
+            grid.rects,
             [
                 new Rect(0,0,4,3),
                 new Rect(4,4,5,4),
