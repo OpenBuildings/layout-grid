@@ -1,16 +1,11 @@
+// LICENSE: BSD-3-Clause
+// http://git.io/vZkLP
+
 'use strict';
 
  var LTGrid = (function ($) {
-
-/* =================================================================================
- * Layout Grid
- * http://github.com/clippings/layout-grid
- * =================================================================================
- * Copyright 2015 Clippings Ltd.
- * Licensed under BSD (https://github.com/clippings/layout-grid/blob/master/LICENSE)
- * ================================================================================= */
-
 /* exported Grid */
+
 
 
 /**
@@ -116,15 +111,8 @@ var Grid = (function () {
     return Grid
 })()
 
-/* =================================================================================
- * Layout Grid
- * http://github.com/clippings/layout-grid
- * =================================================================================
- * Copyright 2015 Clippings Ltd.
- * Licensed under BSD (https://github.com/clippings/layout-grid/blob/master/LICENSE)
- * ================================================================================= */
+/* exported LTGrid */
 
- /* exported LTGrid */
 
 
 var LTGrid = (function ($) {
@@ -555,15 +543,8 @@ var LTGrid = (function ($) {
 
 })(jQuery)
 
-/* =================================================================================
- * Layout Grid
- * http://github.com/clippings/layout-grid
- * =================================================================================
- * Copyright 2015 Clippings Ltd.
- * Licensed under BSD (https://github.com/clippings/layout-grid/blob/master/LICENSE)
- * ================================================================================= */
-
 /* exported LTRect */
+
 
 
 var LTRect = (function ($) {
@@ -604,15 +585,8 @@ var LTRect = (function ($) {
 
 })(jQuery)
 
-/* =================================================================================
- * Layout Grid
- * http://github.com/clippings/layout-grid
- * =================================================================================
- * Copyright 2015 Clippings Ltd.
- * Licensed under BSD (https://github.com/clippings/layout-grid/blob/master/LICENSE)
- * ================================================================================= */
+/* exported LTSize */
 
- /* exported LTSize */
 
 
 var LTSize = (function ($) {
@@ -634,15 +608,8 @@ var LTSize = (function ($) {
 
 })(jQuery)
 
-/* =================================================================================
- * Layout Grid
- * http://github.com/clippings/layout-grid
- * =================================================================================
- * Copyright 2015 Clippings Ltd.
- * Licensed under BSD (https://github.com/clippings/layout-grid/blob/master/LICENSE)
- * ================================================================================= */
-
 /* exported Rect */
+
 
 
 /**
@@ -731,15 +698,8 @@ var Rect = (function () {
     return Rect
 })()
 
-/* =================================================================================
- * Layout Grid
- * http://github.com/clippings/layout-grid
- * =================================================================================
- * Copyright 2015 Clippings Ltd.
- * Licensed under BSD (https://github.com/clippings/layout-grid/blob/master/LICENSE)
- * ================================================================================= */
-
 /* exported Store */
+
 
 
 /**
@@ -815,7 +775,10 @@ var Store = (function () {
 
     return Store
 })()
-    LTGrid.Rect = Rect
-    LTGrid.Grid = Grid
-    return LTGrid
+
+LTGrid.Rect = Rect
+LTGrid.Grid = Grid
+
+return LTGrid
+
 })(jQuery);

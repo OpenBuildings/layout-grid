@@ -41,25 +41,18 @@ module.exports = function (grunt) {
 
         concat: {
             options: {
-                stripBanners: false
+                stripBanners: true,
+                banner: '// LICENSE: <%= pkg.license %>\n// http://git.io/vZkLP\n\n\'use strict\';\n\n var LTGrid = (function ($) {\n',
+                footer: '\nLTGrid.Rect = Rect\nLTGrid.Grid = Grid\n\nreturn LTGrid\n\n})(jQuery);',
+                process: function (src, filepath) {
+                    return src.replace('\'use strict\'', '')
+                }
             },
             js: {
                 src: [
                   'js/src/*.js'
                 ],
                 dest: 'dist/js/<%= pkg.name %>.js'
-            }
-        },
-
-        stamp: {
-            options: {
-                banner: '\'use strict\';\n\n var LTGrid = (function ($) {\n',
-                footer: '    LTGrid.Rect = Rect\n    LTGrid.Grid = Grid\n    return LTGrid\n})(jQuery);'
-            },
-            dist: {
-                files: {
-                    src: '<%= concat.js.dest %>'
-                }
             }
         },
 
@@ -107,7 +100,7 @@ module.exports = function (grunt) {
     });
 
     grunt.registerTask('css', ['sass', 'cssmin']);
-    grunt.registerTask('js', ['concat', 'lineremover', 'stamp', 'uglify']);
+    grunt.registerTask('js', ['concat', 'uglify']);
     grunt.registerTask('test', ['eslint', 'jscs', 'qunit']);
     grunt.registerTask('default', ['css', 'js']);
 };
