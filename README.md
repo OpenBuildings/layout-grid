@@ -20,7 +20,7 @@ For ordering items around include ``js/layout-grid.min.js``
 Modification
 ------------
 ``sass/layout-grid.sass`` allows you to modify a lot of variables for each screen size, overriding the defaults.
-If you're using reoder you'll need to tell the javascript plugin about these modifications as well.
+If you're using reorder you'll need to tell the javascript plugin about these modifications as well.
 
 Development
 -----------
