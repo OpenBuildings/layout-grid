@@ -1,0 +1,7 @@
+{
+    "jquery"    :  true,
+    "browser"   :  true,
+    "asi"       :  true,
+    "qunit"     :  true,
+    "curly"     :  true
+}
