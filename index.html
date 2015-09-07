@@ -245,13 +245,13 @@ layout: index
     <h2>Reordering with Javascript</h2>
 
     <p>
-        Javascript is initialized via <code>data-arrange="layout-grid"</code> and setting up html5's <code>draggable="true"</code> on the individual items. The javascript is initialized only on the event of a drag on these items.
+        Javascript is initialized via <code>data-arrange="lt-grid"</code> and setting up html5's <code>draggable="true"</code> on the individual items. The javascript is initialized only on the event of a drag on these items.
     </p>
 
     {% highlight html %}
 <div
  class="lt-container lt-xs-h-6"
- data-arrange="layout-grid">
+ data-arrange="lt-grid">
     <div
      class="lt lt-xs-x-0 lt-xs-y-0 lt-xs-w-1 lt-xs-h-1"
      draggable="true">
@@ -325,7 +325,7 @@ LTGrid.DEFAULTS = {
 <div
  id="grid"
  class="lt-container lt-xs-h-6"
- data-arrange="layout-grid"
+ data-arrange="lt-grid"
  data-resize="false"
  data-params='{"xs":{"cols":2}}'>
    ...
@@ -338,11 +338,11 @@ LTGrid.DEFAULTS = {
 
     {% highlight javascript %}
 // Javascript
-$('#grid').lt_grid({resize: false, params: {xs: {cols: 2}}});
+$('#grid').ltGrid({resize: false, params: {xs: {cols: 2}}});
 
 // On the fly modification
-$('#grid').lt_grid('option', 'resize', false);
-$('#grid').lt_grid('option', 'params', {xs: {cols: 2}});
+$('#grid').ltGrid('option', 'resize', false);
+$('#grid').ltGrid('option', 'params', {xs: {cols: 2}});
     {% endhighlight %}
 
     <h2>Methods</h2>
@@ -388,19 +388,19 @@ $('#grid').lt_grid('option', 'params', {xs: {cols: 2}});
     </p>
 
     <h3>
-        lt_rect
+        ltRect
     </h3>
 
     <p>
-        <code>$(..).lt_rect()</code> is a jquery function that is a setter / getter for the "rect" object of a given widget.
+        <code>$(..).ltRect()</code> is a jquery function that is a setter / getter for the "rect" object of a given widget.
         You need to pass "size" as the first argument so it knows for which size the rect is being viewed / modified.
     </p>
 
     {% highlight javascript %}
-var rect = $('#widget1.lt').lt_rect('lg')
+var rect = $('#widget1.lt').ltRect('lg')
 rect.x = 2;
 rect.w = 2;
-$('#widget1.lt').lt_rect('lg', rect);
+$('#widget1.lt').ltRect('lg', rect);
     {% endhighlight %}
 
     <h3>
@@ -409,14 +409,6 @@ $('#widget1.lt').lt_rect('lg', rect);
 
     <p>
         <code>$(..).lt_size()</code> is a jquery function to get the current "size" of the grid, can be "lg", "md", "sm" or "xs"
-    </p>
-
-    <h3>
-        lt_ensure_id
-    </h3>
-
-    <p>
-        <code>$(..).lt_ensure_id()</code> Used internally to set a unique ID on an item that doesn't have one.
     </p>
 
     {% highlight javascript %}
@@ -429,11 +421,11 @@ console.log(size);
     </h3>
 
     <p>
-        <code>$(..).lt_grid('option', option, value)</code> allows you to set an option on the fly
+        <code>$(..).ltGrid('option', option, value)</code> allows you to set an option on the fly
     </p>
 
     {% highlight javascript %}
-$('#container').lt_grid('option', 'compact', false);
+$('#container').ltGrid('option', 'compact', false);
     {% endhighlight %}
 
     <h3>
@@ -441,11 +433,11 @@ $('#container').lt_grid('option', 'compact', false);
     </h3>
 
     <p>
-        <code>$(..).lt_grid('compact')</code> Compacts the grid, reducing horizontal space. It ignores the compact option setting.
+        <code>$(..).ltGrid('compact')</code> Compacts the grid, reducing horizontal space. It ignores the compact option setting.
     </p>
 
     {% highlight javascript %}
-$('#container').lt_grid('compact');
+$('#container').ltGrid('compact');
     {% endhighlight %}
 
     <h3>
@@ -453,11 +445,11 @@ $('#container').lt_grid('compact');
     </h3>
 
     <p>
-        <code>$(..).lt_grid('resize')</code> Resize the grid, setting the minimum possible size for the container. It ignores the resize option setting.
+        <code>$(..).ltGrid('resize')</code> Resize the grid, setting the minimum possible size for the container. It ignores the resize option setting.
     </p>
 
     {% highlight javascript %}
-$('#container').lt_grid('resize');
+$('#container').ltGrid('resize');
     {% endhighlight %}
 
     <h3>
@@ -465,11 +457,11 @@ $('#container').lt_grid('resize');
     </h3>
 
     <p>
-        <code>$(..).lt_grid('update')</code> Call resize and compact, based on the options.
+        <code>$(..).ltGrid('update')</code> Call resize and compact, based on the options.
     </p>
 
     {% highlight javascript %}
-$('#container').lt_grid('update');
+$('#container').ltGrid('update');
     {% endhighlight %}
 
     <h3>
@@ -477,11 +469,11 @@ $('#container').lt_grid('update');
     </h3>
 
     <p>
-        <code>$(..).lt_grid('reposition', $widget, {x: 1, y: 1, w: 1, h: 1})</code> Modify the position or size of a widget inside the grid (and call "update" method). Any parameter can be omitted so you can either set only position or only size.
+        <code>$(..).ltGrid('reposition', $widget, {x: 1, y: 1, w: 1, h: 1})</code> Modify the position or size of a widget inside the grid (and call "update" method). Any parameter can be omitted so you can either set only position or only size.
     </p>
 
     {% highlight javascript %}
-$('#container').lt_grid('reposition', $('#widget1'), {x: 1, y: 1, w: 1, h: 1});
+$('#container').ltGrid('reposition', $('#widget1'), {x: 1, y: 1, w: 1, h: 1});
     {% endhighlight %}
 
     <h2>Support and requirements</h2>

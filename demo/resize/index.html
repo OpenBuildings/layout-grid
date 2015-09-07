@@ -17,12 +17,12 @@ layout: index
     </p>
 
     {% highlight javascript %}
-$('#lt-grid').lt_grid('reposition', $(this).closest('.lt'), {w: 2, h: 2});
+$('#lt-grid').ltGrid('reposition', $(this).closest('.lt'), {w: 2, h: 2});
     {% endhighlight %}
 
     <div
      id="lt-grid"
-     data-arrange="layout-grid"
+     data-arrange="lt-grid"
      class="lt-container
             lt-xs-h-9
             lt-sm-h-6
@@ -52,12 +52,12 @@ $('#lt-grid').lt_grid('reposition', $(this).closest('.lt'), {w: 2, h: 2});
                 <h3>1</h3>
                 <button
                  class="btn btn-default"
-                 onclick="$('#lt-grid').lt_grid('reposition', $(this).closest('.lt'), {w: 2, h: 2});">
+                 onclick="$('#lt-grid').ltGrid('reposition', $(this).closest('.lt'), {w: 2, h: 2});">
                     <i class="fa fa-expand"></i> <span class="muted">(2x2)</span>
                 </button>
                 <button
                  class="btn btn-default"
-                 onclick="$('#lt-grid').lt_grid('reposition', $(this).closest('.lt'), {w: 1, h: 1});">
+                 onclick="$('#lt-grid').ltGrid('reposition', $(this).closest('.lt'), {w: 1, h: 1});">
                     <i class="fa fa-compress"></i> <span class="muted">(1x1)</span>
                 </button>
             </div>
