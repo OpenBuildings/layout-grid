@@ -6,35 +6,39 @@
  * Licensed under BSD (https://github.com/clippings/layout-grid/blob/master/LICENSE)
  * ================================================================================= */
 
+'use strict';
+
 /**
  * Object that represents a rectangle with many supporting methods
  */
-class Rect {
+var Rect = (function () {
+
+    var paramNames = ['x', 'y', 'w', 'h']
 
     /**
-     * @param  {Number} x
-     * @param  {Number} y
-     * @param  {Number} w width
-     * @param  {Number} h height
+     * @param  {Number} x default 0
+     * @param  {Number} y default 0
+     * @param  {Number} w width, default 1
+     * @param  {Number} h height, default 1
      */
-    constructor (x = 0, y = 0, w = 1, h = 1) {
-        this.x = x
-        this.y = y
-        this.w = w
-        this.h = h
+    function Rect(x, y, w, h) {
+        this.x = x || 0;
+        this.y = y || 0;
+        this.w = w || 1;
+        this.h = h || 1;
     }
 
     /**
      * @return {Number}
      */
-    bottom () {
+    Rect.prototype.bottom = function () {
         return this.y + this.h
     }
 
     /**
      * @return {Number}
      */
-    right () {
+    Rect.prototype.right = function () {
         return this.x + this.w
     }
 
@@ -44,7 +48,7 @@ class Rect {
      * @param  {Rect} rect
      * @return {Boolean}
      */
-    intersect (rect) {
+    Rect.prototype.intersect = function (rect) {
         return this.x < rect.right() && this.right() > rect.x && this.y < rect.bottom() && this.bottom() > rect.y
     }
 
@@ -57,10 +61,12 @@ class Rect {
      * @param {String} size    xs, sm, md or lg
      * @return {String}
      */
-    setCss (classes, size) {
-        for (var name of ['x', 'y', 'w', 'h']) {
-            classes = classes.replace(new RegExp('lt-' + size + '-' + name + '-(\\d+)'), 'lt-' + size + '-' + name + '-' + this[name])
-        }
+    Rect.prototype.setCss = function (classes, size) {
+        var self = this
+
+        paramNames.forEach(function (name) {
+            classes = classes.replace(new RegExp('lt-' + size + '-' + name + '-(\\d+)'), 'lt-' + size + '-' + name + '-' + self[name])
+        })
 
         return classes
     }
@@ -71,17 +77,19 @@ class Rect {
      * @param {String} classes html classes
      * @param {String} size    xs, sm, md or lg
      */
-    loadCss (classes, size) {
-        for (var name of ['x', 'y', 'w', 'h']) {
-            let match = classes.match(new RegExp('lt-' + size + '-' + name + '-(\\d+)'))
+    Rect.prototype.loadCss = function (classes, size) {
+        var self = this
+
+        paramNames.forEach(function (name) {
+            var match = classes.match(new RegExp('lt-' + size + '-' + name + '-(\\d+)'))
 
             if (match) {
-                this[name] = parseInt(match[1])
+                self[name] = parseInt(match[1])
             }
-        }
+        })
 
         return this
     }
-}
 
-export default Rect
+    return Rect;
+})();

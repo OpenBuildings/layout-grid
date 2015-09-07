@@ -1,15 +1,23 @@
-import Rect from 'rect'
+/* =================================================================================
+ * Layout Grid
+ * http://github.com/clippings/layout-grid
+ * =================================================================================
+ * Copyright 2015 Clippings Ltd.
+ * Licensed under BSD (https://github.com/clippings/layout-grid/blob/master/LICENSE)
+ * ================================================================================= */
+
+'use strict';
 
 /**
  * A collection of rect objects
  */
-class Grid {
+var Grid = (function () {
 
     /**
      * @param  {Array}  rects array of Rect objects
      */
-    constructor (rects = []) {
-        this.rects = rects
+    function Grid(rects) {
+        this.rects = rects || []
     }
 
     /**
@@ -18,7 +26,7 @@ class Grid {
      * @param  {Rect} rect
      * @return {Array}
      */
-    getIntersectingRects (rect) {
+    Grid.prototype.getIntersectingRects = function (rect) {
         return this.rects.filter(item => {
             return rect !== item && rect.intersect(item);
         })
@@ -29,17 +37,18 @@ class Grid {
      *
      * @return {Grid} self
      */
-    compact () {
-        let rectsCopy = [...this.rects]
+    Grid.prototype.compact = function () {
+        var rectsCopy = this.rects.slice(0)
+        var self = this
 
         rectsCopy
-            .sort((a, b) => {
+            .sort(function (a, b) {
                 return a.y - b.y
             })
-            .forEach(item => {
+            .forEach(function (item) {
                  do {
                     item.y -= 1
-                } while (item.y >= 0 && this.getIntersectingRects(item).length === 0)
+                } while (item.y >= 0 && self.getIntersectingRects(item).length === 0)
 
                 item.y += 1
             })
@@ -52,19 +61,13 @@ class Grid {
      *
      * @return {Number}
      */
-    height () {
-        let hights = this.rects.map(item => {
+    Grid.prototype.height = function () {
+        var hights = this.rects.map(function (item) {
             return item.bottom()
         })
 
-        return hights.length ? Math.max(...hights) : 0
+        return hights.length ? Math.max.apply(null, hights) : 0
     };
-
-    /**
-     * @param  {Rect} rect
-     * @param  {object} params An object with optional keys x, y, w, h to modify the rect
-     */
-
 
     /**
      * Move a rect inside the grid, or update its size
@@ -74,13 +77,16 @@ class Grid {
      * @param  {Object} params An object with optional keys x, y, w, h to modify the rect
      * @return {Grid}          self
      */
-    updateNoOverlap (rect, params) {
+    Grid.prototype.updateNoOverlap = function (rect, params) {
+
+        var self = this
 
         this.update(rect, params)
 
-        this.getIntersectingRects(rect).forEach(item => {
-            this.updateNoOverlap(item, {x: item.x, y: rect.bottom()})
-        })
+        this.getIntersectingRects(rect)
+            .forEach(function (item) {
+                self.updateNoOverlap(item, {x: item.x, y: rect.bottom()})
+            })
 
         return this
     };
@@ -92,7 +98,7 @@ class Grid {
      * @param  {Object} params An object with optional keys x, y, w, h to modify the rect
      * @return {Grid}          self
      */
-    update (rect, params) {
+    Grid.prototype.update = function (rect, params) {
 
         rect.x = ('x' in params) ? params.x : rect.x
         rect.y = ('y' in params) ? params.y : rect.y
@@ -101,6 +107,6 @@ class Grid {
 
         return this
     }
-}
 
-export default Grid
+    return Grid;
+})();

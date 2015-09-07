@@ -1,15 +1,26 @@
+/* =================================================================================
+ * Layout Grid
+ * http://github.com/clippings/layout-grid
+ * =================================================================================
+ * Copyright 2015 Clippings Ltd.
+ * Licensed under BSD (https://github.com/clippings/layout-grid/blob/master/LICENSE)
+ * ================================================================================= */
+'use strict';
+
 /**
  * A class to store / retrieve element inside of dataTransfer object of an event
  * Fall back to a static variable if dataTransfer is not available
  */
-class Store {
+var Store = (function () {
+
+    Store = {};
 
     /**
      * Genrate a time based random number
      *
      * @return {Number}
      */
-    static getRandomNumber() {
+    Store.getRandomNumber = function () {
         return Math.round(new Date().getTime() + (Math.random() * 100))
     }
 
@@ -20,9 +31,9 @@ class Store {
      * @param  {Element} item
      * @return {String}
      */
-    static getId(item) {
+    Store.getId = function (item) {
         if (!item.id) {
-            item.id = `lt-${this.getRandomNumber()}`
+            item.id = 'lt-' + this.getRandomNumber()
         }
 
         return item.id
@@ -31,7 +42,7 @@ class Store {
     /**
      * Clear internal storage variable
      */
-    static clear () {
+    Store.clear = function () {
         this.item = null
     }
 
@@ -41,7 +52,7 @@ class Store {
      * @param {Event}    event
      * @param {Element}  item
      */
-    static set (event, item) {
+    Store.set = function (event, item) {
 
         this.item = JSON.stringify({
             LTWidget: this.getId(item)
@@ -58,7 +69,7 @@ class Store {
      * @param  {Event}   event
      * @return {Element}
      */
-    static get (event) {
+    Store.get = function (event) {
         var dataString = (event.dataTransfer && event.dataTransfer.getData('text')) || this.item
 
         if (dataString) {
@@ -66,6 +77,6 @@ class Store {
             return document.getElementById(data.LTWidget)
         }
     }
-}
 
-export default Store
+    return Store;
+})();

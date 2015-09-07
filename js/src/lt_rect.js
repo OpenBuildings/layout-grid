@@ -1,7 +1,14 @@
-import Rect from 'rect'
+/* =================================================================================
+ * Layout Grid
+ * http://github.com/clippings/layout-grid
+ * =================================================================================
+ * Copyright 2015 Clippings Ltd.
+ * Licensed under BSD (https://github.com/clippings/layout-grid/blob/master/LICENSE)
+ * ================================================================================= */
 
+'use strict';
 
-($ => {
+(function ($) {
 
     /**
      * Getter / setter for div element's rect.

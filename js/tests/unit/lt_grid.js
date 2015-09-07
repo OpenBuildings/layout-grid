@@ -13,7 +13,7 @@ $(function () {
         var lt_grid = $container.lt_grid().data(LTGrid.DATA_KEY);
 
         assert.equal(lt_grid, $container.lt_grid().data(LTGrid.DATA_KEY), 'Set the lt_grid object as data object');
-        assert.deepEqual(lt_grid.options, $.extend(LTGrid.Default, {arrange: 'layout-grid'}), 'Set DEFAULTS to options');
+        assert.deepEqual(lt_grid.options(), $.extend(LTGrid.Default, {arrange: 'layout-grid'}), 'Set DEFAULTS to options');
     });
 
     QUnit.test('Constructor with custom options and modifiable options', function (assert) {
@@ -74,18 +74,18 @@ $(function () {
             }
         });
 
-        assert.equal($container.data(LTGrid.DATA_KEY).options.resize, false, 'Match the passed option for resize');
-        assert.equal($container.data(LTGrid.DATA_KEY).options.compact, false, 'Match the passed option for compact');
-        assert.equal($container.data(LTGrid.DATA_KEY).options.overlap, true, 'Match the passed option for overlap');
-        assert.deepEqual($container.data(LTGrid.DATA_KEY).options.params, expectedParams, 'Match the passed option for params');
+        assert.equal($container.data(LTGrid.DATA_KEY).options().resize, false, 'Match the passed option for resize');
+        assert.equal($container.data(LTGrid.DATA_KEY).options().compact, false, 'Match the passed option for compact');
+        assert.equal($container.data(LTGrid.DATA_KEY).options().overlap, true, 'Match the passed option for overlap');
+        assert.deepEqual($container.data(LTGrid.DATA_KEY).options().params, expectedParams, 'Match the passed option for params');
 
         $container.lt_grid('option', 'resize', true);
         $container.lt_grid('option', 'compact', true);
         $container.lt_grid('option', 'overlap', false);
 
-        assert.equal($container.data(LTGrid.DATA_KEY).options.resize, true, 'Match the changed option for resize');
-        assert.equal($container.data(LTGrid.DATA_KEY).options.compact, true, 'Match the changed option for compact');
-        assert.equal($container.data(LTGrid.DATA_KEY).options.overlap, false, 'Match the changed option for overlap');
+        assert.equal($container.data(LTGrid.DATA_KEY).options().resize, true, 'Match the changed option for resize');
+        assert.equal($container.data(LTGrid.DATA_KEY).options().compact, true, 'Match the changed option for compact');
+        assert.equal($container.data(LTGrid.DATA_KEY).options().overlap, false, 'Match the changed option for overlap');
     });
 
     QUnit.test('_windowWidth method', function (assert) {
@@ -169,9 +169,7 @@ $(function () {
     });
 
     QUnit.test('update method without any options', function (assert) {
-        var lt_grid = new LTGrid($('#container1'));
-        lt_grid.options.compact = false;
-        lt_grid.options.resize = false;
+        var lt_grid = new LTGrid($('#container1'), {compact: false, resize: false});
 
         lt_grid.update();
 
@@ -184,10 +182,6 @@ $(function () {
             ],
             'Rects of the widgets are properly compacted for the "lg" size'
         );
-
-        lt_grid.options.compact = true;
-        lt_grid.options.resize = true;
-
     });
 
     QUnit.test('moveGhost method', function (assert) {
@@ -404,7 +398,7 @@ $(function () {
 
         assert.deepEqual(
             $('#rect1').lt_rect('lg'),
-            new Rect(1, 0, 1, 1)
+            new Rect(0, 0, 1, 1)
         );
 
         $('#container1').trigger(dragend);
