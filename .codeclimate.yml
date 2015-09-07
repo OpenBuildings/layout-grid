@@ -1,4 +1,5 @@
 languages:
    JavaScript: true
+
 exclude_paths:
-  - "js/dist/*"
+  - "dist/js/layout-grid.js"

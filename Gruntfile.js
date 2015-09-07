@@ -6,39 +6,15 @@ module.exports = function (grunt) {
         // Metadata.
         pkg: grunt.file.readJSON('package.json'),
 
-        babel: {
-          dev: {
-            options: {
-              modules: 'ignore'
-            },
-            files: {
-              'js/dist/rect.js'         :'js/src/rect.js',
-              'js/dist/grid.js'         :'js/src/grid.js',
-              'js/dist/lt_rect.js'      :'js/src/lt_rect.js',
-              'js/dist/lt_size.js'      :'js/src/lt_size.js',
-              'js/dist/store.js'        :'js/src/store.js',
-              'js/dist/lt_grid.js'      :'js/src/lt_grid.js'
-            }
-          },
-          dist: {
-            options: {
-              modules: 'ignore'
-            },
-            files: {
-              '<%= concat.js.dest %>' : '<%= concat.js.dest %>'
-            }
-          }
-        },
-
         lineremover: {
-          es6Import: {
-            files: {
-              '<%= concat.js.dest %>': '<%= concat.js.dest %>'
-            },
-            options: {
-              exclusionPattern: /^(import|export)/g
+            usestrict: {
+                options: {
+                    exclusionPattern: /^('use strict';)/g
+                },
+                files: {
+                    '<%= concat.js.dest %>': '<%= concat.js.dest %>'
+                }
             }
-          }
         },
 
         concat: {
@@ -53,9 +29,30 @@ module.exports = function (grunt) {
           }
         },
 
+        stamp: {
+            options: {
+                banner: "'use strict';\n\n var LTGrid = (function ($) {\n",
+                footer: '    LTGrid.Rect = Rect\n    LTGrid.Grid = Grid\n    return LTGrid\n})(jQuery);'
+            },
+            dist: {
+                files: {
+                    src: '<%= concat.js.dest %>'
+                }
+            }
+        },
+
         qunit: {
+            options: {
+                coverage: {
+                  src: ['dist/js/layout-grid.js'],
+                  instrumentedFiles: 'temp/',
+                  htmlReport: 'build/coverage',
+                  lcovReport: 'build/',
+                }
+            },
             all: ['js/tests/index.html']
         },
+
         uglify: {
             options: {
                 mangle: true,
@@ -66,6 +63,7 @@ module.exports = function (grunt) {
                 dest: 'dist/js/<%= pkg.name %>.min.js'
             }
         },
+
         sass: {
             options: {
                 sourcemap: 'none'
@@ -76,6 +74,7 @@ module.exports = function (grunt) {
                 }
             }
         },
+
         cssmin: {
           target: {
             files: {
@@ -86,6 +85,6 @@ module.exports = function (grunt) {
     });
 
     grunt.registerTask('css', ['sass', 'cssmin']);
-    grunt.registerTask('js', ['concat', 'lineremover', 'babel']);
+    grunt.registerTask('js', ['concat', 'lineremover', 'stamp']);
     grunt.registerTask('default', ['css', 'js']);
 };

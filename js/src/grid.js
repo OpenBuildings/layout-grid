@@ -27,7 +27,7 @@ var Grid = (function () {
      * @return {Array}
      */
     Grid.prototype.getIntersectingRects = function (rect) {
-        return this.rects.filter(item => {
+        return this.rects.filter(function (item) {
             return rect !== item && rect.intersect(item);
         })
     }

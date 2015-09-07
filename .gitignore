@@ -2,5 +2,4 @@
 /build/
 .sass-cache
 /node_modules/
-/js/dist/
 _site

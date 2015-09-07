@@ -119,6 +119,7 @@ $(function () {
         assert.equal($ghost[0], lt_grid.ghost($widget)[0], 'Return the same object when called twice');
         assert.equal($ghost.parent()[0], $widget.parent()[0], 'Is inside the same container');
         assert.deepEqual($ghost.lt_rect('lg'), $widget.lt_rect('lg'), 'Is with the same Rect as the widget');
+        assert.ok($ghost.hasClass('lt-ghost'));
 
         lt_grid.removeGhost();
 
@@ -203,6 +204,7 @@ $(function () {
 
         assert.equal($mask[0], lt_grid.mask()[0], 'Return the same object when called twice');
         assert.ok($mask.hasClass('lt-mask'), 'Have a lt-mask class');
+        assert.equal('mask', $mask.data('lt-grid'))
         assert.equal($mask.parent()[0], $('#container1')[0], 'Is child of the container');
 
         lt_grid.removeMask();

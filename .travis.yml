@@ -9,4 +9,6 @@ node_js:
 
 before_install:
   - npm install -g grunt-cli
-  - grunt js
+
+after_script:
+  - node_modules/codeclimate-test-reporter/bin/codeclimate.js < build/lcov.info
