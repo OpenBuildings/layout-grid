@@ -20,7 +20,7 @@
     "format": "global",
     "shim": {
       "dist/js/layout-grid": ["jquery"]
-    },
+    }
   },
   "homepage": "https://clippings.github.com/layout-grid",
   "devDependencies": {
