@@ -15,6 +15,14 @@
   "bugs": {
     "url": "https://github.com/clippings/layout-grid/issues"
   },
+  "main": "dist/js/layout-grid",
+  "jspm": {
+    "format": "global",
+    "shim": {
+      "dist/js/layout-grid": ["jquery"]
+    },
+  },
+  "homepage": "https://clippings.github.com/layout-grid",
   "devDependencies": {
     "codeclimate-test-reporter": "^0.1.0",
     "grunt": "^0.4.1",
