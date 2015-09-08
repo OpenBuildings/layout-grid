@@ -1,5 +1,2 @@
 languages:
    JavaScript: true
-
-exclude_paths:
-  - "dist/js/*"
