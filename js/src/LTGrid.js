@@ -184,6 +184,8 @@ var LTGrid = (function ($) {
             grid.rects.forEach(function (rect, index) {
                 $items.eq(index)[LTRect.NAME](size, rect)
             })
+
+            return this
         }
 
         return new Grid($.map($items.toArray(), function (item) {
