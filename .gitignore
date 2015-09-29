@@ -1,5 +1,7 @@
 /vendor/
 /build/
 .sass-cache
+/dist/
+layout-grid.zip
 /node_modules/
 _site
