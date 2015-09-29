@@ -35,7 +35,9 @@ var LTData = (function ($) {
         var ltGrid = this[LTGrid.NAME]().data(LTGrid.DATA_KEY)
 
         if (undefined !== rects) {
-            ltGrid.grid(size, new Grid(LTData.getRects(rects)))
+            ltGrid
+                .grid(size, new Grid(LTData.getRects(rects)))
+                .update()
 
             return this
         }
