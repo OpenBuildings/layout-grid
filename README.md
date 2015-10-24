@@ -3,6 +3,8 @@ Layout Grid
 
 [![Build Status](https://travis-ci.org/clippings/layout-grid.svg?branch=master)](https://travis-ci.org/clippings/layout-grid)
 [![Codacy Badge](https://api.codacy.com/project/badge/8a76e0f9ec414ae79aca59bd9f10e24a)](https://www.codacy.com/app/clippings/layout-grid)
+[![Dependency Status](https://david-dm.org/clippings/layout-grid.svg)](https://david-dm.org/clippings/layout-grid)
+[![devDependency Status](https://david-dm.org/clippings/layout-grid/dev-status.svg)](https://david-dm.org/clippings/layout-grid#info=devDependencies)
 
 Documentation and demos: [Layout Grid Site](https://clippings.github.com/layout-grid)
 
