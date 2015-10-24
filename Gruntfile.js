@@ -90,7 +90,7 @@ module.exports = function (grunt) {
             },
             dist: {
                 files: {
-                    'dist/css/<%= pkg.name %>.css': 'sass/layout-grid.sass'
+                    'dist/css/<%= pkg.name %>.css': 'sass/<%= pkg.name %>.sass'
                 }
             }
         },
@@ -104,9 +104,18 @@ module.exports = function (grunt) {
                     'dist/css/<%= pkg.name %>.min.css': ['dist/css/<%= pkg.name %>.css']
                 }
             }
+        },
+
+        // Tasks for documenation building and publishing
+
+        submake: {
+            docs: {
+                docs: 'html'
+            }
         }
     })
 
+    grunt.registerTask('docs', ['default', 'submake'])
     grunt.registerTask('css', ['sass', 'cssmin'])
     grunt.registerTask('js', ['concat', 'uglify'])
     grunt.registerTask('test', ['eslint', 'jscs', 'qunit'])

@@ -12,5 +12,5 @@ indent_style = space
 indent_size = 4
 
 # Indent XML with tabs
-[xml]
+[Makefile]
 indent_style = tab

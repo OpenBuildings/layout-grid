@@ -73,7 +73,7 @@ $(function () {
 
         assert.deepEqual(
             $('#rect1').ltRect('lg'),
-            new Rect(0, 0, 1, 1)
+            new Rect(1, 0, 1, 1)
         )
 
         $('#container1').trigger(dragend)

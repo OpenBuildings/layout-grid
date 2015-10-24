@@ -10,6 +10,15 @@
 
 <div id="qunit"></div>
 <div id="qunit-fixture">
+    <button
+     id="only1"
+     type="button"
+     data-toggle="lt-grid-only"
+     data-target="#container1"
+     data-only="xs">
+        Button
+    </button>
+
     <div
      id="container1"
      data-arrange="lt-grid"
@@ -143,6 +152,7 @@
 <script type="text/javascript" src='../src/LTSize.js'></script>
 <script type="text/javascript" src='../src/Store.js'></script>
 <script type="text/javascript" src='../src/LTGrid.js'></script>
+<script type="text/javascript" src='../src/LTGridOnly.js'></script>
 
 <!-- Unit tests -->
 <script type="text/javascript" src='unit/Rect.js'></script>
@@ -150,6 +160,7 @@
 <script type="text/javascript" src='unit/LTData.js'></script>
 <script type="text/javascript" src='unit/LTRect.js'></script>
 <script type="text/javascript" src='unit/LTSize.js'></script>
+<script type="text/javascript" src='unit/LTGridOnly.js'></script>
 <script type="text/javascript" src='unit/Store.js'></script>
 <script type="text/javascript" src='unit/LTGrid/constructor.js'></script>
 <script type="text/javascript" src='unit/LTGrid/private.js'></script>

@@ -23,10 +23,11 @@ var LTGrid = (function ($) {
     var EVENT_KEY           = '.' + DATA_KEY
 
     var Event = {
-        START   : 'dragstart.' + EVENT_KEY + ' touchstart. ' + EVENT_KEY,
-        OVER    : 'dragover.' + EVENT_KEY + ' touchmove. ' + EVENT_KEY,
-        END     : 'dragend.' + EVENT_KEY + ' touchcancel. ' + EVENT_KEY,
-        DROP    : 'drop.' + EVENT_KEY + ' touchend. ' + EVENT_KEY,
+        UPDATE  : 'update',
+        START   : 'dragstart' + EVENT_KEY + ' touchstart' + EVENT_KEY,
+        OVER    : 'dragover' + EVENT_KEY + ' touchmove' + EVENT_KEY,
+        END     : 'dragend' + EVENT_KEY + ' touchcancel' + EVENT_KEY,
+        DROP    : 'drop' + EVENT_KEY + ' touchend' + EVENT_KEY,
         LEAVE   : 'dragleave.' + EVENT_KEY
     }
 
@@ -168,6 +169,8 @@ var LTGrid = (function ($) {
         if (this._options.resize) {
             this.resize()
         }
+
+        this.$element.trigger(Event.UPDATE)
     }
 
     /**

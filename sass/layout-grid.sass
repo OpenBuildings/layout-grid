@@ -124,3 +124,30 @@ $max-rows-lg: 10 !default
     top: 0
     bottom: 0
 
+@mixin responsive-visibility($parent, $prefix, $cols, $max-rows, $gap, $aspect)
+    $width: (100% - ($cols - 1) * $gap) / $cols
+    $height: $width * $aspect
+
+    @for $i from 0 through ($cols - 1)
+        #{$parent}.lt-#{$prefix}-x-#{$i}, #{$parent} .lt-#{$prefix}-x-#{$i}
+            margin-left: ($width + $gap) * $i
+
+    @for $i from 0 through ($max-rows - 1)
+        #{$parent}.lt-#{$prefix}-y-#{$i}, #{$parent} .lt-#{$prefix}-y-#{$i}
+            margin-top: ($height + $gap) * $i
+
+    @for $i from 1 through $cols
+        #{$parent}.lt-#{$prefix}-w-#{$i}, #{$parent} .lt-#{$prefix}-w-#{$i}
+            width: $width * $i + $gap * ($i - 1)
+
+    @for $i from 1 through $max-rows
+        #{$parent}.lt-#{$prefix}-h-#{$i}, #{$parent} .lt-#{$prefix}-h-#{$i}
+            padding-bottom: $height * $i + $gap * ($i - 1)
+
+
+@include responsive-visibility('.lt-only-xs','xs', $cols-xs, $max-rows-xs, $gap-xs, $aspect-xs)
+@include responsive-visibility('.lt-only-sm','sm', $cols-sm, $max-rows-sm, $gap-sm, $aspect-sm)
+@include responsive-visibility('.lt-only-md','md', $cols-md, $max-rows-md, $gap-md, $aspect-md)
+@include responsive-visibility('.lt-only-lg','lg', $cols-lg, $max-rows-lg, $gap-lg, $aspect-lg)
+
+

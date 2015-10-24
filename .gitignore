@@ -4,4 +4,4 @@
 /node_modules/
 /dist/
 layout-grid.zip
-_site
+/docs/build/
