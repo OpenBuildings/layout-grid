@@ -108,7 +108,7 @@ module.exports = function (grunt) {
 
         codacy: {
             all: ['build/lcov.info']
-        }
+        },
 
         // Tasks for documenation building and publishing
 
