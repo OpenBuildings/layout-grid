@@ -1,10 +1,5 @@
-/* =================================================================================
- * Layout Grid
- * http://github.com/clippings/layout-grid
- * =================================================================================
- * Copyright 2015 Clippings Ltd.
- * Licensed under BSD (https://github.com/clippings/layout-grid/blob/master/LICENSE)
- * ================================================================================= */
+/* Copyright 2015 Clippings Ltd. Licensed under BSD-3-Clause
+ * See license text at https://github.com/clippings/layout-grid/blob/master/LICENSE */
 
 /* exported Grid */
 
@@ -72,11 +67,10 @@ var Grid = (function () {
     }
 
     /**
-     * Move a rect inside the grid, or update its size
-     * If there is overlap move rects downards
+     * Call update() and if there is overlap move rects downards
      *
-     * @param  {Rect}   rect
-     * @param  {Object} params An object with optional keys x, y, w, h to modify the rect
+     * @param  {Rect}   rect   passed to update()
+     * @param  {Object} params passed to update()
      * @return {Grid}          self
      */
     Grid.prototype.updateNoOverlap = function (rect, params) {

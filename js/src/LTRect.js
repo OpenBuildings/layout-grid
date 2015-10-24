@@ -1,10 +1,5 @@
-/* =================================================================================
- * Layout Grid
- * http://github.com/clippings/layout-grid
- * =================================================================================
- * Copyright 2015 Clippings Ltd.
- * Licensed under BSD (https://github.com/clippings/layout-grid/blob/master/LICENSE)
- * ================================================================================= */
+/* Copyright 2015 Clippings Ltd. Licensed under BSD-3-Clause
+ * See license text at https://github.com/clippings/layout-grid/blob/master/LICENSE */
 
 /* exported LTRect */
 
