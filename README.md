@@ -2,8 +2,7 @@ Layout Grid
 ===========
 
 [![Build Status](https://travis-ci.org/clippings/layout-grid.svg?branch=master)](https://travis-ci.org/clippings/layout-grid)
-[![Code Climate](https://codeclimate.com/github/clippings/layout-grid/badges/gpa.svg)](https://codeclimate.com/github/clippings/layout-grid)
-[![Test Coverage](https://codeclimate.com/github/clippings/layout-grid/badges/coverage.svg)](https://codeclimate.com/github/clippings/layout-grid/coverage)
+[![Codacy Badge](https://api.codacy.com/project/badge/8a76e0f9ec414ae79aca59bd9f10e24a)](https://www.codacy.com/app/clippings/layout-grid)
 
 Documentation and demos: [Layout Grid Site](https://clippings.github.com/layout-grid)
 

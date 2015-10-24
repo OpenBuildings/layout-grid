@@ -6,7 +6,7 @@ before_install:
 - npm install -g npm@'>=2.13.5'
 - npm install -g grunt-cli
 after_script:
-- node_modules/codeclimate-test-reporter/bin/codeclimate.js < build/lcov.info
+- grunt codacy
 before_deploy: grunt dist
 deploy:
 - provider: releases

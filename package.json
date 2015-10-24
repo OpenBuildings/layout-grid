@@ -19,13 +19,15 @@
   "jspm": {
     "format": "global",
     "shim": {
-      "dist/js/layout-grid": ["jquery"]
+      "dist/js/layout-grid": [
+        "jquery"
+      ]
     }
   },
   "homepage": "https://clippings.github.com/layout-grid",
   "devDependencies": {
-    "codeclimate-test-reporter": "^0.1.0",
     "grunt": "^0.4.1",
+    "grunt-codacy": "^1.1.0",
     "grunt-contrib-compress": "^0.13.0",
     "grunt-contrib-concat": "^0.5.1",
     "grunt-contrib-cssmin": "^0.13.0",
