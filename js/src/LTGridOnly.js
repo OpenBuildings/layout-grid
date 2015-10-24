@@ -76,6 +76,7 @@ var LTGridOnly = (function ($) {
 
     /**
      * Compact the grid for current size
+     * @param  {String} size
      */
     LTGridOnly.prototype.set = function (size) {
         var original = this.originalParams()
