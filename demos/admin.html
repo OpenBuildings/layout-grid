@@ -1,0 +1,463 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Admin Panel &mdash; Layout Grid 2.1.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../_static/css/layout-grid.min.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="Layout Grid 2.1.0 documentation" href="../index.html"/>
+        <link rel="prev" title="ltGridOnly demo" href="only.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Layout Grid
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">Documentation</span></p>
+<ul class="simple">
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../documentation.html">Documentation</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Demos</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="static.html">Static demo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reorder.html">Reorder demo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multiple.html">Multiple containers demo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="options.html">Configurable options demo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="resize.html">Resize grid items demo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="custom.html">Custom demo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="serialization.html">Serialization demo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="only.html">ltGridOnly demo</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Admin panel demo</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Layout Grid</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+    <li>Admin Panel</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="admin-panel-demo">
+<h1>Admin panel demo<a class="headerlink" href="#admin-panel-demo" title="Permalink to this headline">¶</a></h1>
+<p>This an example admin panel implementation.</p>
+<p>You can configure all the positions for each size, by clicking on the size buttons. On each update the positions are copied over to hidden inputs, which you can then save normally.</p>
+<p>
+    <button
+     class="btn btn-default btn-block"
+     data-toggle="lt-grid-only"
+     data-target="#admin-grid"
+     type="button"
+     data-only="xs">
+        xs
+    </button>
+    <button
+     class="btn btn-default btn-block"
+     data-toggle="lt-grid-only"
+     data-target="#admin-grid"
+     type="button"
+     data-only="sm">
+        sm
+    </button>
+    <button
+     class="btn btn-default btn-block"
+     data-toggle="lt-grid-only"
+     data-target="#admin-grid"
+     type="button"
+     data-only="md">
+        md
+    </button>
+    <button
+     class="btn btn-default btn-block"
+     data-toggle="lt-grid-only"
+     data-target="#admin-grid"
+     type="button"
+     data-only="lg">
+        lg
+    </button>
+</p>
+
+<form id="admin-form">
+    <div
+     id="admin-grid"
+     data-arrange="lt-grid"
+     class="lt-container
+            lt-xs-h-6
+            lt-sm-h-4
+            lt-md-h-3
+            lt-lg-h-2">
+
+        <div
+         draggable="true"
+         class="lt
+                lt-xs-x-0
+                lt-xs-y-0
+                lt-xs-w-1
+                lt-xs-h-1
+                lt-sm-x-0
+                lt-sm-y-0
+                lt-sm-w-1
+                lt-sm-h-1
+                lt-md-x-0
+                lt-md-y-0
+                lt-md-w-1
+                lt-md-h-1
+                lt-lg-x-0
+                lt-lg-y-0
+                lt-lg-w-1
+                lt-lg-h-1">
+            <div class="lt-body note">
+                <h3>1</h3>
+
+                <input type="hidden" name="item[1][xs][x]" value=0 data-xs-x>
+                <input type="hidden" name="item[1][xs][y]" value=0 data-xs-y>
+
+                <input type="hidden" name="item[1][sm][x]" value=0 data-sm-x>
+                <input type="hidden" name="item[1][sm][y]" value=0 data-sm-y>
+
+                <input type="hidden" name="item[1][md][x]" value=0 data-md-x>
+                <input type="hidden" name="item[1][md][y]" value=0 data-md-y>
+
+                <input type="hidden" name="item[1][lg][x]" value=0 data-lg-x>
+                <input type="hidden" name="item[1][lg][y]" value=0 data-lg-y>
+
+            </div>
+        </div>
+        <div
+         draggable="true"
+         class="lt
+                lt-xs-x-0
+                lt-xs-y-1
+                lt-xs-w-1
+                lt-xs-h-2
+                lt-sm-x-1
+                lt-sm-y-0
+                lt-sm-w-1
+                lt-sm-h-2
+                lt-md-x-2
+                lt-md-y-0
+                lt-md-w-1
+                lt-md-h-2
+                lt-lg-x-1
+                lt-lg-y-0
+                lt-lg-w-1
+                lt-lg-h-2">
+            <div class="lt-body note">
+                <h3>2</h3>
+
+                <input type="hidden" name="item[2][xs][x]" value=0 data-xs-x>
+                <input type="hidden" name="item[2][xs][y]" value=1 data-xs-y>
+
+                <input type="hidden" name="item[2][sm][x]" value=1 data-sm-x>
+                <input type="hidden" name="item[2][sm][y]" value=0 data-sm-y>
+
+                <input type="hidden" name="item[2][md][x]" value=2 data-md-x>
+                <input type="hidden" name="item[2][md][y]" value=0 data-md-y>
+
+                <input type="hidden" name="item[2][lg][x]" value=1 data-lg-x>
+                <input type="hidden" name="item[2][lg][y]" value=0 data-lg-y>
+
+            </div>
+        </div>
+        <div
+         draggable="true"
+         class="lt
+                lt-xs-x-0
+                lt-xs-y-3
+                lt-xs-w-1
+                lt-xs-h-1
+                lt-sm-x-0
+                lt-sm-y-1
+                lt-sm-w-1
+                lt-sm-h-1
+                lt-md-x-1
+                lt-md-y-0
+                lt-md-w-1
+                lt-md-h-1
+                lt-lg-x-0
+                lt-lg-y-1
+                lt-lg-w-1
+                lt-lg-h-1">
+            <div class="lt-body note">
+                <h3>3</h3>
+
+                <input type="hidden" name="item[3][xs][x]" value=0 data-xs-x>
+                <input type="hidden" name="item[3][xs][y]" value=3 data-xs-y>
+
+                <input type="hidden" name="item[3][sm][x]" value=0 data-sm-x>
+                <input type="hidden" name="item[3][sm][y]" value=1 data-sm-y>
+
+                <input type="hidden" name="item[3][md][x]" value=1 data-md-x>
+                <input type="hidden" name="item[3][md][y]" value=0 data-md-y>
+
+                <input type="hidden" name="item[3][lg][x]" value=0 data-lg-x>
+                <input type="hidden" name="item[3][lg][y]" value=1 data-lg-y>
+
+            </div>
+        </div>
+        <div
+         draggable="true"
+         class="lt
+                lt-xs-x-0
+                lt-xs-y-4
+                lt-xs-w-1
+                lt-xs-h-2
+                lt-sm-x-0
+                lt-sm-y-2
+                lt-sm-w-2
+                lt-sm-h-2
+                lt-md-x-0
+                lt-md-y-1
+                lt-md-w-2
+                lt-md-h-2
+                lt-lg-x-2
+                lt-lg-y-0
+                lt-lg-w-2
+                lt-lg-h-2">
+            <div class="lt-body note">
+                <h3>4</h3>
+
+                <input type="hidden" name="item[4][xs][x]" value=0 data-xs-x>
+                <input type="hidden" name="item[4][xs][y]" value=4 data-xs-y>
+
+                <input type="hidden" name="item[4][sm][x]" value=0 data-sm-x>
+                <input type="hidden" name="item[4][sm][y]" value=2 data-sm-y>
+
+                <input type="hidden" name="item[4][md][x]" value=0 data-md-x>
+                <input type="hidden" name="item[4][md][y]" value=1 data-md-y>
+
+                <input type="hidden" name="item[4][lg][x]" value=2 data-lg-x>
+                <input type="hidden" name="item[4][lg][y]" value=0 data-lg-y>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="wy-control-group">
+        <label for="result">
+            Save inputs
+            <small> visualize input data </small>
+        </label>
+        <div class="wy-control">
+            <textarea
+             id="result"
+             name="result"
+             rows="7"></textarea>
+        </div>
+    </div>
+
+    <p>
+        <button
+         type="submit"
+         class="btn">
+            Save
+        </button>
+    </p>
+</form><p>The javascript needed for this form to work is this: (in the <code class="docutils literal"><span class="pre">admin-demo.js</span></code> file)</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">$</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#admin-form&#39;</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;submit&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">event</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">()</span>
+
+        <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#result&#39;</span><span class="p">).</span><span class="nx">val</span><span class="p">(</span><span class="nb">decodeURIComponent</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#form&#39;</span><span class="p">).</span><span class="nx">serialize</span><span class="p">()))</span>
+    <span class="p">})</span>
+
+    <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#admin-grid&#39;</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;update&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#admin-grid .lt&#39;</span><span class="p">).</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+            <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;[data-xs-x]&#39;</span><span class="p">).</span><span class="nx">val</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">ltRect</span><span class="p">(</span><span class="s1">&#39;xs&#39;</span><span class="p">).</span><span class="nx">x</span><span class="p">)</span>
+            <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;[data-xs-y]&#39;</span><span class="p">).</span><span class="nx">val</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">ltRect</span><span class="p">(</span><span class="s1">&#39;xs&#39;</span><span class="p">).</span><span class="nx">y</span><span class="p">)</span>
+
+            <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;[data-sm-x]&#39;</span><span class="p">).</span><span class="nx">val</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">ltRect</span><span class="p">(</span><span class="s1">&#39;sm&#39;</span><span class="p">).</span><span class="nx">x</span><span class="p">)</span>
+            <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;[data-sm-y]&#39;</span><span class="p">).</span><span class="nx">val</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">ltRect</span><span class="p">(</span><span class="s1">&#39;sm&#39;</span><span class="p">).</span><span class="nx">y</span><span class="p">)</span>
+
+            <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;[data-md-x]&#39;</span><span class="p">).</span><span class="nx">val</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">ltRect</span><span class="p">(</span><span class="s1">&#39;md&#39;</span><span class="p">).</span><span class="nx">x</span><span class="p">)</span>
+            <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;[data-md-y]&#39;</span><span class="p">).</span><span class="nx">val</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">ltRect</span><span class="p">(</span><span class="s1">&#39;md&#39;</span><span class="p">).</span><span class="nx">y</span><span class="p">)</span>
+
+            <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;[data-lg-x]&#39;</span><span class="p">).</span><span class="nx">val</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">ltRect</span><span class="p">(</span><span class="s1">&#39;lg&#39;</span><span class="p">).</span><span class="nx">x</span><span class="p">)</span>
+            <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;[data-lg-y]&#39;</span><span class="p">).</span><span class="nx">val</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">ltRect</span><span class="p">(</span><span class="s1">&#39;lg&#39;</span><span class="p">).</span><span class="nx">y</span><span class="p">)</span>
+
+        <span class="p">})</span>
+    <span class="p">})</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="only.html" class="btn btn-neutral" title="ltGridOnly demo" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Clippings Ltd.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'2.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/js/layout-grid.js"></script>
+      <script type="text/javascript" src="../_static/admin-demo.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

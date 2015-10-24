@@ -1,0 +1,487 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Serialization demo &mdash; Layout Grid 2.1.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../_static/css/layout-grid.min.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="Layout Grid 2.1.0 documentation" href="../index.html"/>
+        <link rel="next" title="ltGridOnly demo" href="only.html"/>
+        <link rel="prev" title="Custom demo" href="custom.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Layout Grid
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">Documentation</span></p>
+<ul class="simple">
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../documentation.html">Documentation</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Demos</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="static.html">Static demo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reorder.html">Reorder demo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multiple.html">Multiple containers demo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="options.html">Configurable options demo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="resize.html">Resize grid items demo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="custom.html">Custom demo</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Serialization demo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="only.html">ltGridOnly demo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="admin.html">Admin panel demo</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Layout Grid</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+    <li>Serialization demo</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="serialization-demo">
+<h1>Serialization demo<a class="headerlink" href="#serialization-demo" title="Permalink to this headline">¶</a></h1>
+<p>You can load and set layout grid positions using the ltData jQuery function.</p>
+<p>Loading positions is done with the <code class="docutils literal"><span class="pre">$('#lt-grid').ltData(size)</span></code> function where &#8220;size&#8221; is the size you want to load e.g. &#8220;xs&#8221;, &#8220;sm&#8221;, &#8220;md&#8221; or &#8220;lg&#8221;.</p>
+<p>Seting positions is done with <code class="docutils literal"><span class="pre">$('#lt-grid').ltData(size,</span> <span class="pre">positions)</span></code>.</p>
+<p>In this example you can load and set positions for the various sizes, where the current size is marked as a primary button.</p>
+<div class="wy-control-group">
+    <label for="result">
+        Get
+    </label>
+    <div class="wy-control">
+        <button
+         class="btn btn-default btn-block"
+         data-size="xs"
+         onclick="$('#data').val(JSON.stringify($('#lt-grid').ltData('xs')))">
+            xs
+        </button>
+        <button
+         class="btn btn-default btn-block"
+         data-size="sm"
+         onclick="$('#data').val(JSON.stringify($('#lt-grid').ltData('sm')))">
+            sm
+        </button>
+        <button
+         class="btn btn-default btn-block"
+         data-size="md"
+         onclick="$('#data').val(JSON.stringify($('#lt-grid').ltData('md')))">
+            md
+        </button>
+        <button
+         class="btn btn-default btn-block"
+         data-size="lg"
+         onclick="$('#data').val(JSON.stringify($('#lt-grid').ltData('lg')))">
+            lg
+        </button>
+    </div>
+</div>
+
+<div class="wy-control-group">
+    <label for="result">
+        Set
+    </label>
+    <div class="wy-control">
+        <button
+         class="btn btn-default btn-block"
+         data-size="xs"
+         onclick="$('#lt-grid').ltData('xs', JSON.parse($('#data').val()))">
+            xs
+        </button>
+        <button
+         class="btn btn-default btn-block"
+         data-size="sm"
+         onclick="$('#lt-grid').ltData('sm', JSON.parse($('#data').val()))">
+            sm
+        </button>
+        <button
+         class="btn btn-default btn-block"
+         data-size="md"
+         onclick="$('#lt-grid').ltData('md', JSON.parse($('#data').val()))">
+            md
+        </button>
+        <button
+         class="btn btn-default btn-block"
+         data-size="lg"
+         onclick="$('#lt-grid').ltData('lg', JSON.parse($('#data').val()))">
+            lg
+        </button>
+    </div>
+</div>
+
+<div class="wy-control-group">
+    <label for="result">
+        Serialized data
+    </label>
+    <div class="wy-control">
+        <textarea id="data" rows="8"></textarea>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(event) {
+        var updateButtonLabels = function() {
+            console.log($('#lt-grid').ltSize(), '[data-size='+ $('#lt-grid').ltSize() +']')
+            $('[data-size]').removeClass('btn-primary')
+            $('[data-size='+ $('#lt-grid').ltSize() +']').addClass('btn-primary')
+        }
+
+        updateButtonLabels();
+
+        $(window).resize(updateButtonLabels)
+    });
+</script>
+
+<div
+ id="lt-grid"
+ data-arrange="lt-grid"
+ class="lt-container
+        lt-xs-h-9
+        lt-sm-h-6
+        lt-md-h-4
+        lt-lg-h-3">
+
+    <div
+     draggable="true"
+     class="lt
+            lt-xs-x-0
+            lt-xs-y-0
+            lt-xs-w-1
+            lt-xs-h-1
+            lt-sm-x-0
+            lt-sm-y-0
+            lt-sm-w-1
+            lt-sm-h-1
+            lt-md-x-0
+            lt-md-y-0
+            lt-md-w-1
+            lt-md-h-1
+            lt-lg-x-0
+            lt-lg-y-0
+            lt-lg-w-1
+            lt-lg-h-1">
+        <div class="lt-body note">
+            <h3>1</h3>
+        </div>
+    </div>
+    <div
+     draggable="true"
+     class="lt
+            lt-xs-x-0
+            lt-xs-y-1
+            lt-xs-w-1
+            lt-xs-h-2
+            lt-sm-x-1
+            lt-sm-y-0
+            lt-sm-w-1
+            lt-sm-h-2
+            lt-md-x-2
+            lt-md-y-0
+            lt-md-w-1
+            lt-md-h-2
+            lt-lg-x-1
+            lt-lg-y-0
+            lt-lg-w-1
+            lt-lg-h-2">
+        <div class="lt-body note">
+            <h3>2</h3>
+        </div>
+    </div>
+    <div
+     draggable="true"
+     class="lt
+            lt-xs-x-0
+            lt-xs-y-3
+            lt-xs-w-1
+            lt-xs-h-1
+            lt-sm-x-0
+            lt-sm-y-1
+            lt-sm-w-1
+            lt-sm-h-1
+            lt-md-x-1
+            lt-md-y-0
+            lt-md-w-1
+            lt-md-h-1
+            lt-lg-x-0
+            lt-lg-y-1
+            lt-lg-w-1
+            lt-lg-h-1">
+        <div class="lt-body note">
+            <h3>3</h3>
+        </div>
+    </div>
+    <div
+     draggable="true"
+     class="lt
+            lt-xs-x-0
+            lt-xs-y-4
+            lt-xs-w-1
+            lt-xs-h-2
+            lt-sm-x-0
+            lt-sm-y-2
+            lt-sm-w-2
+            lt-sm-h-2
+            lt-md-x-0
+            lt-md-y-1
+            lt-md-w-2
+            lt-md-h-2
+            lt-lg-x-2
+            lt-lg-y-0
+            lt-lg-w-2
+            lt-lg-h-2">
+        <div class="lt-body note">
+            <h3>4</h3>
+        </div>
+    </div>
+    <div
+     draggable="true"
+     class="lt
+            lt-xs-x-0
+            lt-xs-y-6
+            lt-xs-w-1
+            lt-xs-h-1
+            lt-sm-x-0
+            lt-sm-y-4
+            lt-sm-w-1
+            lt-sm-h-1
+            lt-md-x-2
+            lt-md-y-2
+            lt-md-w-1
+            lt-md-h-1
+            lt-lg-x-0
+            lt-lg-y-2
+            lt-lg-w-1
+            lt-lg-h-1">
+        <div class="lt-body note">
+            <h3>5</h3>
+        </div>
+    </div>
+    <div
+     draggable="true"
+     class="lt
+            lt-xs-x-0
+            lt-xs-y-7
+            lt-xs-w-1
+            lt-xs-h-1
+            lt-sm-x-0
+            lt-sm-y-5
+            lt-sm-w-2
+            lt-sm-h-1
+            lt-md-x-1
+            lt-md-y-3
+            lt-md-w-2
+            lt-md-h-1
+            lt-lg-x-1
+            lt-lg-y-2
+            lt-lg-w-2
+            lt-lg-h-1">
+        <div class="lt-body note">
+            <h3>6</h3>
+        </div>
+    </div>
+    <div
+     draggable="true"
+     class="lt
+            lt-xs-x-0
+            lt-xs-y-8
+            lt-xs-w-1
+            lt-xs-h-1
+            lt-sm-x-1
+            lt-sm-y-4
+            lt-sm-w-1
+            lt-sm-h-1
+            lt-md-x-0
+            lt-md-y-3
+            lt-md-w-1
+            lt-md-h-1
+            lt-lg-x-3
+            lt-lg-y-2
+            lt-lg-w-1
+            lt-lg-h-1">
+        <div class="lt-body note">
+            <h3>7</h3>
+        </div>
+    </div>
+</div></div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="only.html" class="btn btn-neutral float-right" title="ltGridOnly demo" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="custom.html" class="btn btn-neutral" title="Custom demo" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Clippings Ltd.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'2.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/js/layout-grid.js"></script>
+      <script type="text/javascript" src="../_static/admin-demo.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

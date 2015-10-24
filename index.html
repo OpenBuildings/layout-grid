@@ -1,548 +1,450 @@
----
-layout: index
----
-<div class="jumbotron">
-    <div class="container">
-        <h1>{{ site.title }}</h1>
-        <p>
-            {{ site.github.project_tagline }}
-        </p>
-        <a
-         href="{{ site.github.releases.first.assets.first.browser_download_url }}"
-         class="btn btn-lg btn-primary">
-			<i class="fa fa-download"></i> Download Latest Release
-        </a>
-    </div>
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Layout Grid &mdash; Layout Grid 2.1.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="_static/css/layout-grid.min.css" type="text/css" />
+  
+    <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="Layout Grid 2.1.0 documentation" href="#"/>
+        <link rel="next" title="Installation" href="installation.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="#" class="icon icon-home"> Layout Grid
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
 </div>
 
-<div class="container">
+          
+        </div>
 
-    <h2>Quick Example</h2>
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">Documentation</span></p>
+<ul class="simple">
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="documentation.html">Documentation</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Demos</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="demos/static.html">Static demo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="demos/reorder.html">Reorder demo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="demos/multiple.html">Multiple containers demo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="demos/options.html">Configurable options demo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="demos/resize.html">Resize grid items demo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="demos/custom.html">Custom demo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="demos/serialization.html">Serialization demo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="demos/only.html">ltGridOnly demo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="demos/admin.html">Admin panel demo</a></li>
+</ul>
 
-    <div class="lead">
-        Heres' a quick preview of how it could look like. You can drag these items around and see how they react to resizing.
-    </div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="#">Layout Grid</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="#">Docs</a> &raquo;</li>
+      
+    <li>Layout Grid</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
 </div>
-
-<div class="container">
-
-	{% include reorder-small.html %}
-
-    <h2>Demos</h2>
-
-    <div class="row">
-        <div class="col-sm-4">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <h4>
-                        <a href="{{ site.baseurl }}/demo/static">
-                            <i class="fa fa-th"></i>
-                            Static HTML
-                        </a>
-                    </h4>
-                    <p>
-                        A static example without any javascript. Just a responsive grid.
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <h4>
-                        <a href="{{ site.baseurl }}/demo/reorder">
-                            <i class="fa fa-arrows"></i>
-                            Reorder
-                        </a>
-                    </h4>
-                    <p>
-                        Reorder using native drag-n-drop and a little bit of javascript.
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <h4>
-                        <a href="{{ site.baseurl }}/demo/multiple">
-                            <i class="fa fa-exchange"></i>
-                            Multiple Containers
-                        </a>
-                    </h4>
-                    <p>
-                        Can move items around between multiple containers. No additional code.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-4">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <h4>
-                        <a href="{{ site.baseurl }}/demo/options">
-                            <i class="fa fa-cog"></i>
-                            Configurable Options
-                        </a>
-                    </h4>
-                    <p>
-                        Modify options on the fly or set them as data attributes.
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-sm-4">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <h4>
-                        <a href="{{ site.baseurl }}/demo/resize">
-                            <i class="fa fa-cogs"></i>
-                            Resize grid items
-                        </a>
-                    </h4>
-                    <p>
-                        Modify width and height while keeping items from overlapping
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-sm-4">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <h4>
-                        <a href="{{ site.baseurl }}/demo/custom">
-                            <i class="fa fa-cogs"></i>
-                            Custom columns and sizes
-                        </a>
-                    </h4>
-                    <p>
-                        You can have different column counts, aspect ratios and gaps from the defaults.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-sm-4">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <h4>
-                        <a href="{{ site.baseurl }}/demo/serialization">
-                            <i class="fa fa-floppy-o"></i>
-                            Serialization
-                        </a>
-                    </h4>
-                    <p>
-                        You can load and set layout grid positions using the ltData jQuery function.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <h2>Usage</h2>
-
-    <p>
-        There are 2 primary components - the css, which is responsible for positioning and the javascript plugin, used to change that positioning. You can use only the css without any javascript and still get a nice responsive grid.
-    </p>
-
-    <p>
-        Layout grid uses <a href="http://getbootstrap.com/css/#grid-media-queries">bootstrap's breakpoints</a> by default (configurable). They are as follows:
-    </p>
-
-    <table class="table table-bordered table-constrained">
-        <tr>
-            <th class="col-sm-4">
-                Extra small devices <br>
-                <small>Phones (&lt;768px)</small>
-            </th>
-            <td class="col-sm-8">xs</td>
-        </tr>
-        <tr>
-            <th class="col-sm-4">
-                Small devices <br>
-                <small>Tablets (≥768px)</small>
-            </th>
-            <td class="col-sm-8">sm</td>
-        </tr>
-        <tr>
-            <th class="col-sm-4">
-                Medium devices <br>
-                <small>Desktops (≥992px)</small>
-            </th>
-            <td class="col-sm-8">md</td>
-        </tr>
-        <tr>
-            <th class="col-sm-4">
-                Large devices <br>
-                <small>Desktops (≥1200px)</small>
-            </th>
-            <td class="col-sm-8">lg</td>
-        </tr>
-    </table>
-
-    <p>
-        We start with the basic html structure:
-    </p>
-
-    {% highlight html %}
-<div class="lt-container lt-xs-h-6">
-    <div class="lt lt-xs-x-0 lt-xs-y-0 lt-xs-w-1 lt-xs-h-1">
-        <div class="lt-body">
-            Your content
-        </div>
-    </div>
-</div>
-    {% endhighlight %}
-
-    <p>
-        <code>lt-xs-h-6</code> on the lt-container means the height on screen size "xs" the height will be 6 counts. <code>lt-xs-x-0</code> on the item means the x position on screen size "xs"
-    </p>
-
-    <h4>Classes</h4>
-
-    <table class="table table-bordered table-constrained">
-        <tr>
-            <th class="col-sm-4">lt-{size}-x-{number}</th>
-            <td class="col-sm-8">Horizontal Position on xs screen size, starts from and defaults to 0</td>
-        </tr>
-        <tr>
-            <th class="col-sm-4">lt-{size}-y-{number}</th>
-            <td class="col-sm-8">Vertical Position on xs screen size, starts from and defaults to 0</td>
-        </tr>
-        <tr>
-            <th class="col-sm-4">lt-{size}-w-{number}</th>
-            <td class="col-sm-8">Width on xs screen size, starts from and defaults to 1</td>
-        </tr>
-        <tr>
-            <th class="col-sm-4">lt-{size}-h-{number}</th>
-            <td class="col-sm-8">Height on xs screen size, starts from and defaults to 1</td>
-        </tr>
-    </table>
-
-    <p>
-        Here's how it looks when every class for every screen size is set:
-    </p>
-
-    {% highlight html %}
-<div class="lt-container lt-xs-h-6">
-    <div class="lt
-                   lt-xs-x-0
-                   lt-xs-y-0
-                   lt-xs-w-1
-                   lt-xs-h-1
-                   lt-sm-x-0
-                   lt-sm-y-0
-                   lt-sm-w-1
-                   lt-sm-h-1
-                   lt-md-x-0
-                   lt-md-y-0
-                   lt-md-w-1
-                   lt-md-h-1
-                   lt-lg-x-0
-                   lt-lg-y-0
-                   lt-lg-w-1
-                   lt-lg-h-1">
-        <div class="lt-body">
-            Your content
-        </div>
-    </div>
-</div>
-    {% endhighlight %}
-
-    <p>
-        As with other bootstrap classes the smaller sizes act as the default for larger ones, so you need to set only the things that change of the larger sizes.
-    </p>
-
-    <h2>Reordering with Javascript</h2>
-
-    <p>
-        Javascript is initialized via <code>data-arrange="lt-grid"</code> and setting up html5's <code>draggable="true"</code> on the individual items. The javascript is initialized only on the event of a drag on these items.
-    </p>
-
-    {% highlight html %}
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="layout-grid">
+<h1>Layout Grid<a class="headerlink" href="#layout-grid" title="Permalink to this headline">¶</a></h1>
+<p>Static responsive grid with pure css. Javascript using native drag-n-drop to reorder for each screen size on desktop and mobile.</p>
+<p>Source code at github - <a class="reference external" href="https://github.com/clippings/layout-grid">clippings/layout-grid</a></p>
+<div class="section" id="quick-example">
+<h2>Quick Example<a class="headerlink" href="#quick-example" title="Permalink to this headline">¶</a></h2>
+<p>Heres&#8217; a quick preview of how it could look like. You can drag these items around and see how they react to resizing.</p>
 <div
- class="lt-container lt-xs-h-6"
- data-arrange="lt-grid">
-    <div
-     class="lt lt-xs-x-0 lt-xs-y-0 lt-xs-w-1 lt-xs-h-1"
-     draggable="true">
-        <div class="lt-body">
-            Your content
-        </div>
-    </div>
-</div>
-    {% endhighlight %}
-
-    <h2>Custom Options</h2>
-
-    <p>
-        Layout Grid comes with these options and their defaults. All of them can be changed both through javascript or using html5 data attributes. They can also be changed on the fly.
-    </p>
-
-    {% highlight javascript %}
-LTGrid.DEFAULTS = {
-    resize: true,
-    overlap: false,
-    compact: true,
-    params: {
-        lg: {
-            gap: 1,
-            maxWidth: Number.MAX_VALUE,
-            cols: 4,
-            aspect: 2/3
-        },
-        md: {
-            gap: 2,
-            maxWidth: 1200,
-            cols: 3,
-            aspect: 2/3
-        },
-        sm: {
-            gap: 3,
-            maxWidth: 992,
-            cols: 2,
-            aspect: 2/3
-        },
-        xs: {
-            gap: 4,
-            maxWidth: 768,
-            cols: 1,
-            aspect: 2/3
-        }
-    }
-};
-    {% endhighlight %}
-
-    <p>
-        <code>resize</code> is an option that when true will force the container of the grid to shrink to the shortest possible height, enclosing all the items.
-    </p>
-
-    <p>
-        <code>overlap</code> when set to false will forbid "overlapping" so items that find themselves holding the same space will be pushed downwards.
-    </p>
-
-    <p>
-        <code>compact</code> when set to true will try to reduce the vertical spaces between items as much as possible
-    </p>
-
-    <p>
-        <code>params</code> holds the default values from the sass variables. You'll need to set them to the new values here if you've changed them in the sass file, since we can't infer them from the css automatically.
-    </p>
-
-    <p>
-        You can set options with data attributes:
-    </p>
-    {% highlight html %}
-<div
- id="grid"
- class="lt-container lt-xs-h-6"
  data-arrange="lt-grid"
- data-resize="false"
- data-params='{"xs":{"cols":2}}'>
-   ...
-</div>
-    {% endhighlight %}
+ class="lt-container
+        lt-xs-h-9
+        lt-sm-h-6
+        lt-md-h-4
+        lt-lg-h-3">
 
-    <p>
-        Or with javascript directly
-    </p>
-
-    {% highlight javascript %}
-// Javascript
-$('#grid').ltGrid({resize: false, params: {xs: {cols: 2}}});
-
-// On the fly modification
-$('#grid').ltGrid('option', 'resize', false);
-$('#grid').ltGrid('option', 'params', {xs: {cols: 2}});
-    {% endhighlight %}
-
-    <h2>Methods</h2>
-
-    <p>
-        Layout grid has a lot of methods that it uses internally but can be called as part of the API - some of the methods are documented here, all the others have docs in the source.
-    </p>
-
-    <h3>
-        Rect object
-    </h3>
-
-    <p>
-        Layout grid uses a "Rect" object internally to do calculations, this is simply an object that holds width, height, x and y, and has some utility methods along the way.
-    </p>
-
-    <p>
-        You can create your own "Rect" objects like this <code>var rect = new $.lt.Rect(x, y, width, height)</code>.
-    </p>
-
-    <p>
-        <code>rect.x</code> <code>rect.y</code> <code>rect.w</code> <code>rect.h</code> attributes for x, y, width and height respectively
-    </p>
-
-    <p>
-        <code>rect.bottom()</code> to get the height + y
-    </p>
-
-    <p>
-        <code>rect.right()</code> to get the width + x
-    </p>
-
-    <p>
-        <code>rect.intersect(rect2)</code> returns true if the two rects intersect
-    </p>
-
-    <p>
-        <code>rect.setCss(classes, size)</code> Modify a "css classes" string with the pos and size of this rect, for a specific screen size
-    </p>
-
-    <p>
-        <code>rect.loadCss(classes, size)</code> Load data from "css classes", for a specific screen size
-    </p>
-
-    <h3>
-        ltRect
-    </h3>
-
-    <p>
-        <code>$(..).ltRect()</code> is a jquery function that is a setter / getter for the "rect" object of a given widget.
-        You need to pass "size" as the first argument so it knows for which size the rect is being viewed / modified.
-    </p>
-
-    {% highlight javascript %}
-var rect = $('#widget1.lt').ltRect('lg')
-rect.x = 2;
-rect.w = 2;
-$('#widget1.lt').ltRect('lg', rect);
-    {% endhighlight %}
-
-    <h3>
-        ltSize
-    </h3>
-
-    <p>
-        <code>$(..).ltSize()</code> is a jquery function to get the current "size" of the grid, can be "lg", "md", "sm" or "xs"
-    </p>
-
-    {% highlight javascript %}
-var size = $('#container').ltSize();
-console.log(size);
-    {% endhighlight %}
-
-    <h3>
-        ltData
-    </h3>
-
-    <p>
-        <code>$(..).ltData(size)</code> is a jquery function to get or set the positioning data for the whole grid, for a specific size.
-    </p>
-
-    {% highlight javascript %}
-var data = $('#container').ltData('lg');
-console.log(JSON.stringify(data));
-
-$('#container').ltData('lg', JSON.parse(jsonData));
-    {% endhighlight %}
-
-    <h3>
-        option
-    </h3>
-
-    <p>
-        <code>$(..).ltGrid('option', option, value)</code> allows you to set an option on the fly
-    </p>
-
-    {% highlight javascript %}
-$('#container').ltGrid('option', 'compact', false);
-    {% endhighlight %}
-
-    <h3>
-        compact
-    </h3>
-
-    <p>
-        <code>$(..).ltGrid('compact')</code> Compacts the grid, reducing horizontal space. It ignores the compact option setting.
-    </p>
-
-    {% highlight javascript %}
-$('#container').ltGrid('compact');
-    {% endhighlight %}
-
-    <h3>
-        resize
-    </h3>
-
-    <p>
-        <code>$(..).ltGrid('resize')</code> Resize the grid, setting the minimum possible size for the container. It ignores the resize option setting.
-    </p>
-
-    {% highlight javascript %}
-$('#container').ltGrid('resize');
-    {% endhighlight %}
-
-    <h3>
-        update
-    </h3>
-
-    <p>
-        <code>$(..).ltGrid('update')</code> Call resize and compact, based on the options.
-    </p>
-
-    {% highlight javascript %}
-$('#container').ltGrid('update');
-    {% endhighlight %}
-
-    <h3>
-        reposition
-    </h3>
-
-    <p>
-        <code>$(..).ltGrid('reposition', $widget, {x: 1, y: 1, w: 1, h: 1})</code> Modify the position or size of a widget inside the grid (and call "update" method). Any parameter can be omitted so you can either set only position or only size.
-    </p>
-
-    {% highlight javascript %}
-$('#container').ltGrid('reposition', $('#widget1'), {x: 1, y: 1, w: 1, h: 1});
-    {% endhighlight %}
-
-    <h2>Support and requirements</h2>
-
-    <div class="row">
-        <div class="col-sm-6">
-            <p>
-                Layout grid only requires jquery. It uses native html5 drag-n-drop so all the browsers that support that (all the major browsers) should work.
-            </p>
-            <p>
-                Mobile browsers are also supported and it uses native touch events there.
-            </p>
-        </div>
-        <div class="col-sm-6">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <div class="panel-title">Native drag-n-drop browser support</div>
-                </div>
-                <div class="panel-body">
-                    <div class="caniuse" data-feature="dragndrop"></div>
-                </div>
-            </div>
+    <div
+     draggable="true"
+     class="lt
+            lt-xs-x-0
+            lt-xs-y-0
+            lt-xs-w-1
+            lt-xs-h-1
+            lt-sm-x-0
+            lt-sm-y-0
+            lt-sm-w-1
+            lt-sm-h-1
+            lt-md-x-0
+            lt-md-y-0
+            lt-md-w-1
+            lt-md-h-1
+            lt-lg-x-0
+            lt-lg-y-0
+            lt-lg-w-1
+            lt-lg-h-1">
+        <div class="lt-body note">
+            <h3>1</h3>
         </div>
     </div>
-
-    <h2>
-        Credits
-    </h2>
-
-    <p>
-        Thanks a lot to the creator of <a href="http://gridster.net/">gridster.js</a>, where I got the inspiration for this plugin.
-    </p>
-
-    <p>
-        Built by <a href="https://github.com/ivank">Ivan Kerin</a> as part of <a href="https://clippings.com">Clippings.com</a>
-    </p>
+    <div
+     draggable="true"
+     class="lt
+            lt-xs-x-0
+            lt-xs-y-1
+            lt-xs-w-1
+            lt-xs-h-2
+            lt-sm-x-1
+            lt-sm-y-0
+            lt-sm-w-1
+            lt-sm-h-2
+            lt-md-x-2
+            lt-md-y-0
+            lt-md-w-1
+            lt-md-h-2
+            lt-lg-x-1
+            lt-lg-y-0
+            lt-lg-w-1
+            lt-lg-h-2">
+        <div class="lt-body note">
+            <h3>2</h3>
+        </div>
+    </div>
+    <div
+     draggable="true"
+     class="lt
+            lt-xs-x-0
+            lt-xs-y-3
+            lt-xs-w-1
+            lt-xs-h-1
+            lt-sm-x-0
+            lt-sm-y-1
+            lt-sm-w-1
+            lt-sm-h-1
+            lt-md-x-1
+            lt-md-y-0
+            lt-md-w-1
+            lt-md-h-1
+            lt-lg-x-0
+            lt-lg-y-1
+            lt-lg-w-1
+            lt-lg-h-1">
+        <div class="lt-body note">
+            <h3>3</h3>
+        </div>
+    </div>
+    <div
+     draggable="true"
+     class="lt
+            lt-xs-x-0
+            lt-xs-y-4
+            lt-xs-w-1
+            lt-xs-h-2
+            lt-sm-x-0
+            lt-sm-y-2
+            lt-sm-w-2
+            lt-sm-h-2
+            lt-md-x-0
+            lt-md-y-1
+            lt-md-w-2
+            lt-md-h-2
+            lt-lg-x-2
+            lt-lg-y-0
+            lt-lg-w-2
+            lt-lg-h-2">
+        <div class="lt-body note">
+            <h3>4</h3>
+        </div>
+    </div>
+    <div
+     draggable="true"
+     class="lt
+            lt-xs-x-0
+            lt-xs-y-6
+            lt-xs-w-1
+            lt-xs-h-1
+            lt-sm-x-0
+            lt-sm-y-4
+            lt-sm-w-1
+            lt-sm-h-1
+            lt-md-x-2
+            lt-md-y-2
+            lt-md-w-1
+            lt-md-h-1
+            lt-lg-x-0
+            lt-lg-y-2
+            lt-lg-w-1
+            lt-lg-h-1">
+        <div class="lt-body note">
+            <h3>5</h3>
+        </div>
+    </div>
+    <div
+     draggable="true"
+     class="lt
+            lt-xs-x-0
+            lt-xs-y-7
+            lt-xs-w-1
+            lt-xs-h-1
+            lt-sm-x-0
+            lt-sm-y-5
+            lt-sm-w-2
+            lt-sm-h-1
+            lt-md-x-1
+            lt-md-y-3
+            lt-md-w-2
+            lt-md-h-1
+            lt-lg-x-1
+            lt-lg-y-2
+            lt-lg-w-2
+            lt-lg-h-1">
+        <div class="lt-body note">
+            <h3>6</h3>
+        </div>
+    </div>
+    <div
+     draggable="true"
+     class="lt
+            lt-xs-x-0
+            lt-xs-y-8
+            lt-xs-w-1
+            lt-xs-h-1
+            lt-sm-x-1
+            lt-sm-y-4
+            lt-sm-w-1
+            lt-sm-h-1
+            lt-md-x-0
+            lt-md-y-3
+            lt-md-w-1
+            lt-md-h-1
+            lt-lg-x-3
+            lt-lg-y-2
+            lt-lg-w-1
+            lt-lg-h-1">
+        <div class="lt-body note">
+            <h3>7</h3>
+        </div>
+    </div>
+</div>
+<p></p><div class="toctree-wrapper compound" id="documentation">
+<p class="caption"><span class="caption-text">Documentation</span><a class="headerlink" href="#documentation" title="Permalink to this toctree">¶</a></p>
+<ul class="simple">
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#contributing">Contributing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="documentation.html">Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="documentation.html#classes">Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="documentation.html#reordering-with-javascript">Reordering with Javascript</a></li>
+<li class="toctree-l2"><a class="reference internal" href="documentation.html#custom-options">Custom Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="documentation.html#javascript-methods">Javascript methods</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="documentation.html#rect-object">Rect object</a></li>
+<li class="toctree-l3"><a class="reference internal" href="documentation.html#ltrect">ltRect</a></li>
+<li class="toctree-l3"><a class="reference internal" href="documentation.html#ltsize">ltSize</a></li>
+<li class="toctree-l3"><a class="reference internal" href="documentation.html#ltdata">ltData</a></li>
+<li class="toctree-l3"><a class="reference internal" href="documentation.html#ltgrid-option">.ltGrid(&#8216;option&#8217;)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="documentation.html#ltgrid-compact">.ltGrid(&#8216;compact&#8217;)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="documentation.html#ltgrid-resize">.ltGrid(&#8216;resize&#8217;)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="documentation.html#ltgrid-update">.ltGrid(&#8216;update&#8217;)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="documentation.html#ltgrid-reposition">.ltGrid(&#8216;reposition&#8217;)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="documentation.html#ltgridonly">ltGridOnly</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound" id="demos">
+<p class="caption"><span class="caption-text">Demos</span><a class="headerlink" href="#demos" title="Permalink to this toctree">¶</a></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="demos/static.html">Static demo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="demos/reorder.html">Reorder demo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="demos/multiple.html">Multiple containers demo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="demos/options.html">Configurable options demo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="demos/resize.html">Resize grid items demo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="demos/custom.html">Custom demo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="demos/serialization.html">Serialization demo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="demos/only.html">ltGridOnly demo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="demos/admin.html">Admin panel demo</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="credits">
+<h2>Credits<a class="headerlink" href="#credits" title="Permalink to this headline">¶</a></h2>
+<p>Thanks a lot to the creator of <a class="reference external" href="http://gridster.net/">gridster.js</a>, where I got the inspiration for this plugin.
+Built by <a class="reference external" href="https://github.com/ivank/">Ivan Kerin</a> as part of <a class="reference external" href="https://clippings.com">Clippings.com</a></p>
+</div>
 </div>
 
 
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="installation.html" class="btn btn-neutral float-right" title="Installation" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Clippings Ltd.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'2.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/js/layout-grid.js"></script>
+      <script type="text/javascript" src="_static/admin-demo.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

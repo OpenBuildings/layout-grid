@@ -1,0 +1,557 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Documentation &mdash; Layout Grid 2.1.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="_static/css/layout-grid.min.css" type="text/css" />
+  
+    <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="Layout Grid 2.1.0 documentation" href="index.html"/>
+        <link rel="next" title="Static demo" href="demos/static.html"/>
+        <link rel="prev" title="Installation" href="installation.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Layout Grid
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">Documentation</span></p>
+<ul class="simple">
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#classes">Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#reordering-with-javascript">Reordering with Javascript</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#custom-options">Custom Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#javascript-methods">Javascript methods</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#rect-object">Rect object</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ltrect">ltRect</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ltsize">ltSize</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ltdata">ltData</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ltgrid-option">.ltGrid(&#8216;option&#8217;)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ltgrid-compact">.ltGrid(&#8216;compact&#8217;)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ltgrid-resize">.ltGrid(&#8216;resize&#8217;)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ltgrid-update">.ltGrid(&#8216;update&#8217;)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ltgrid-reposition">.ltGrid(&#8216;reposition&#8217;)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ltgridonly">ltGridOnly</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Demos</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="demos/static.html">Static demo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="demos/reorder.html">Reorder demo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="demos/multiple.html">Multiple containers demo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="demos/options.html">Configurable options demo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="demos/resize.html">Resize grid items demo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="demos/custom.html">Custom demo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="demos/serialization.html">Serialization demo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="demos/only.html">ltGridOnly demo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="demos/admin.html">Admin panel demo</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Layout Grid</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Documentation</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="documentation">
+<h1>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h1>
+<p>There are 2 primary components - the css, which is responsible for positioning and the javascript plugin, used to change that positioning. You can use only the css without any javascript and still get a nice responsive grid.</p>
+<p>Layout grid uses <a class="reference external" href="http://getbootstrap.com/css/#grid-media-queries/">bootstrap&#8217;s breakpoints</a> by default (configurable). They are as follows:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="70%" />
+<col width="30%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Extra small devices (Phones &gt;768px)</td>
+<td>xs</td>
+</tr>
+<tr class="row-odd"><td>Small devices (Tablets (≥768px))</td>
+<td>sm</td>
+</tr>
+<tr class="row-even"><td>Medium devices (Desktops (≥992px))</td>
+<td>md</td>
+</tr>
+<tr class="row-odd"><td>Large devices (Desktops (≥1200px))</td>
+<td>lg</td>
+</tr>
+</tbody>
+</table>
+<p>We start with the basic html structure:</p>
+<div class="highlight-html"><div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;lt-container lt-xs-h-6&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;lt lt-xs-x-0 lt-xs-y-0 lt-xs-w-1 lt-xs-h-1&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;lt-body&quot;</span><span class="nt">&gt;</span>
+            Your content
+        <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">lt-xs-h-6</span></code> on the lt-container means the height on screen size &#8220;xs&#8221; the height will be 6 counts. <code class="docutils literal"><span class="pre">lt-xs-x-0</span></code> on the item means the x position on screen size &#8220;xs&#8221;</p>
+<div class="section" id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="23%" />
+<col width="77%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>lt-{size}-x-{number}</td>
+<td>Horizontal Position on xs screen size, starts from and defaults to 0</td>
+</tr>
+<tr class="row-odd"><td>lt-{size}-y-{number}</td>
+<td>Vertical Position on xs screen size, starts from and defaults to 0</td>
+</tr>
+<tr class="row-even"><td>lt-{size}-w-{number}</td>
+<td>Width on xs screen size, starts from and defaults to 1</td>
+</tr>
+<tr class="row-odd"><td>lt-{size}-h-{number}</td>
+<td>Height on xs screen size, starts from and defaults to 1</td>
+</tr>
+</tbody>
+</table>
+<p>Here&#8217;s how it looks when every class for every screen size is set:</p>
+<div class="highlight-html"><div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;lt-container lt-xs-h-6&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;lt</span>
+<span class="s">                   lt-xs-x-0</span>
+<span class="s">                   lt-xs-y-0</span>
+<span class="s">                   lt-xs-w-1</span>
+<span class="s">                   lt-xs-h-1</span>
+<span class="s">                   lt-sm-x-0</span>
+<span class="s">                   lt-sm-y-0</span>
+<span class="s">                   lt-sm-w-1</span>
+<span class="s">                   lt-sm-h-1</span>
+<span class="s">                   lt-md-x-0</span>
+<span class="s">                   lt-md-y-0</span>
+<span class="s">                   lt-md-w-1</span>
+<span class="s">                   lt-md-h-1</span>
+<span class="s">                   lt-lg-x-0</span>
+<span class="s">                   lt-lg-y-0</span>
+<span class="s">                   lt-lg-w-1</span>
+<span class="s">                   lt-lg-h-1&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;lt-body&quot;</span><span class="nt">&gt;</span>
+            Your content
+        <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</pre></div>
+</div>
+<p>As with other bootstrap classes the smaller sizes act as the default for larger ones, so you need to set only the things that change of the larger sizes.</p>
+</div>
+<div class="section" id="reordering-with-javascript">
+<h2>Reordering with Javascript<a class="headerlink" href="#reordering-with-javascript" title="Permalink to this headline">¶</a></h2>
+<p>Javascript is initialized via <code class="docutils literal"><span class="pre">data-arrange=&quot;lt-grid&quot;</span></code> and setting up html5&#8217;s <code class="docutils literal"><span class="pre">draggable=&quot;true&quot;</span></code> on the individual items. The javascript is initialized only on the event of a drag on these items.</p>
+<div class="highlight-html"><div class="highlight"><pre><span class="nt">&lt;div</span>
+ <span class="na">class=</span><span class="s">&quot;lt-container lt-xs-h-6&quot;</span>
+ <span class="na">data-arrange=</span><span class="s">&quot;lt-grid&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span>
+     <span class="na">class=</span><span class="s">&quot;lt lt-xs-x-0 lt-xs-y-0 lt-xs-w-1 lt-xs-h-1&quot;</span>
+     <span class="na">draggable=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;lt-body&quot;</span><span class="nt">&gt;</span>
+            Your content
+        <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="custom-options">
+<h2>Custom Options<a class="headerlink" href="#custom-options" title="Permalink to this headline">¶</a></h2>
+<p>Layout Grid comes with these options and their defaults. All of them can be changed both through javascript or using html5 data attributes. They can also be changed on the fly.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">LTGrid</span><span class="p">.</span><span class="nx">DEFAULTS</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">resize</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nx">overlap</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="nx">compact</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nx">params</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">lg</span><span class="o">:</span> <span class="p">{</span>
+            <span class="nx">gap</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="nx">maxWidth</span><span class="o">:</span> <span class="nb">Number</span><span class="p">.</span><span class="nx">MAX_VALUE</span><span class="p">,</span>
+            <span class="nx">cols</span><span class="o">:</span> <span class="mi">4</span><span class="p">,</span>
+            <span class="nx">aspect</span><span class="o">:</span> <span class="mi">2</span><span class="o">/</span><span class="mi">3</span>
+        <span class="p">},</span>
+        <span class="nx">md</span><span class="o">:</span> <span class="p">{</span>
+            <span class="nx">gap</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
+            <span class="nx">maxWidth</span><span class="o">:</span> <span class="mi">1200</span><span class="p">,</span>
+            <span class="nx">cols</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span>
+            <span class="nx">aspect</span><span class="o">:</span> <span class="mi">2</span><span class="o">/</span><span class="mi">3</span>
+        <span class="p">},</span>
+        <span class="nx">sm</span><span class="o">:</span> <span class="p">{</span>
+            <span class="nx">gap</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span>
+            <span class="nx">maxWidth</span><span class="o">:</span> <span class="mi">992</span><span class="p">,</span>
+            <span class="nx">cols</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
+            <span class="nx">aspect</span><span class="o">:</span> <span class="mi">2</span><span class="o">/</span><span class="mi">3</span>
+        <span class="p">},</span>
+        <span class="nx">xs</span><span class="o">:</span> <span class="p">{</span>
+            <span class="nx">gap</span><span class="o">:</span> <span class="mi">4</span><span class="p">,</span>
+            <span class="nx">maxWidth</span><span class="o">:</span> <span class="mi">768</span><span class="p">,</span>
+            <span class="nx">cols</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="nx">aspect</span><span class="o">:</span> <span class="mi">2</span><span class="o">/</span><span class="mi">3</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<table border="1" class="docutils">
+<colgroup>
+<col width="6%" />
+<col width="94%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Option</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>resize</td>
+<td>Horizontal Position on xs screen size, starts from and defaults to 0</td>
+</tr>
+<tr class="row-odd"><td>overlap</td>
+<td>Vertical Position on xs screen size, starts from and defaults to 0</td>
+</tr>
+<tr class="row-even"><td>compact</td>
+<td>When set to true will try to reduce the vertical spaces between items as much as possible</td>
+</tr>
+<tr class="row-odd"><td>params</td>
+<td>holds the default values from the sass variables. You&#8217;ll need to set them to the new values here if you&#8217;ve changed them in the sass file, since we can&#8217;t infer them from the css automatically.</td>
+</tr>
+</tbody>
+</table>
+<p>You can set options with data attributes:</p>
+<div class="highlight-html"><div class="highlight"><pre><span class="nt">&lt;div</span>
+ <span class="na">id=</span><span class="s">&quot;grid&quot;</span>
+ <span class="na">class=</span><span class="s">&quot;lt-container lt-xs-h-6&quot;</span>
+ <span class="na">data-arrange=</span><span class="s">&quot;lt-grid&quot;</span>
+ <span class="na">data-resize=</span><span class="s">&quot;false&quot;</span>
+ <span class="na">data-params=</span><span class="s">&#39;{&quot;xs&quot;:{&quot;cols&quot;:2}}&#39;</span><span class="nt">&gt;</span>
+   ...
+<span class="nt">&lt;/div&gt;</span>
+</pre></div>
+</div>
+<p>Or with javascript directly</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="c1">// Javascript</span>
+<span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#grid&#39;</span><span class="p">).</span><span class="nx">ltGrid</span><span class="p">({</span><span class="nx">resize</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span> <span class="nx">params</span><span class="o">:</span> <span class="p">{</span><span class="nx">xs</span><span class="o">:</span> <span class="p">{</span><span class="nx">cols</span><span class="o">:</span> <span class="mi">2</span><span class="p">}}});</span>
+
+<span class="c1">// On the fly modification</span>
+<span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#grid&#39;</span><span class="p">).</span><span class="nx">ltGrid</span><span class="p">(</span><span class="s1">&#39;option&#39;</span><span class="p">,</span> <span class="s1">&#39;resize&#39;</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+<span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#grid&#39;</span><span class="p">).</span><span class="nx">ltGrid</span><span class="p">(</span><span class="s1">&#39;option&#39;</span><span class="p">,</span> <span class="s1">&#39;params&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">xs</span><span class="o">:</span> <span class="p">{</span><span class="nx">cols</span><span class="o">:</span> <span class="mi">2</span><span class="p">}});</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="javascript-methods">
+<h2>Javascript methods<a class="headerlink" href="#javascript-methods" title="Permalink to this headline">¶</a></h2>
+<p>Layout grid has a lot of methods that it uses internally but can be called as part of the API - some of the methods are documented here, all the others have docs in the source.</p>
+<div class="section" id="rect-object">
+<h3>Rect object<a class="headerlink" href="#rect-object" title="Permalink to this headline">¶</a></h3>
+<p>Layout grid uses a &#8220;Rect&#8221; object internally to do calculations, this is simply an object that holds width, height, x and y, and has some utility methods along the way.</p>
+<p>You can create your own &#8220;Rect&#8221; objects like this <code class="docutils literal"><span class="pre">var</span> <span class="pre">rect</span> <span class="pre">=</span> <span class="pre">new</span> <span class="pre">$.lt.Rect(x,</span> <span class="pre">y,</span> <span class="pre">width,</span> <span class="pre">height)</span></code>.</p>
+<p><code class="docutils literal"><span class="pre">rect.x</span></code> <code class="docutils literal"><span class="pre">rect.y</span></code> <code class="docutils literal"><span class="pre">rect.w</span></code> <code class="docutils literal"><span class="pre">rect.h</span></code> attributes for x, y, width and height respectively</p>
+<p><code class="docutils literal"><span class="pre">rect.bottom()</span></code> to get the height + y</p>
+<p><code class="docutils literal"><span class="pre">rect.right()</span></code> to get the width + x</p>
+<p><code class="docutils literal"><span class="pre">rect.intersect(rect2)</span></code> returns true if the two rects intersect</p>
+<p><code class="docutils literal"><span class="pre">rect.setCss(classes,</span> <span class="pre">size)</span></code> Modify a &#8220;css classes&#8221; string with the pos and size of this rect, for a specific screen size</p>
+<p><code class="docutils literal"><span class="pre">rect.loadCss(classes,</span> <span class="pre">size)</span></code> Load data from &#8220;css classes&#8221;, for a specific screen size</p>
+</div>
+<div class="section" id="ltrect">
+<h3>ltRect<a class="headerlink" href="#ltrect" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal"><span class="pre">$(..).ltRect()</span></code> is a jquery function that is a setter / getter for the &#8220;rect&#8221; object of a given widget.
+You need to pass &#8220;size&#8221; as the first argument so it knows for which size the rect is being viewed / modified.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">rect</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#widget1.lt&#39;</span><span class="p">).</span><span class="nx">ltRect</span><span class="p">(</span><span class="s1">&#39;lg&#39;</span><span class="p">)</span>
+<span class="nx">rect</span><span class="p">.</span><span class="nx">x</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+<span class="nx">rect</span><span class="p">.</span><span class="nx">w</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+<span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#widget1.lt&#39;</span><span class="p">).</span><span class="nx">ltRect</span><span class="p">(</span><span class="s1">&#39;lg&#39;</span><span class="p">,</span> <span class="nx">rect</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="ltsize">
+<h3>ltSize<a class="headerlink" href="#ltsize" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal"><span class="pre">$(..).ltSize()</span></code> is a jquery function to get the current &#8220;size&#8221; of the grid, can be &#8220;lg&#8221;, &#8220;md&#8221;, &#8220;sm&#8221; or &#8220;xs&#8221;</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">size</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#container&#39;</span><span class="p">).</span><span class="nx">ltSize</span><span class="p">();</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">size</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="ltdata">
+<h3>ltData<a class="headerlink" href="#ltdata" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal"><span class="pre">$(..).ltData(size)</span></code> is a jquery function to get or set the positioning data for the whole grid, for a specific size.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#container&#39;</span><span class="p">).</span><span class="nx">ltData</span><span class="p">(</span><span class="s1">&#39;lg&#39;</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">data</span><span class="p">));</span>
+
+<span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#container&#39;</span><span class="p">).</span><span class="nx">ltData</span><span class="p">(</span><span class="s1">&#39;lg&#39;</span><span class="p">,</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">jsonData</span><span class="p">));</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="ltgrid-option">
+<h3>.ltGrid(&#8216;option&#8217;)<a class="headerlink" href="#ltgrid-option" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal"><span class="pre">$(..).ltGrid('option',</span> <span class="pre">option,</span> <span class="pre">value)</span></code> allows you to set an option on the fly</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#container&#39;</span><span class="p">).</span><span class="nx">ltGrid</span><span class="p">(</span><span class="s1">&#39;option&#39;</span><span class="p">,</span> <span class="s1">&#39;compact&#39;</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="ltgrid-compact">
+<h3>.ltGrid(&#8216;compact&#8217;)<a class="headerlink" href="#ltgrid-compact" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal"><span class="pre">$(..).ltGrid('compact')</span></code> Compacts the grid, reducing horizontal space. It ignores the compact option setting.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#container&#39;</span><span class="p">).</span><span class="nx">ltGrid</span><span class="p">(</span><span class="s1">&#39;compact&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="ltgrid-resize">
+<h3>.ltGrid(&#8216;resize&#8217;)<a class="headerlink" href="#ltgrid-resize" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal"><span class="pre">$(..).ltGrid('resize')</span></code> Resize the grid, setting the minimum possible size for the container. It ignores the resize option setting.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#container&#39;</span><span class="p">).</span><span class="nx">ltGrid</span><span class="p">(</span><span class="s1">&#39;resize&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="ltgrid-update">
+<h3>.ltGrid(&#8216;update&#8217;)<a class="headerlink" href="#ltgrid-update" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal"><span class="pre">$(..).ltGrid('update')</span></code> Call resize and compact, based on the options.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#container&#39;</span><span class="p">).</span><span class="nx">ltGrid</span><span class="p">(</span><span class="s1">&#39;update&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="ltgrid-reposition">
+<h3>.ltGrid(&#8216;reposition&#8217;)<a class="headerlink" href="#ltgrid-reposition" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal"><span class="pre">$(..).ltGrid('reposition',</span> <span class="pre">$widget,</span> <span class="pre">{x:</span> <span class="pre">1,</span> <span class="pre">y:</span> <span class="pre">1,</span> <span class="pre">w:</span> <span class="pre">1,</span> <span class="pre">h:</span> <span class="pre">1})</span></code> Modify the position or size of a widget inside the grid (and call &#8220;update&#8221; method). Any parameter can be omitted so you can either set only position or only size.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#container&#39;</span><span class="p">).</span><span class="nx">ltGrid</span><span class="p">(</span><span class="s1">&#39;reposition&#39;</span><span class="p">,</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#widget1&#39;</span><span class="p">),</span> <span class="p">{</span><span class="nx">x</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">w</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">h</span><span class="o">:</span> <span class="mi">1</span><span class="p">});</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="ltgridonly">
+<h3>ltGridOnly<a class="headerlink" href="#ltgridonly" title="Permalink to this headline">¶</a></h3>
+<p>In order to allow easier building of admin interfaces where you need to show the arrangement for a specific &#8220;size&#8221; regardless of the actual size of the window, you can use the <code class="docutils literal"><span class="pre">ltGridOnly</span></code> plugin.</p>
+<p>This gives you 4 classes: <code class="docutils literal"><span class="pre">only-xs</span></code>, <code class="docutils literal"><span class="pre">only-sm</span></code>, <code class="docutils literal"><span class="pre">only-md</span></code> and <code class="docutils literal"><span class="pre">only-lg</span></code> that you can add to your layout grid to force it to show only one size.</p>
+<div class="highlight-html"><div class="highlight"><pre><span class="nt">&lt;div</span>
+ <span class="na">id=</span><span class="s">&quot;grid&quot;</span>
+ <span class="na">class=</span><span class="s">&quot;lt-container lt-xs-h-6 only-sm&quot;</span>
+ <span class="na">data-arrange=</span><span class="s">&quot;lt-grid&quot;</span><span class="nt">&gt;</span>
+   ...
+<span class="nt">&lt;/div&gt;</span>
+</pre></div>
+</div>
+<p>The plugin itself allows you to create buttons for specific sizes</p>
+<div class="highlight-html"><div class="highlight"><pre><span class="nt">&lt;button</span>
+ <span class="na">type=</span><span class="s">&quot;button&quot;</span>
+ <span class="na">data-toggle=</span><span class="s">&quot;lt-grid-only&quot;</span>
+ <span class="na">data-target=</span><span class="s">&quot;#grid&quot;</span>
+ <span class="na">data-only=</span><span class="s">&quot;xs&quot;</span><span class="nt">&gt;</span>
+   Set &quot;xs&quot; size.
+<span class="nt">&lt;/div&gt;</span>
+</pre></div>
+</div>
+<table border="1" class="docutils">
+<colgroup>
+<col width="15%" />
+<col width="85%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Option</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>data-only</td>
+<td>The desired size: xs, sm, md or lg, if left empty will perform a clear</td>
+</tr>
+<tr class="row-odd"><td>target</td>
+<td>A selector pointing to the layout grid</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="demos/static.html" class="btn btn-neutral float-right" title="Static demo" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="installation.html" class="btn btn-neutral" title="Installation" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Clippings Ltd.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'2.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/js/layout-grid.js"></script>
+      <script type="text/javascript" src="_static/admin-demo.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
