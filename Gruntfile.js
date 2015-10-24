@@ -62,7 +62,7 @@ module.exports = function (grunt) {
         qunit: {
             options: {
                 coverage: {
-                    src: ['dist/js/<%= pkg.name %>.js'],
+                    src: 'js/src/*.js',
                     instrumentedFiles: 'temp/',
                     htmlReport: 'build/coverage',
                     lcovReport: 'build/'
@@ -107,7 +107,9 @@ module.exports = function (grunt) {
         },
 
         codacy: {
-            all: ['build/lcov.info']
+            all: {
+                src: ['build/lcov.info']
+            }
         },
 
         // Tasks for documenation building and publishing

@@ -10,6 +10,21 @@ $(function () {
         assert.equal(ltGridOnly.$element[0], $only[0])
         assert.equal(ltGridOnly.$target[0], $('#container1')[0])
         assert.equal(ltGridOnly.ltGrid, $('#container1').data(LTGrid.DATA_KEY))
+
+        assert.equal(
+            ltGridOnly,
+            $only.ltGridOnly().data(LTGridOnly.DATA_KEY),
+            'Should cache the ltGridOnly object'
+        )
+    })
+
+    QUnit.test('Constructor with custom options', function (assert) {
+        var $only = $('#only1')
+        var ltGridOnly = $only.ltGridOnly({ target: '#container2' }).data(LTGridOnly.DATA_KEY)
+
+        assert.equal(ltGridOnly.$element[0], $only[0])
+        assert.equal(ltGridOnly.$target[0], $('#container2')[0])
+        assert.equal(ltGridOnly.ltGrid, $('#container2').data(LTGrid.DATA_KEY))
     })
 
     QUnit.test('originalParams method', function (assert) {
