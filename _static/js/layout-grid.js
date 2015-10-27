@@ -71,11 +71,10 @@ var Grid = (function () {
     }
 
     /**
-     * Move a rect inside the grid, or update its size
-     * If there is overlap move rects downards
+     * Call update() and if there is overlap move rects downards
      *
-     * @param  {Rect}   rect
-     * @param  {Object} params An object with optional keys x, y, w, h to modify the rect
+     * @param  {Rect}   rect   passed to update()
+     * @param  {Object} params passed to update()
      * @return {Grid}          self
      */
     Grid.prototype.updateNoOverlap = function (rect, params) {
@@ -663,12 +662,18 @@ var LTGridOnly = (function ($) {
 
     /**
      * Compact the grid for current size
+     * @param  {String} size
      */
     LTGridOnly.prototype.set = function (size) {
         var original = this.originalParams()
-        var onlyClasses = $.map(Css, function (name) { return name }).join(' ')
+        var onlyClasses = $.map(
+            Css,
+            function (name) {
+                return name
+            }
+        )
 
-        this.$target.removeClass(onlyClasses)
+        this.$target.removeClass(onlyClasses.join(' '))
 
         if (size) {
             var params = {}
@@ -676,10 +681,9 @@ var LTGridOnly = (function ($) {
             params[size].maxWidth = Number.MAX_VALUE
 
             this.$target.addClass(Css[size])
-
             this.ltGrid.option('params', params)
         } else {
-            this.ltGrid.option('params', originalParams)
+            this.ltGrid.option('params', original)
         }
     }
 
