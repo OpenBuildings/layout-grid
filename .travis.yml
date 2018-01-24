@@ -1,9 +1,11 @@
 language: node_js
+node_js:
+  - "lts/*"
 cache:
   directories:
   - node_modules
 before_install:
-- npm install -g npm@'>=2.13.5'
+- npm install -g npm
 - npm install -g grunt-cli
 after_script:
 - grunt codacy

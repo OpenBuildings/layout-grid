@@ -2,9 +2,12 @@ $(function () {
     'use strict'
 
     QUnit.test('Events', function (assert) {
+        function noop () {}
+
         var dragstart = $.Event('dragstart' + LTGrid.EVENT_KEY, {
             originalEvent: {
-                dataTransfer: null
+                dataTransfer: null,
+                preventDefault: noop
             }
         })
 
@@ -12,7 +15,8 @@ $(function () {
             originalEvent: {
                 dataTransfer: null,
                 pageX: 300 + ($('#container1').offset().left),
-                pageY: 260 + ($('#container1').offset().top)
+                pageY: 260 + ($('#container1').offset().top),
+                preventDefault: noop
             }
         })
 
@@ -24,25 +28,29 @@ $(function () {
                         pageX: 300 + ($('#container1').offset().left),
                         pageY: 260 + ($('#container1').offset().top)
                     }
-                ]
+                ],
+                preventDefault: noop
             }
         })
 
         var drop = $.Event('drop' + LTGrid.EVENT_KEY, {
             originalEvent: {
-                dataTransfer: null
+                dataTransfer: null,
+                preventDefault: noop
             }
         })
 
         var dragleave = $.Event('dragleave' + LTGrid.EVENT_KEY, {
             originalEvent: {
-                dataTransfer: null
+                dataTransfer: null,
+                preventDefault: noop
             }
         })
 
         var dragend = $.Event('dragend' + LTGrid.EVENT_KEY, {
             originalEvent: {
-                dataTransfer: null
+                dataTransfer: null,
+                preventDefault: noop
             }
         })
 
