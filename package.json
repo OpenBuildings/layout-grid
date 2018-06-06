@@ -3,7 +3,7 @@
   "license": "BSD-3-Clause",
   "version": "2.2.0",
   "dependencies": {
-    "jquery": "^1.7, ^2.0"
+    "jquery": "~3.0.0"
   },
   "scripts": {
     "test": "grunt test"
